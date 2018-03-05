@@ -1,0 +1,219 @@
+body {
+	background: #fffaff;
+	color: #f7f7f7;
+	font-family: 'Montserrat', sans-serif;
+}
+h1,
+h2 {
+	font-weight: bold;
+	color: #2e294e;
+}
+p {
+	font-size: 16px;
+	color: black;
+}
+h3 {
+	color: #d8315b;
+}
+h4 {
+	color: black;
+}
+.navbar-brand{
+	display:inline-block;
+}
+.btn-info {
+	background: #ef476f;
+	border-color: #d8315b;
+	margin-left:0.5em;
+}
+.btn-info:hover{
+	background: #fffaff;
+	color: #d8315b;
+	border-color: #d8315b;
+}
+.searchForm{
+	display:inline-block;
+	padding-left:4em;
+}
+.navbar {
+	margin-bottom: 0;
+	background: #2e294e;
+	border:0;
+}
+.icon{
+	max-width:130%;
+	max-height:130%;
+}
+.projname{
+	padding-left:1em;
+	color: white;
+}
+.jumbotron {
+	background: #fcedfc;
+	color: black;
+	text-align: center;
+}
+.jumbotron p {
+	color: black;
+	font-size: 26px;
+}
+.navbar-inverse {
+	background: #2e294e;
+	border: 0;
+}
+.dropdown-menu {
+	background: #ef476f;
+	border-radius: 0;
+	border: 0;
+}
+.navbar-inverse .navbar-nav li a {
+	color: #f7f7f7;
+	font-size: 16px;
+}
+.navbar-inverse .navbar-nav li a:hover {
+	background: #fcedfc;
+	color: #2e294e;
+}
+.navbar-inverse .navbar-nav .dropdown-menu li a:hover {
+	background: #fffaff;
+}
+.dropdown-menu li a {
+	padding: 10px;
+}
+.dropdown:hover>.dropdown-menu {
+	display:block;
+}
+.btn-primary {
+	color: black;
+	background-color: transparent;
+	border-color: black;
+	margin-bottom: 5px;
+}
+.btn-primary:hover {
+	color: #fffaff;
+	background-color: #d8315b;
+	border-color: #2e294e;
+}
+.btn-footer {
+	color:white;
+	border-color:transparent;
+}
+.glyphicon-large {
+	font-size: 100px;
+	color: black;
+}
+.glyphicon-off {
+	color:white;
+}
+.call-to-action {
+	text-align: center;
+}
+.call-to-action p {
+	margin-bottom: 30px;
+	font-family: sans-serif;
+}
+.carousel {
+	max-height: 400px;
+	margin:0 auto;
+}
+.poster {
+	max-height:325px;
+}
+.col-centered {
+    float: none;
+    margin: 0 auto;
+}
+
+.carousel-control {
+    width: 8%;
+    width: 0px;
+}
+.carousel-control.left,
+.carousel-control.right {
+    margin-right: 40px;
+    margin-left: 32px;
+    background-image: none;
+    opacity: 1;
+}
+.carousel-control > a > span {
+    color: white;
+	  font-size: 29px !important;
+}
+
+.carousel-col {
+    position: relative;
+    min-height: 1px;
+    padding: 5px;
+    float: left;
+ }
+
+ .active > div { display:none; }
+ .active > div:first-child { display:block; }
+
+/*xs*/
+@media (max-width: 767px) {
+  .carousel-inner .active.left { left: -50%; }
+  .carousel-inner .active.right { left: 50%; }
+	.carousel-inner .next        { left:  50%; }
+	.carousel-inner .prev		     { left: -50%; }
+  .carousel-col                { width: 50%; }
+	.active > div:first-child + div { display:block; }
+}
+
+/*sm*/
+@media (min-width: 768px) and (max-width: 991px) {
+  .carousel-inner .active.left { left: -50%; }
+  .carousel-inner .active.right { left: 50%; }
+	.carousel-inner .next        { left:  50%; }
+	.carousel-inner .prev		     { left: -50%; }
+  .carousel-col                { width: 50%; }
+	.active > div:first-child + div { display:block; }
+}
+
+/*md*/
+@media (min-width: 992px) and (max-width: 1199px) {
+  .carousel-inner .active.left { left: -33%; }
+  .carousel-inner .active.right { left: 33%; }
+	.carousel-inner .next        { left:  33%; }
+	.carousel-inner .prev		     { left: -33%; }
+  .carousel-col                { width: 33%; }
+	.active > div:first-child + div { display:block; }
+  .active > div:first-child + div + div { display:block; }
+}
+
+/*lg*/
+@media (min-width: 1200px) {
+  .carousel-inner .active.left { left: -25%; }
+  .carousel-inner .active.right{ left:  25%; }
+	.carousel-inner .next        { left:  25%; }
+	.carousel-inner .prev		     { left: -25%; }
+  .carousel-col                { width: 25%; }
+	.active > div:first-child + div { display:block; }
+  .active > div:first-child + div + div { display:block; }
+	.active > div:first-child + div + div + div { display:block; }
+}
+
+.block {
+	width: 306px;
+	height: 230px;
+}
+
+body::-webkit-scrollbar {
+    width: 0.5em;
+}
+
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #d8315b;
+  outline: 1px solid red;
+}
+
+.readMore {
+	float: right;
+}
+.reviewText {
+	color: #2e294e;
+}
