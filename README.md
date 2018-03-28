@@ -1,3 +1,0 @@
-# README #
-
-Generic MIT License
