@@ -217,3 +217,7 @@ body::-webkit-scrollbar-thumb {
 .reviewText {
 	color: #2e294e;
 }
+
+legend {
+	border-color:pink;
+}

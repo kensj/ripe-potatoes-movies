@@ -37,3 +37,9 @@ div .rating-symbol {
   padding-top:9px;
   color:#d8315b;
 }
+.reviewWidth {
+  width:70%;
+  /*text-align:center;*/
+  display:inline-block;
+  resize: none;
+}
