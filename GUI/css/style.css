@@ -221,3 +221,10 @@ body::-webkit-scrollbar-thumb {
 legend {
 	border-color:pink;
 }
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; color:pink; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #2e294e; }
+.autocomplete-suggestions strong { font-weight: normal; color: #d8315b; }
+.autocomplete-group { padding: 2px 5px; }
+.autocomplete-group strong { display: block; border-bottom: 1px solid #2e294e; }
