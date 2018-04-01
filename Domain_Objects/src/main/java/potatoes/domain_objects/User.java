@@ -5,10 +5,33 @@
  */
 package potatoes.domain_objects;
 
+import java.util.List;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author kdill
  */
 public class User {
+    
+    private String name;
+    private String email;
+    private byte[] password; //may need to be changed
+    
+    private boolean isCritic;
+    private boolean isSuperUser;
+    
+    private int numFollowers;
+    private Rank userRank;
+    private ImageIcon icon;
+    
+    private List<Media> wishList;
+    private List<Media> notInterestedList;
+    private List<User> blockedUsers;
+    private List<User> followedUsers;
+    private int reprimands;
+    
+    private int userID;
+    
     
 }

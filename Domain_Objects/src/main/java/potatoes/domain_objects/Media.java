@@ -21,7 +21,7 @@ public abstract class Media extends Content{
     protected double criticRating;
     protected List<File> trailers;
     protected Date releaseDate;
-    protected List<Genre> genre;
+    protected List<Genre> genres;
     
     protected Media(String name){
         super(name);

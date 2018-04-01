@@ -11,18 +11,18 @@ import java.util.Hashtable;
  *
  * @author kdill
  */
-public class ContentManager {
-    private static Hashtable<Integer,Content> content_cache;
+public class UserManager {
+    private static Hashtable<Integer,User> user_cache;
     
-    public static int addNewContent(Content c){
+    public static int addNewContent(User u){
         Integer key = 0;
         // add to dbase and add to hashtable using ID taken from dbase
-        add(key,c);
+        add(key,u);
         return key;
     }
     
-    public static Content getContent(int id){
-        Content c = content_cache.get(id);
+    public static User getUser(int id){
+        User c = user_cache.get(id);
         if (c == null){
             //retrieve from dbase and add to cache
         }
@@ -31,8 +31,8 @@ public class ContentManager {
     
     // returns true if the key,value pairing was successfully added
     // returns false if the pairing was previously present
-    private static boolean add(Integer key, Content value){
-        return content_cache.putIfAbsent(key, value) != null ? false : true;
+    private static boolean add(Integer key, User value){
+        return user_cache.putIfAbsent(key, value) != null ? false : true;
     }
     
 }
