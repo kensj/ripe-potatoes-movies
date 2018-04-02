@@ -6,6 +6,7 @@
 package potatoes.domain_objects;
 
 import java.util.List;
+import javax.persistence.Id;
 import javax.swing.ImageIcon;
 
 /**
@@ -31,6 +32,7 @@ public class User {
     private List<User> followedUsers;
     private int reprimands;
     
+    @Id
     private int userID;
     
     

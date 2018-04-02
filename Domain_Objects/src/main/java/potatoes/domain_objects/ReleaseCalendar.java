@@ -5,20 +5,14 @@
  */
 package potatoes.domain_objects;
 
+import java.util.List;
+
 /**
  *
  * @author kdill
  */
-public enum Rank {
-    LEVEL0(0),
-    LEVEL1(1),
-    LEVEL2(5),
-    LEVEL3(10),
-    LEVEL4(25),
-    LEVEL5(50),
-    LEVEL6(100)
-    ;
+public class ReleaseCalendar {
     
-    public final int threshold;
-    Rank(int threshold){this.threshold=threshold;}
+    private List<Media> upcoming;
+    private List<Media> justReleased;
 }
