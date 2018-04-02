@@ -17,7 +17,7 @@ public class User {
     
     private String name;
     private String email;
-    private byte[] password; //may need to be changed
+    private String password;
     
     private boolean isCritic;
     private boolean isSuperUser;
@@ -35,5 +35,10 @@ public class User {
     @Id
     private int userID;
     
-    
+    public User (String name, String email, String password){
+        this.name=name;
+        this.email=email;
+        PasswordAuthentication auth = new PasswordAuthentication();
+        this.password = auth.hash(password.toCharArray());
+    }
 }

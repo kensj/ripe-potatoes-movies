@@ -30,7 +30,7 @@ public class ContentManager {
     }
     
     // returns true if the key,value pairing was successfully added
-    // returns false if the pairing was previously present
+    // returns false if the pairing was previously present (no dups)
     private static boolean add(Integer key, Content value){
         return content_cache.putIfAbsent(key, value) != null ? false : true;
     }
