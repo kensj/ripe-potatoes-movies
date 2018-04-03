@@ -41,4 +41,8 @@ public class User {
         PasswordAuthentication auth = new PasswordAuthentication();
         this.password = auth.hash(password.toCharArray());
     }
+    
+    public String getName() {
+    	return name;
+    }
 }
