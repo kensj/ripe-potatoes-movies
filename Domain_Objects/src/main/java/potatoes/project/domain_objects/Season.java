@@ -7,13 +7,20 @@ package potatoes.project.domain_objects;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  *
  * @author kdill
  */
+@Entity
 public class Season {
-    
+    @OneToMany
     private List<Episode> episodes;
-    private int number;
+    @Id
+    private int seasonId;
+    private int tvId;
     private String synopsis;
 }

@@ -3,6 +3,8 @@
 
 <head lang="en">
   <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
   <title>Ripe Potatoes</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -113,7 +115,7 @@
       <div><span onclick="openR()" class="modalOption "><span>Register</span></span></div>
     </div>
   </form>
-  <form id="registerFrame" class="modal-content animate" action="profile.html">
+  <form id="registerFrame" class="modal-content animate">
     <div class="imgcontainer">
       <span onclick="closeLogin()" class="close" title="Close">&times;</span>
       <img id="icon" src="images/icon.png" alt="Avatar" class="avatar">
@@ -268,6 +270,7 @@
 <script src='js/home.js'></script>
 <script src='js/jquery.autocomplete.js'></script>
 <script src='js/navbar.js'></script>
+<script src='js/authentication.js'></script>
 
 </body>
 

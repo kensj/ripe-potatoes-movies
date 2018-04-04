@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 
+import org.springframework.stereotype.Component;
+
 /**
  * Hash passwords for storage, and test passwords against password tokens.
  * 
@@ -25,6 +27,7 @@ import javax.crypto.spec.PBEKeySpec;
  * @see <a href="http://stackoverflow.com/a/2861125/3474">StackOverflow</a>
  * THIS CODE HAS BEEN TAKEN FROM STACKOVERFLOW FOR PBKDF2 PASSWORD AUTHENTICATION
  */
+@Component
 public final class PasswordAuthentication
 {
 

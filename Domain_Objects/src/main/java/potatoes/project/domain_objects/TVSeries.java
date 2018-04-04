@@ -7,13 +7,21 @@ package potatoes.project.domain_objects;
 
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  *
  * @author kdill
  */
+
+@Entity
 public class TVSeries extends Media{
-    
+    private String name;
+
     private String network;
+    @OneToMany
     private List<Season> seasons;
     
     public TVSeries(String name){

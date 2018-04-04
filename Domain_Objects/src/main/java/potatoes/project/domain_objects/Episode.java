@@ -5,12 +5,17 @@
  */
 package potatoes.project.domain_objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author kdill
  */
+@Entity
 public class Episode {
-    
+	@Id
+    private int seasonId;
     private String synopsis;
     private int episodeNum;
 }

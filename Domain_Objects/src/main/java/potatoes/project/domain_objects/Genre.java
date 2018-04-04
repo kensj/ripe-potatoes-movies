@@ -5,10 +5,14 @@
  */
 package potatoes.project.domain_objects;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /**
  *
  * @author kdill
  */
+@Entity
 public enum Genre {
     ACTION("Action"),
     ADVENTURE("Adventure"),
@@ -22,7 +26,7 @@ public enum Genre {
     ;
     
     //reference: https://en.wikipedia.org/wiki/List_of_genres
-    
+    @Id
     private final String text;
     
     Genre(String txt){text=txt;}

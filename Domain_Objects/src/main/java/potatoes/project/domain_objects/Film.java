@@ -5,10 +5,14 @@
  */
 package potatoes.project.domain_objects;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author kdill
  */
+
+@Entity
 public class Film extends Media{
     
     private int boxOfficeRevenue;
