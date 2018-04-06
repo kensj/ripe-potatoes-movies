@@ -3,7 +3,41 @@ $(document). ready(function() {
 		event.preventDefault();
 		sendRegisterRequest();
 	});
+	$("#loginFrame").submit(function(event) {
+		event.preventDefault();
+		sendLoginRequest();
+	});
 });
+
+function sendLoginRequest() {
+	var User = new Object();
+	User.name = $("input[name=loginName]").val();
+	User.password = $("input[name=loginPW]").val();
+	User.email = "";
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "POST",
+		url: "/login",
+		data: JSON.stringify(User),
+		dataType: 'json',
+		cache: false,
+		timeout: 600000,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+}
 
 function sendRegisterRequest() {
 	var User = new Object();

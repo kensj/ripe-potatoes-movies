@@ -19,6 +19,14 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
+	public boolean authenticate(String username, String password) {
+//		System.out.println(username);
+//		System.out.println(password);
+//		System.out.println(findByUsername(username).getPassword());
+		String hashToCompare = findByUsername(username).getPassword();
+		return passwordAuthentication.authenticate(password.toCharArray(), hashToCompare);
+	}
+	
 	public User findByUsername(String name) {
 		return userRepository.findByName(name);
 	}

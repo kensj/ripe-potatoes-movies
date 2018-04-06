@@ -62,8 +62,7 @@ public class User {
     public User (@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("password") String password){
         this.name=name;
         this.email=email;
-        PasswordAuthentication auth = new PasswordAuthentication();
-        this.password = auth.hash(password.toCharArray());
+        this.password=password;
     }
     
     @Override
