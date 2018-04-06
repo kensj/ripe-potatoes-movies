@@ -53,22 +53,16 @@ public class UserController {
 			return ResponseEntity.badRequest().body(response);
                 }
 		
-		/*
+		
 		if (userService.findByUsername(user.getName()) != null) {
 			response.put("success", "false");
-<<<<<<< HEAD
-                        
-		} else {
-                    
-=======
 			response.put("reason", "username");
-		}
+		} 
 		else {
->>>>>>> e3de9d7d963494d4052fc14f3441843ba3d7d8e8
 			response.put("success", "true");
 			userService.save(user);
 		}
-*/
+
 		return ResponseEntity.ok(response);
 	}
         
