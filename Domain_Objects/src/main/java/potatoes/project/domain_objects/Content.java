@@ -59,7 +59,12 @@ public abstract class Content {
         sumRating+=rating;
     }
     
+    
     public void review(String justificationText, User author){
         reviews.add(new Review(justificationText, this, author));
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
     }
 }

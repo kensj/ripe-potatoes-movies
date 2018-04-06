@@ -66,43 +66,57 @@ public class User {
         this.password = auth.hash(password.toCharArray());
     }
     
+    @Override
+    public boolean equals(Object o){
+        if (!(o instanceof User))
+            return false;
+        return ((User) o).userID == this.userID;
+    }
+    
+    @Override
+    public int hashCode(){
+        return (int)userID;
+    }
+    
     public String getName() {
     	return name;
     }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+	this.password = password;
+    }
 
-	public boolean isCritic() {
-		return isCritic;
-	}
+    public boolean isCritic() {
+	return isCritic;
+    }
 
-	public void setCritic(boolean isCritic) {
-		this.isCritic = isCritic;
-	}
+    public void setCritic(boolean isCritic) {
+    	this.isCritic = isCritic;
+    }
 
-	public boolean isSuperUser() {
-		return isSuperUser;
-	}
+    public boolean isSuperUser() {
+    	return isSuperUser;
+    }
 
-	public void setSuperUser(boolean isSuperUser) {
-		this.isSuperUser = isSuperUser;
-	}
+    public void setSuperUser(boolean isSuperUser) {
+        this.isSuperUser = isSuperUser;
+    }
 
-	public ImageIcon getIcon() {
-		return icon;
-	}
+    public ImageIcon getIcon() {
+    	return icon;
+    }
 
-	public void setIcon(ImageIcon icon) {
-		this.icon = icon;
-	}
+    public void setIcon(ImageIcon icon) {
+    	this.icon = icon;
+    }
 	
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    public String getConfirmPassword() {
+    	return confirmPassword;
+    }
+    
+    
 }

@@ -18,6 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  * @references: https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletRequest.html
  * https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServletResponse.html
  * https://docs.oracle.com/javaee/7/api/javax/servlet/http/HttpServlet.html
+ * https://github.com/spring-projects/spring-boot/blob/master/spring-boot-samples/spring-boot-sample-servlet/src/main/java/sample/servlet/SampleServletApplication.java
+ * https://www.logicbig.com/tutorials/spring-framework/spring-boot/servlet-component-beans.html
  */
 public class SampleServlet extends HttpServlet {
     

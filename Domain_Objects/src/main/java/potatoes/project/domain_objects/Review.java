@@ -31,4 +31,33 @@ public class Review {
         this.content=content;
         this.author=author;
     }
+
+    public String getJustificationText() {
+        return justificationText;
+    }
+
+    public void setJustificationText(String justificationText) {
+        this.justificationText = justificationText;
+    }
+
+    public Content getContent() {
+        return content;
+    }
+
+    public void setContent(Content content) {
+        this.content = content;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    public int getReviewID() {
+        return reviewID;
+    }    
+    
 }
