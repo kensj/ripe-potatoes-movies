@@ -69,3 +69,26 @@ function sendRegisterRequest() {
 		}
 	});
 }
+
+function sendLogoutRequest() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "GET",
+		url: "/logout",
+		cache: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+}

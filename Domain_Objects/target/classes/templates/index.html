@@ -28,7 +28,7 @@
         <span class="icon-bar"></span>
       </button>
       <div>
-        <a class="navbar-brand" href="index.html"><img align="left" class="icon" src="images/icon.png"><span class="projname">Ripe Potatoes</span></a>
+        <a class="navbar-brand" href="/"><img align="left" class="icon" src="images/icon.png"><span class="projname">Ripe Potatoes</span></a>
         <form class="navbar-form searchForm" action="#" id="searchForm">
           <input type="text" class="form-control" name="searchBar" id="autocomplete" required>
           <button type="submit" form="searchForm" class="btn btn-info">
@@ -65,7 +65,7 @@
             <li><a href="#">Random</a></li>
           </ul>
         </li>
-        <li><a onclick="login()" href="#">Login</a></li>
+        <li><a class="ll" onclick="login()" href="#" th:text="${session.user != null} ? 'Logout' : 'Login'"></a></li>
       </ul>
     </div>
   </div>
@@ -164,7 +164,7 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1 class="headline text-left">Hello, <span  th:text="${user.getName()}"></span></h1>
+    <h1 class="headline text-left">What's new <span  th:text="${session.user != null} ? ${session.user.getName()}"></span> ?</h1>
     <div class="container">
     	<div class="row">
     		<div class="col-xs-11 col-md-10 col-centered">
