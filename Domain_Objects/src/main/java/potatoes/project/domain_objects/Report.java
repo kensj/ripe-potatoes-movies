@@ -5,24 +5,49 @@
  */
 package potatoes.project.domain_objects;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 /**
  *
  * @author kdill
  */
 public class Report {
     
-    private String title;
     private String description;
     private User reporter;
     private User reported;
     private Review context;
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
-    public Report(String title,String description, User reporter, Review context, int id){
-        this.title=title;
+    public Report(String description, User reporter, Review context){
         this.description=description;
         this.reporter=reporter;
         this.reported=context.getAuthor();
-        this.id=id;
     }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public User getReporter() {
+        return reporter;
+    }
+
+    public User getReported() {
+        return reported;
+    }
+
+    public Review getContext() {
+        return context;
+    }
+
+    public int getId() {
+        return id;
+    }
+    
 }

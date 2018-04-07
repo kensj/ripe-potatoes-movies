@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.ContentManager;
+import potatoes.project.domain_objects.Report;
+import potatoes.project.domain_objects.ReportQueue;
 import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.User;
 
@@ -75,6 +77,14 @@ public class ContentController {
         return true;
     }
     
+    @PostMapping("/content/{id}/report")
+    public boolean reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
+        User reporter = (User) session.getAttribute("User");
+        Review context = ContentManager.getContent(id).getReviews().get(reviewID);
+        
+        ReportQueue.queueReport(new Report(description, reporter, context));
+        return true;
+    }
     
     @GetMapping("/content/{id}")
     public Content getContent(@PathVariable int id){
