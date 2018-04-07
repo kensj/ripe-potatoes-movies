@@ -6,6 +6,8 @@
 package potatoes.project.domain_objects;
 
 import java.util.Hashtable;
+import org.springframework.beans.factory.annotation.Autowired;
+import potatoes.project.repository.ContentRepository;
 
 /**
  *
@@ -14,8 +16,11 @@ import java.util.Hashtable;
 public class ContentManager {
     private static Hashtable<Integer,Content> content_cache;
     
+    @Autowired
+    private static ContentRepository db;
+    
     public static int addNewContent(Content c){
-        Integer key = 0;
+        Integer key = c.getContentID();
         // add to dbase and add to hashtable using ID taken from dbase
         add(key,c);
         return key;
@@ -24,7 +29,7 @@ public class ContentManager {
     public static Content getContent(int id){
         Content c = content_cache.get(id);
         if (c == null){
-            //retrieve from dbase and add to cache
+            db.findByContentID(id);
         }
         return c;
     }

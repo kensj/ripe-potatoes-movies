@@ -116,6 +116,10 @@ public class User {
     public String getConfirmPassword() {
     	return confirmPassword;
     }
+
+    public long getUserID() {
+        return userID;
+    }
     
     
 }

@@ -5,10 +5,21 @@
  */
 package potatoes.project.domain_objects;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  *
  * @author kdill
  */
 public class ReportQueue {
+    public static LinkedBlockingQueue<Report> reportQueue;
     
+    public static int queueReport(Report r){
+        reportQueue.add(r);
+        return reportQueue.size();
+    }
+    
+    public static Report dequeueReport(){
+        return reportQueue.remove();
+    }
 }
