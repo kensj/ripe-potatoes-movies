@@ -54,6 +54,8 @@ public abstract class Content {
     
     public double getRating(){return sumRating/numRating;}
     
+    public String getName() {return this.name;}
+    
     public void rate(int rating){
         numRating++;
         sumRating+=rating;

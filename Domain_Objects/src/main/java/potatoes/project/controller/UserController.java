@@ -54,7 +54,7 @@ public class UserController {
 			response.put("success", "false");
 			response.put("reason", "username");
 		} 
-		else if (userService.findByUsername(user.getEmail()) != null) {
+		else if (userService.findByEmail(user.getEmail()) != null) {
 			response.put("success", "false");
 			response.put("reason", "email");
 		}
