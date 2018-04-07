@@ -24,6 +24,10 @@ public class TVSeries extends Media{
     @OneToMany
     private List<Season> seasons;
     
+    public TVSeries() {
+    	
+    }
+    
     public TVSeries(String name){
         super(name);
     }

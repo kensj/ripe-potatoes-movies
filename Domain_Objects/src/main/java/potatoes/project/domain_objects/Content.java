@@ -47,6 +47,10 @@ public abstract class Content {
     @Id
     protected int contentID;
     
+    protected Content() {
+    	
+    }
+    
     protected Content(String name){
         isFeatured=false;
         sumRatings=0.0;
@@ -56,6 +60,13 @@ public abstract class Content {
         photos=new ArrayList<>();
     }
     
+<<<<<<< HEAD
+    public String getName() {return this.name;}
+    
+    public void rate(int rating){
+        numRating++;
+        sumRating+=rating;
+=======
     public double getRating(){
         return ratings.isEmpty() ? sumRatings/ratings.size() : -1;
     }
@@ -86,6 +97,7 @@ public abstract class Content {
             }
         }
         return false;
+>>>>>>> branch 'master' of https://kensj@bitbucket.org/KarlDill/ripe-potatoes.git
     }
     
     public int getContentID() {
@@ -99,4 +111,36 @@ public abstract class Content {
     public List<Review> getReviews() {
         return reviews;
     }
+
+	public boolean isFeatured() {
+		return isFeatured;
+	}
+
+	public void setFeatured(boolean isFeatured) {
+		this.isFeatured = isFeatured;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<byte[]> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<byte[]> photos) {
+		this.photos = photos;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setContentID(int contentID) {
+		this.contentID = contentID;
+	}
 }

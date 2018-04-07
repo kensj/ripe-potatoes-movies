@@ -34,6 +34,10 @@ public abstract class Media extends Content{
     @OneToMany
     protected List<Genre> genres;
     
+    protected Media() {
+    	
+    }
+    
     protected Media(String name){
         super(name);
     }

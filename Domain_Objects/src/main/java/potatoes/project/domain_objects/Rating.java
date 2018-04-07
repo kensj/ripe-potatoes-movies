@@ -5,6 +5,7 @@
  */
 package potatoes.project.domain_objects;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -12,6 +13,7 @@ import javax.persistence.OneToOne;
  *
  * @author kdill
  */
+@Entity
 public class Rating {
     
     private int score;
