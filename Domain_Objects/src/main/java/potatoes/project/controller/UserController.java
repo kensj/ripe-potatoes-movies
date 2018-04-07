@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+
+import com.fasterxml.jackson.annotation.JsonView;
 
 import potatoes.project.domain_objects.PasswordAuthentication;
 import potatoes.project.domain_objects.User;
@@ -68,10 +71,12 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
         
-        @GetMapping("/users/{id}")
-        public User getUser(@PathVariable int id){
-            return UserManager.getUser(id);
-        }
+    @ResponseBody
+	@GetMapping("/users/{id}")
+    public User getUser(@PathVariable long id){
+    	System.out.println(id);
+    	return userService.findByUserID(id);
+    }
         
 	@PostMapping("/login")
 	public ResponseEntity<?> loginRequest(@Valid @RequestBody User user, Errors errors, HttpSession session) {

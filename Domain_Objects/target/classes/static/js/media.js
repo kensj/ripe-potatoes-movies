@@ -10,3 +10,15 @@ $('.progress-bar').each(function() {
       clearInterval(interval);
   }
 });
+$('[rel="tooltip"]').tooltip({
+	animated: 'fade',
+	placement: 'top',
+	html:true
+});
+$(function() {
+	$('[rel="popover"]').popover({
+		animated:'fade',
+		placement: 'top',
+		html:true
+	});
+});

@@ -29,7 +29,7 @@ public class UserManager {
     public static User getUser(int id){
         User c = user_cache.get(id);
         if (c == null){
-            db.findByUserID(id);
+            c = db.findByUserID(id);
         }
         return c;
     }

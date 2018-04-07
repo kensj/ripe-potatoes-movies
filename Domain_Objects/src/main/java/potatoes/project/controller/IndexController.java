@@ -21,4 +21,8 @@ public class IndexController {
 		mav.addObject("user", test);
 		return mav;
 	}
+	@RequestMapping("/movie")
+	public String index() {
+		return "movie";
+	}
 }
