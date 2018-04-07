@@ -62,6 +62,8 @@ public class ContentController {
                 return;
             }
         }
+        //write a new review in the case that there apparently wasn't an existing one
+        c.review(justificationText, u);
     }
     
     //true return: boolean
@@ -81,26 +83,63 @@ public class ContentController {
         return ResponseEntity.ok(resp);
     }
     
-    @PostMapping("/content/{id}/rate")
-    public boolean addRating(@PathVariable int id, @RequestParam int rating){
+    //true return: boolean
+    @PostMapping("/content/{id}/add-rating")
+    public ResponseEntity<?> addRating(@PathVariable int id, @RequestParam int rating){
         User u = (User) session.getAttribute("User");
         Content c = contentRepo.findByContentID(id);
+        Map<String, Boolean> resp = new HashMap<>();
         
-        if (rating < 1 || rating > 5)
-            return false;
-        c.rate(rating);
-        return true;
+        if (rating < 1 || rating > 5){
+            resp.put("success", false);
+            return ResponseEntity.ok(resp);
+        }
+        
+        c.addRating(rating, u);
+        resp.put("success", true);
+        
+        return ResponseEntity.ok(resp);
+    }
+    
+    //true return: boolean
+    @PostMapping("/content/{id}/change-rating")
+    public ResponseEntity<?> changeRating(@PathVariable int id, @RequestParam int rating){
+        User u = (User) session.getAttribute("User");
+        Content c = contentRepo.findByContentID(id);
+        Map<String, Boolean> resp = new HashMap<>();
+        
+        if (rating < 1 || rating > 5){
+            resp.put("success", false);
+            return ResponseEntity.ok(resp);
+        }
+        
+        c.changeRating(rating, u);
+        resp.put("success", true);
+        
+        return ResponseEntity.ok(resp);
+    }
+    
+    //true return: boolean
+    @DeleteMapping("/content/{id}/delete-rating")
+    public ResponseEntity<?> deleteRating(@PathVariable int id){
+        User u = (User) session.getAttribute("User");
+        Content c = contentRepo.findByContentID(id);
+        Map<String, Boolean> resp = new HashMap<>();
+        
+        resp.put("success", c.removeRating(u));
+        
+        return ResponseEntity.ok(resp);
     }
     
     @PostMapping("/content/{id}/report")
-    public boolean reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
+    public void reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
         User reporter = (User) session.getAttribute("User");
         Review context = contentRepo.findByContentID(id).getReviews().get(reviewID);
         
         ReportQueue.queueReport(new Report(description, reporter, context));
-        return true;
     }
     
+    //true return: Content object stored in ModelAndView, View name dependent on type of content
     @GetMapping("/content/{id}")
     public ModelAndView getContent(@PathVariable int id, Model model){
         ModelAndView mav = new ModelAndView();

@@ -30,13 +30,18 @@ import javax.validation.constraints.NotNull;
 public abstract class Content {
     
     private boolean isFeatured;
-    private int numRating;
-    private double sumRating;
+    
+    private double sumRatings;
     
     
     protected String name;
+    
     @OneToMany
     protected List<Review> reviews;
+    
+    @OneToMany
+    protected List<Rating> ratings;
+    
     @ElementCollection
     protected List<byte[]> photos;
     @Id
@@ -48,19 +53,43 @@ public abstract class Content {
     
     protected Content(String name){
         isFeatured=false;
-        numRating=0;
-        sumRating=0.0;
+        sumRatings=0.0;
         this.name=name;
         reviews=new ArrayList<>();
+        ratings=new ArrayList<>();
         photos=new ArrayList<>();
-        ContentManager.addNewContent(this);
     }
     
-    public double getRating(){return sumRating/numRating;}
+    public double getRating(){
+        return ratings.isEmpty() ? sumRatings/ratings.size() : -1;
+    }
     
-    public void rate(int rating){
-        numRating++;
-        sumRating+=rating;
+    public void addRating(int rating, User rater){
+        ratings.add(new Rating(rating, this, rater));
+        sumRatings+=rating;
+    }
+    
+    public void changeRating(int newRating, User rater){
+        for (Rating r : ratings){
+            if (r.getRater().equals(rater)){
+                sumRatings-=r.getScore();
+                sumRatings+=newRating;
+                r.setScore(newRating);
+                return;
+            }
+        }
+        addRating(newRating, rater);
+    }
+    
+    public boolean removeRating(User rater){
+        for (Rating r : ratings){
+            if (r.getRater().equals(rater)){
+                sumRatings-=r.getScore();
+                ratings.remove(r);
+                return true;
+            }
+        }
+        return false;
     }
     
     public int getContentID() {
