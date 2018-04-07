@@ -42,6 +42,10 @@ public abstract class Content {
     @Id
     protected int contentID;
     
+    protected Content() {
+    	
+    }
+    
     protected Content(String name){
         isFeatured=false;
         numRating=0;
@@ -70,4 +74,52 @@ public abstract class Content {
     public List<Review> getReviews() {
         return reviews;
     }
+
+	public boolean isFeatured() {
+		return isFeatured;
+	}
+
+	public void setFeatured(boolean isFeatured) {
+		this.isFeatured = isFeatured;
+	}
+
+	public int getNumRating() {
+		return numRating;
+	}
+
+	public void setNumRating(int numRating) {
+		this.numRating = numRating;
+	}
+
+	public double getSumRating() {
+		return sumRating;
+	}
+
+	public void setSumRating(double sumRating) {
+		this.sumRating = sumRating;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<byte[]> getPhotos() {
+		return photos;
+	}
+
+	public void setPhotos(List<byte[]> photos) {
+		this.photos = photos;
+	}
+
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
+	}
+
+	public void setContentID(int contentID) {
+		this.contentID = contentID;
+	}
 }

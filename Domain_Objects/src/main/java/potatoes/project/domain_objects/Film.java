@@ -18,7 +18,11 @@ public class Film extends Media{
     private int boxOfficeRevenue;
     private int budget;
     
-    public Film(String name){
+    protected Film() {
+    	
+    }
+    
+    protected Film(String name){
         super(name);
     }
     

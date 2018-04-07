@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,17 +102,21 @@ public class ContentController {
     }
     
     @GetMapping("/content/{id}")
-    public ModelAndView getContent(@PathVariable int id){
+    public ModelAndView getContent(@PathVariable int id, Model model){
         ModelAndView mav = new ModelAndView();
     	Content toGet = contentRepo.findByContentID(id);
         if (toGet instanceof Film){
             mav.setViewName("movie");
+            mav.addObject("content", (Film) toGet);
+            System.out.println(toGet.getReviews().size());
         } else if (toGet instanceof TVSeries){
             mav.setViewName("tv");
+            mav.addObject("content", (TVSeries) toGet);
         } else if (toGet instanceof Celebrity){
             mav.setViewName("celebrity");
+            mav.addObject("content", (Celebrity) toGet);
         }
-    	mav.addObject("content", toGet);
+    	
         return mav;
     }
 }
