@@ -6,6 +6,8 @@
 package potatoes.project.domain_objects;
 
 import java.util.Hashtable;
+import org.springframework.beans.factory.annotation.Autowired;
+import potatoes.project.repository.UserRepository;
 
 /**
  *
@@ -14,9 +16,12 @@ import java.util.Hashtable;
 public class UserManager {
     private static Hashtable<Integer,User> user_cache;
     
-    public static int addNewContent(User u){
-        Integer key = 0;
-        // add to dbase and add to hashtable using ID taken from dbase
+    @Autowired
+    static UserRepository db;
+    
+    public static int addNewUser(User u){
+        Integer key = (int)u.getUserID();
+        db.save(u);
         add(key,u);
         return key;
     }
@@ -24,7 +29,7 @@ public class UserManager {
     public static User getUser(int id){
         User c = user_cache.get(id);
         if (c == null){
-            //retrieve from dbase and add to cache
+            db.findByUserID(id);
         }
         return c;
     }
