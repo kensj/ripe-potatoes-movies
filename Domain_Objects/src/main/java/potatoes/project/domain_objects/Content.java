@@ -112,22 +112,6 @@ public abstract class Content {
 		this.isFeatured = isFeatured;
 	}
 
-	public int getNumRating() {
-		return numRating;
-	}
-
-	public void setNumRating(int numRating) {
-		this.numRating = numRating;
-	}
-
-	public double getSumRating() {
-		return sumRating;
-	}
-
-	public void setSumRating(double sumRating) {
-		this.sumRating = sumRating;
-	}
-
 	public String getName() {
 		return name;
 	}
