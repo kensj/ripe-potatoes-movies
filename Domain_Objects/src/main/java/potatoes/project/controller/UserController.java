@@ -51,9 +51,18 @@ public class UserController {
 			response.put("success", "false");
 			response.put("reason", "username");
 		} 
+		else if (userService.findByUsername(user.getEmail()) != null) {
+			response.put("success", "false");
+			response.put("reason", "email");
+		}
+		else if (!user.getPassword().equals(user.getConfirmPassword())) {
+			response.put("success", "false");
+			response.put("reason", "password");
+		}
 		else {
 			response.put("success", "true");
 			userService.save(user);
+			session.setAttribute("user", user);
 		}
 
 		return ResponseEntity.ok(response);

@@ -63,6 +63,21 @@ function sendRegisterRequest() {
 		},
 		success: function(data) {
 			console.log(data);
+//			var result = JSON.parse(data);
+			if (data["success"] === "true") {
+				window.location.reload();
+			}
+			else {
+				if (data["reason"] === "username") {
+					$("#errorMsg3").text("Username is taken");
+				}
+				else if (data["reason"] === "email") {
+					$("#errorMsg3").text("Email is taken");
+				}
+				else if (data["reason"] === "password") {
+					$("#errorMsg3").text("Password and confirm password don't match");
+				}
+			}
 		},
 		error: function(e) {
 			alert(e.responseText);

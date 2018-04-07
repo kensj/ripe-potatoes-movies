@@ -84,7 +84,15 @@ public class User {
     public String getPassword() {
         return password;
     }
-
+    
+    public long getUserID() {
+    	return userID;
+    }
+    
+    public String getEmail() {
+    	return email;
+    }
+    
     public void setPassword(String password) {
 	this.password = password;
     }
@@ -115,11 +123,6 @@ public class User {
 	
     public String getConfirmPassword() {
     	return confirmPassword;
-    }
-
-    public long getUserID() {
-        return userID;
-    }
-    
+    }    
     
 }

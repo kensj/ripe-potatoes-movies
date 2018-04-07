@@ -106,3 +106,8 @@ input.chk-btn:checked + label {
 .registerTable td {
   padding:0px 35px 20px 35px;
 }
+#errorMsg3 {
+	text-align:center;
+	color:#2e294e;
+	font-weight:bold;
+}
