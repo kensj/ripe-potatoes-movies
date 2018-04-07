@@ -12,7 +12,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author kdill
  */
 public class ReportQueue {
-    public static LinkedBlockingQueue<Report> reportQueue;
+    private static LinkedBlockingQueue<Report> reportQueue;
     
     public static int queueReport(Report r){
         reportQueue.add(r);
