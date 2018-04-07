@@ -31,7 +31,7 @@ function login() {
   document.getElementById('id01').style.display='block';
   if ($(".ll").text() === "Logout") {
 	  sendLogoutRequest();
-	  window.location.reload();
+	  window.location.replace("/");
   }
 }
 function closeLogin() {

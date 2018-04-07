@@ -40,3 +40,9 @@ blockquote {
   background-color: #d8315b;
   outline: 1px solid red;
 }
+.reviewWidth {
+  width:50%;
+  /*text-align:center;*/
+  display:inline-block;
+  resize: none;
+}

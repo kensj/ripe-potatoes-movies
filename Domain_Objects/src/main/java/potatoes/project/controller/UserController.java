@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -73,9 +74,12 @@ public class UserController {
         
     @ResponseBody
 	@GetMapping("/users/{id}")
-    public User getUser(@PathVariable long id){
-    	System.out.println(id);
-    	return userService.findByUserID(id);
+    public ModelAndView getUser(@PathVariable long id, Model model){
+    	ModelAndView mav = new ModelAndView();
+    	User toGet = userService.findByUserID(id);
+    	mav.setViewName("profile");
+    	mav.addObject("user", toGet);
+    	return mav;
     }
         
 	@PostMapping("/login")
