@@ -43,3 +43,8 @@ div .rating-symbol {
   display:inline-block;
   resize: none;
 }
+.reportReview {
+	resize:none;
+	float:right;
+	margin-bottom:5px;
+}
