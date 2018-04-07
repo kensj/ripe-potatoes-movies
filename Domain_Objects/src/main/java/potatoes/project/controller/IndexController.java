@@ -1,5 +1,7 @@
 package potatoes.project.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,5 +26,15 @@ public class IndexController {
 	@RequestMapping("/movie")
 	public String index() {
 		return "movie";
+	}
+	@RequestMapping("/profile")
+	public ModelAndView profile(Model model, HttpSession session) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("profile");
+		System.out.println(((User)session.getAttribute("user")).getName());
+		if (session.getAttribute("user") != null) {
+			mav.addObject("user",(User) session.getAttribute("user"));
+		}
+		return mav;
 	}
 }

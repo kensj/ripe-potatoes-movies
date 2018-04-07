@@ -6,6 +6,8 @@
 package potatoes.project.domain_objects;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -24,7 +26,12 @@ public class Review {
     @OneToOne
     private User author;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int reviewID;
+    
+    public Review() {
+    	
+    }
     
     public Review(String justificationText, Content content, User author){
         this.justificationText=justificationText;

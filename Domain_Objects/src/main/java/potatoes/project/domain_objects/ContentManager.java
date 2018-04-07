@@ -29,7 +29,7 @@ public class ContentManager {
     public static Content getContent(int id){
         Content c = content_cache.get(id);
         if (c == null){
-            db.findByContentID(id);
+            //retrieve from dbase and add to cache
         }
         return c;
     }

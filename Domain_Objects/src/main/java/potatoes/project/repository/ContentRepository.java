@@ -5,6 +5,7 @@
  */
 package potatoes.project.repository;
 
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import potatoes.project.domain_objects.Content;
 
@@ -13,6 +14,8 @@ import potatoes.project.domain_objects.Content;
  * @author kdill
  */
 public interface ContentRepository extends JpaRepository<Content, Integer>{
-	Content findByName(String name);
-        Content findByContentID(int userID);
+    
+    List<Content> findByName(String name);
+    
+    Content findByContentID(int userID);
 }
