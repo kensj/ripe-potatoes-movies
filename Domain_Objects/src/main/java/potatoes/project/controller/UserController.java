@@ -73,7 +73,7 @@ public class UserController {
 	}
         
     @ResponseBody
-	@GetMapping("/users/{id}")
+    @GetMapping("/users/{id}")
     public ModelAndView getUser(@PathVariable long id, Model model){
     	ModelAndView mav = new ModelAndView();
     	User toGet = userService.findByUserID(id);
