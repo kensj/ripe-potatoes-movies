@@ -29,23 +29,16 @@ import potatoes.project.service.UserService;
 import potatoes.project.validator.UserValidator;
 
 @RestController
-@SessionAttributes("user")
 public class UserController {
     
 	@Autowired
 	private UserService userService;
-
-	@Autowired
-	private UserValidator userValidator;
-	
-	@Autowired
-	private PasswordAuthentication passwordAuthentication;
         
-        @Autowired
-        private HttpSession session;
+    @Autowired
+    private HttpSession session;
 
 	@PostMapping("/register")
-	public ResponseEntity<?> registerRequest(@Valid @RequestBody User user, Errors errors) {
+	public ResponseEntity<?> registerRequest(@Valid @RequestBody User user, Errors errors, HttpSession session) {
 		Map<String, String> response = new HashMap<String, String>();
 		
 		if (errors.hasErrors()) {
@@ -72,7 +65,7 @@ public class UserController {
         }
         
 	@PostMapping("/login")
-	public ResponseEntity<?> loginRequest(@Valid @RequestBody User user, Errors errors, Model model) {
+	public ResponseEntity<?> loginRequest(@Valid @RequestBody User user, Errors errors, HttpSession session) {
 		Map<String,String> response = new HashMap<String, String>();
 		
 		if (errors.hasErrors()) {
@@ -84,7 +77,7 @@ public class UserController {
 		if (targetUser != null) {
 			if (userService.authenticate(user.getName(), user.getPassword())) {
 				response.put("success", "true");
-				model.addAttribute("user", targetUser);
+				session.setAttribute("user", targetUser);
 			}
 			else {
 				response.put("success", "false");
@@ -95,6 +88,18 @@ public class UserController {
 			response.put("success", "false");
 			response.put("reason", "username");
 		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@GetMapping("/logout")
+	public ResponseEntity<?> logoutRequest(HttpSession session) {
+		Map<String, String> response = new HashMap<String, String>();
+		try {
+			session.invalidate();
+		}
+		catch (Exception e) {}
+		
+		response.put("success", "true");
 		return ResponseEntity.ok(response);
 	}
 }

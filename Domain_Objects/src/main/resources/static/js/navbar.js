@@ -29,6 +29,10 @@ function openR() {
 function login() {
   openL();
   document.getElementById('id01').style.display='block';
+  if ($(".ll").text() === "Logout") {
+	  sendLogoutRequest();
+	  window.location.replace("/");
+  }
 }
 function closeLogin() {
   document.getElementById('id01').style.display='none';
