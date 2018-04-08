@@ -21,12 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
+import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
 import potatoes.project.domain_objects.ReportQueue;
 import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReviewRepository;
 
 /**
@@ -44,6 +46,9 @@ public class ContentController {
     
     @Autowired
     private ReviewRepository revRepo;
+    
+    @Autowired
+    private RatingRepository rateRepo;
     
     /*
     * @args: 
@@ -113,17 +118,33 @@ public class ContentController {
     @PostMapping("/content/{id}/add-rating")
     public ResponseEntity<?> addRating(@PathVariable int id, @RequestParam int rating){
         User u = (User) session.getAttribute("user");
+        Map<String, String> resp = new HashMap<>();
+        
+        if (u == null) {
+        	resp.put("success", "false");
+        	resp.put("reason", "login");
+        	return ResponseEntity.ok(resp);
+        }
+        
         Content c = contentRepo.findByContentID(id);
-        Map<String, Boolean> resp = new HashMap<>();
+        for (Rating r : c.getRatings()) {
+        	if (r.getRater().equals(u)) {
+        		c.changeRating(rating, u);
+        		contentRepo.save(c);
+        		resp.put("success", "true");
+        		return ResponseEntity.ok(resp);
+        	}
+        }
         
         if (rating < 1 || rating > 5){
-            resp.put("success", false);
+            resp.put("success", "false");
+            resp.put("reason", "invalid");
             return ResponseEntity.ok(resp);
         }
         
         c.addRating(rating, u);
         contentRepo.save(c);
-        resp.put("success", true);
+        resp.put("success", "true");
         
         return ResponseEntity.ok(resp);
     }

@@ -6,6 +6,8 @@
 package potatoes.project.domain_objects;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
@@ -19,12 +21,17 @@ public class Rating {
     private int score;
     
     @OneToOne
-    private final Content content;
+    private Content content;
     
     @OneToOne
-    private final User rater;
+    private User rater;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int ratingID;
+    
+    public Rating() {
+    	
+    }
     
     public Rating(int score, Content content, User rater){
         this.score=score;

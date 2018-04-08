@@ -5,6 +5,7 @@
  */
 package potatoes.project.domain_objects;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
  *
  * @author kdill
  */
+
 public class Report {
     
     private String description;
