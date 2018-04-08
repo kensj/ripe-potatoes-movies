@@ -179,7 +179,7 @@
       <div class="col-md-4 col-md-offset-1">
         <table class="table ratingTable">
           <tr>
-            <td><h2 th:text="${content.getRating()}"></h2></td>
+            <td><h2 th:text="${content.getRating() != -1} ? ${content.getRating()} : 'No Ratings Yet!' "></h2></td>
             <td>
               <input type="hidden" class="rating" data-fractions="100" disabled="disabled" th:value="${content.getRating()}"/>
             </td>
@@ -246,12 +246,12 @@
       <div class="col-md-4">
         <span class="glyphicon glyphicon-info-sign glyphicon-large" aria-hidden="true"></span>
         <h3>Movie Info</h3>
-        <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+        <p th:text="${content.getSynopsis()}"></p>
       </div>
       <div class="col-md-4">
         <span class="glyphicon glyphicon-bullhorn glyphicon-large" aria-hidden="true"></span>
         <h3>Cast</h3>
-        <p>Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. Lorem ipsum dolor.</p>
+        <p th:text="${content.getCast()}"></p>
       </div>
       <div class="col-md-4">
         <span class="glyphicon glyphicon-share glyphicon-large" aria-hidden="true"></span>
