@@ -108,6 +108,15 @@ public abstract class Content {
         reviews.add(new Review(justificationText, this, author));
     }
 
+    public void editReview(String newText, User author) {
+    	for (Review r : reviews) {
+    		if (r.getAuthor().getUserID() == author.getUserID()) {
+    			r.setJustificationText(newText);
+    			return;
+    		}
+    	}
+    }
+    
     public List<Review> getReviews() {
         return reviews;
     }

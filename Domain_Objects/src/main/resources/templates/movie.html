@@ -67,7 +67,8 @@
             <li><a href="#">Random</a></li>
           </ul>
         </li>
-        <li><a onclick="login()" href="#">Login</a></li>
+        <li th:if="${session.user != null}"><a href="/profile">Profile</a></li>
+        <li><a class="ll" onclick="login()" href="#" th:text="${session.user != null} ? 'Logout' : 'Login'"></a></li>
       </ul>
     </div>
   </div>
@@ -277,7 +278,11 @@
       <div class="col-sm-12">
       	<div id="reviewError"></div>
         <form id="submitReview" class="" action="movie.html">
-          <textarea id="reviewSubmit" class="form-control reviewWidth" rows="3" placeholder="Add your review (optional)" required></textarea>
+          <textarea id="reviewSubmit" class="form-control reviewWidth" rows="3" placeholder="Add your review (optional)" required>
+          	<th:block th:each="i : ${#numbers.sequence(0, content.getReviews().size()-1)}">
+          		<span th:if="${session.user != null and content.getReviews().get(i).getAuthor().getUserID() == session.user.getUserID()}" th:remove="tag" th:text="${content.getReviews().get(i).getJustificationText()}"></span>
+          	</th:block>
+          </textarea>
           <br><br>
           <button class="btn-info loginButton" type="submit" name="submitRButton"><span class="glyphicon glyphicon-pencil"></span></button>
         </form>

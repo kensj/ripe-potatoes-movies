@@ -54,6 +54,14 @@ public class ContentController {
         	return ResponseEntity.ok(response);
         }
         Content c = contentRepo.findByContentID(id);
+        for (Review x : c.getReviews()) {
+        	if (x.getAuthor().getUserID() == u.getUserID()) {
+        		c.editReview(justificationText, u);
+        		contentRepo.save(c);
+        		response.put("success", "true");
+        		return ResponseEntity.ok(response);
+        	}
+        }
         c.review(justificationText, u);
         contentRepo.save(c);
         response.put("success", "true");
