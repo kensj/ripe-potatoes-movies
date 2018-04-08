@@ -62,6 +62,38 @@ function submitReview() {
 	});
 }
 
+$(document).on('click', "[name='submitRButton']", function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var movieId = $("meta[name='content_id']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "POST",
+		url: "/content/" + movieId + "/report?reviewID=" + $(this).val() + "&" + "description=" + $(this).siblings().first().val(),
+		cache: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				window.location.reload();
+			}
+			else {
+				if (data["reason"] === "login") {
+					$("#reviewError").text("You are not logged in. Please login to submit a review.");
+				}
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+});
+
 $("#removeRating").click(function() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
@@ -86,7 +118,7 @@ $("#removeRating").click(function() {
 				if (data["reason"] === "login") {
 					$("#ratingError").text("You are not logged in. Please login to submit a rating.");
 				}
-				if (data["reason"] === "invalid") {
+				else if (data["reason"] === "invalid") {
 					$("#ratingError").text("Invalid rating entered");
 				}
 				else {

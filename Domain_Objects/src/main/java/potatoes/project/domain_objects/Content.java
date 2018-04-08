@@ -121,6 +121,15 @@ public abstract class Content {
     	}
     }
     
+    public boolean checkForRater(User user) {
+    	for (Rating r : ratings) {
+    		if (r.getRater().equals(user)) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
+    
     public List<Review> getReviews() {
         return reviews;
     }
