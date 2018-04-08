@@ -69,7 +69,7 @@ public abstract class Content {
 //    }
 
     public double getRating(){
-        return ratings.isEmpty() ? sumRatings/ratings.size() : -1;
+        return ratings.isEmpty() ? -1 : sumRatings/ratings.size() ;
     }
     
     public void addRating(int rating, User rater){

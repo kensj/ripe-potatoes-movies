@@ -18,7 +18,7 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class TVSeries extends Media{
-    private String name;
+    
 
     private String network;
     @OneToMany
@@ -30,5 +30,9 @@ public class TVSeries extends Media{
     
     public TVSeries(String name){
         super(name);
+    }
+    
+    public List<Season> getSeasons(){
+    	return seasons;
     }
 }

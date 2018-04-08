@@ -41,4 +41,12 @@ public abstract class Media extends Content{
     protected Media(String name){
         super(name);
     }
+    
+    public String getSynopsis() {
+    	return synopsis;
+    }
+    
+    public List<String> getCast(){
+    	return cast;
+    }
 }

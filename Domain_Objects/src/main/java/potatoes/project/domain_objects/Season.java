@@ -23,4 +23,12 @@ public class Season {
     private int seasonId;
     private int tvId;
     private String synopsis;
+    
+    public Season() {
+    	
+    }
+    
+    public String getSynopsis() {
+    	return synopsis;
+    }
 }
