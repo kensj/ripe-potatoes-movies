@@ -17,8 +17,8 @@ public class Celebrity extends Content {
     
     private Date birthday;
     private String bio;
-    private Media bestRated;
-    private Media worstRated;
+    //private Media bestRated;
+    //private Media worstRated;
     private Image picture;
     
     private boolean isActor;
@@ -28,7 +28,28 @@ public class Celebrity extends Content {
     
     private List<Media> filmography;
     
+    public Celebrity() {
+    	
+    }
+    
     public Celebrity(String name){
         super(name);
     }
+    
+    public List<Media> getFilmography(){
+    	return filmography;
+    }
+    
+    public String getBio() {
+    	return bio;
+    }
+    
+    public Date getBirthday() {
+    	return birthday;
+    }
+    
+    public boolean isActor() {return isActor;}
+    public boolean isDirector() {return isDirector;}
+    public boolean isWriter() {return isWriter;}
+    public boolean isMisc() {return isMisc;}
 }
