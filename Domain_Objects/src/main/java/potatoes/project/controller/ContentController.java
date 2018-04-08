@@ -126,6 +126,12 @@ public class ContentController {
         	return ResponseEntity.ok(resp);
         }
         
+        if (rating < 1 || rating > 5){
+            resp.put("success", "false");
+            resp.put("reason", "invalid");
+            return ResponseEntity.ok(resp);
+        }
+        
         Content c = contentRepo.findByContentID(id);
         for (Rating r : c.getRatings()) {
         	if (r.getRater().equals(u)) {
@@ -134,12 +140,6 @@ public class ContentController {
         		resp.put("success", "true");
         		return ResponseEntity.ok(resp);
         	}
-        }
-        
-        if (rating < 1 || rating > 5){
-            resp.put("success", "false");
-            resp.put("reason", "invalid");
-            return ResponseEntity.ok(resp);
         }
         
         c.addRating(rating, u);
