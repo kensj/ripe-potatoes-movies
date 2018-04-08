@@ -21,12 +21,14 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
+import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
 import potatoes.project.domain_objects.ReportQueue;
 import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReviewRepository;
 
 /**
@@ -44,6 +46,9 @@ public class ContentController {
     
     @Autowired
     private ReviewRepository revRepo;
+    
+    @Autowired
+    private RatingRepository rateRepo;
     
     /*
     * @args: 
@@ -122,7 +127,14 @@ public class ContentController {
         }
         
         Content c = contentRepo.findByContentID(id);
-        
+        for (Rating r : c.getRatings()) {
+        	if (r.getRater().equals(u)) {
+        		c.changeRating(rating, u);
+        		contentRepo.save(c);
+        		resp.put("success", "true");
+        		return ResponseEntity.ok(resp);
+        	}
+        }
         
         if (rating < 1 || rating > 5){
             resp.put("success", "false");

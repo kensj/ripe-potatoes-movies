@@ -258,9 +258,9 @@
         <h3>Your Rating</h3>
         <h3 id="ratingError"></h3>
         <th:block th:if="${session.user != null}" th:each="i : ${#numbers.sequence(0,content.getRatings().size()-1)}">
-        	<input th:if="${content.getRatings().size() != 0 and content.getRatings().get(i).getRater().getUserID() == session.user.getUserID()}" th:value="${content.getRatings().get(i).getScore()}" type="hidden" class="rating">
+        	<input id="ownRating" th:if="${content.getRatings().size() != 0 and content.getRatings().get(i).getRater().getUserID() == session.user.getUserID()}" th:value="${content.getRatings().get(i).getScore()}" type="hidden" class="rating">
         </th:block>
-        <input th:if="${session.user == null}" type="hidden" class="rating">
+        <input id="ownRating" th:if="${session.user == null}" type="hidden" class="rating">
       </div>
     </div>
     <div class="row">
