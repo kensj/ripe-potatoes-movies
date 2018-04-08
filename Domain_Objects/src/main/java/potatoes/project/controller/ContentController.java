@@ -215,6 +215,13 @@ public class ContentController {
         }
         
         for(Review r : contentRepo.findByContentID(id).getReviews()) {
+            for (Report s : reportRepo.findByReporter(reporter)) {
+            	if (s.getReported().equals(r.getAuthor())) {
+            		response.put("success", "false");
+            		response.put("reason", "repeat");
+            		return ResponseEntity.ok(response);
+            	}
+            }        	
         	if (r.getReviewID() == reviewID) {
         		reportRepo.save(new Report(description, reporter, r));
         		response.put("success", "true");
