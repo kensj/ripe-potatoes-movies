@@ -76,13 +76,16 @@ public class SearchController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("search");
 		mav.addObject("searchBar", searchBar);
+		mav.addObject("resultList", getSearchPageResult(searchBar));
 		return mav;
 	}
     
     @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Content> getSearches(@RequestParam String search) {
-		return getSearchPageResult(search);
+	ModelAndView getSearches(@RequestParam String search) {
+    	ModelAndView mav = new ModelAndView("search");
+    	mav.addObject("resultList", getSearchPageResult(search));
+		return mav;
 	}
     private List<Content> getSearchPageResult(String search) {
 		List<Content> result = new ArrayList<>();
