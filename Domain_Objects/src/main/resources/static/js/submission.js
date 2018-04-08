@@ -8,7 +8,7 @@ $(document). ready(function() {
 function deleteReview() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
-	var movieId = $("meta[name='movie_id']").attr("content");
+	var movieId = $("meta[name='content_id']").attr("content");
 	$.ajax({
 		headers: {
 			'Accept': 'application/json',
@@ -33,7 +33,7 @@ function deleteReview() {
 function submitReview() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
-	var movieId = $("meta[name='movie_id']").attr("content");
+	var movieId = $("meta[name='content_id']").attr("content");
 	$.ajax({
 		headers: {
 			'Accept': 'application/json',
@@ -65,7 +65,7 @@ function submitReview() {
 $("#removeRating").click(function() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
-	var movieId = $("meta[name='movie_id']").attr("content");
+	var movieId = $("meta[name='content_id']").attr("content");
 	$.ajax({
 		headers: {
 			'Accept': 'application/json',
@@ -104,7 +104,7 @@ $("#ownRating").on('change', function() {
 //	alert('Rating: ' + $(this).val());
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
-	var movieId = $("meta[name='movie_id']").attr("content");
+	var movieId = $("meta[name='content_id']").attr("content");
 	$.ajax({
 		headers: {
 			'Accept': 'application/json',
