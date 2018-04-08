@@ -59,6 +59,7 @@ public class SearchController {
 		return new ResponseEntity<SearchResults>(results, HttpStatus.OK);
 
 	}
+    
     private List<SearchEntity> getSearchResult(String search) {
 		List<SearchEntity> result = new ArrayList<>();
 		for (Content suggestions : data) {
@@ -68,6 +69,7 @@ public class SearchController {
 		}
 		return result;
 	}
+    
     @RequestMapping(value = "/search", params = "searchBar", method = RequestMethod.GET)
     @ResponseBody
 	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
@@ -76,6 +78,7 @@ public class SearchController {
 		mav.addObject("searchBar", searchBar);
 		return mav;
 	}
+    
     @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
 	public @ResponseBody
 	List<Content> getSearches(@RequestParam String search) {
