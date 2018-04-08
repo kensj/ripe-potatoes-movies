@@ -251,7 +251,9 @@
       <div class="col-md-4">
         <span class="glyphicon glyphicon-bullhorn glyphicon-large" aria-hidden="true"></span>
         <h3>Cast</h3>
-        <p th:text="${content.getCast()}"></p>
+        <th:block th:each="i : ${#numbers.sequence(0,content.getCast().size()-1)}">
+        	<h4 th:text="${content.getCast().get(i)}"></h4>
+        </th:block>
       </div>
       <div class="col-md-4">
         <span class="glyphicon glyphicon-share glyphicon-large" aria-hidden="true"></span>

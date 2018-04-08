@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="_csrf" th:content="${_csrf.token}"/>
   <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-  <meta name="tv_id" th:content="${content.getContentID()}"/>
+  <meta name="content_id" th:content="${content.getContentID()}"/>
   <title>Ripe Potatoes</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -172,8 +172,8 @@
     <h1 class="headline text-left" th:text="${content.getName()}"></h1><br>
     <div class="row">
       <div class="col-md-7">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/R1v0uFms68U"></iframe>
+        <div class="item">
+        	<img class="poster" src=images/celebs/Dwayne_Johnson.jpg>
         </div>
       </div>
       <div class="col-md-4 col-md-offset-1">
@@ -245,13 +245,15 @@
     <div class="row">
       <div class="col-md-4">
         <span class="glyphicon glyphicon-info-sign glyphicon-large" aria-hidden="true"></span>
-        <h3>Series Info</h3>
-        <p th:text="${content.getSynopsis()}"></p>
+        <h3>Bio</h3>
+        <p th:text="${content.getBio()}"></p>
       </div>
       <div class="col-md-4">
         <span class="glyphicon glyphicon-bullhorn glyphicon-large" aria-hidden="true"></span>
-        <h3>Cast</h3>
-        <p th:text="${content.getCast()}"></p>
+        <h3>Filmography</h3>
+        <th:block th:each="i : ${#numbers.sequence(0,content.getFilmography().size()-1)}">
+        	<h4 th:text="${content.getFilmography().get(i).getName()}"></h4>
+        </th:block>
       </div>
       <div class="col-md-4">
         <span class="glyphicon glyphicon-share glyphicon-large" aria-hidden="true"></span>
