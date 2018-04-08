@@ -55,7 +55,7 @@ public class ContentController {
         }
         Content c = contentRepo.findByContentID(id);
         for (Review x : c.getReviews()) {
-        	if (x.getAuthor().getUserID() == u.getUserID()) {
+        	if (x.getAuthor().equals(u)) {
         		c.editReview(justificationText, u);
         		contentRepo.save(c);
         		response.put("success", "true");
@@ -76,11 +76,13 @@ public class ContentController {
         for (Review r : c.getReviews()){
             if (r.getAuthor().equals(u)){
                 r.setJustificationText(justificationText);
+                contentRepo.save(c);
                 return;
             }
         }
         //write a new review in the case that there apparently wasn't an existing one
         c.review(justificationText, u);
+        contentRepo.save(c);
     }
     
     //true return: boolean
@@ -93,6 +95,7 @@ public class ContentController {
         for (Review r : c.getReviews()){
             if (r.getAuthor().equals(u)){
                 resp.put("success", c.getReviews().remove(r));
+                contentRepo.save(c);
                 return ResponseEntity.ok(resp);
             }
         }
@@ -113,6 +116,7 @@ public class ContentController {
         }
         
         c.addRating(rating, u);
+        contentRepo.save(c);
         resp.put("success", true);
         
         return ResponseEntity.ok(resp);
@@ -132,6 +136,7 @@ public class ContentController {
         
         c.changeRating(rating, u);
         resp.put("success", true);
+        contentRepo.save(c);
         
         return ResponseEntity.ok(resp);
     }
@@ -144,6 +149,7 @@ public class ContentController {
         Map<String, Boolean> resp = new HashMap<>();
         
         resp.put("success", c.removeRating(u));
+        contentRepo.save(c);
         
         return ResponseEntity.ok(resp);
     }
