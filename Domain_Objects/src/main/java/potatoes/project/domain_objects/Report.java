@@ -41,6 +41,10 @@ public class Report {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int reportID;
     
+    public Report() {
+    	
+    }
+    
     public Report(String description, User reporter, Review context){
         this.description=description;
         this.reporter=reporter;

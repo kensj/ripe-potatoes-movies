@@ -48,3 +48,6 @@ div .rating-symbol {
 	float:right;
 	margin-bottom:5px;
 }
+h5[id^=report] {
+	color: #2e249e;
+}

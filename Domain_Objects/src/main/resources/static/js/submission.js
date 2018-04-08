@@ -66,6 +66,7 @@ $(document).on('click', "[name='submitRButton']", function() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var movieId = $("meta[name='content_id']").attr("content");
+	var msgIdentifier = $(this).val();
 	$.ajax({
 		headers: {
 			'Accept': 'application/json',
@@ -73,7 +74,7 @@ $(document).on('click', "[name='submitRButton']", function() {
 		},
 		type: "POST",
 		url: "/content/" + movieId + "/report?reviewID=" + $(this).val() + "&" + "description=" + $(this).siblings().first().val(),
-		cache: false,
+		cache: true,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader(header, token);
 		},
@@ -84,7 +85,13 @@ $(document).on('click', "[name='submitRButton']", function() {
 			}
 			else {
 				if (data["reason"] === "login") {
-					$("#reviewError").text("You are not logged in. Please login to submit a review.");
+					$("#report" + msgIdentifier).text("You are not logged in. Please login to report a review.");
+				}
+				else if (data["reason"] === "repeat") {
+					$("#report" + msgIdentifier).text("You have already reported this review.");
+				}
+				else if (data["reason"] === "unknown") {
+					$("#report" + msgIdentifier).text("An unknown error occurred.");
 				}
 			}
 		},

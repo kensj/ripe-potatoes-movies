@@ -5,27 +5,37 @@
  */
 package potatoes.project.domain_objects;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
-import javafx.scene.image.Image;
+
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+//import javafx.scene.image.Image;
 
 /**
  *
  * @author kdill
  */
+@Entity
 public class Celebrity extends Content {
-    
+	
+	@Temporal(TemporalType.DATE)
     private Date birthday;
+	
     private String bio;
     //private Media bestRated;
     //private Media worstRated;
-    private Image picture;
+    private byte[] picture;
     
     private boolean isActor;
     private boolean isDirector;
     private boolean isWriter;
     private boolean isMisc;
     
+    @OneToMany
     private List<Media> filmography;
     
     public Celebrity() {

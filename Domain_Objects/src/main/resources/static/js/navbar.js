@@ -1,39 +1,6 @@
 $(document).ready(function() {
   $("#forgotFrame").hide();
   $("#registerFrame").hide();
-  
-  
-  /*$(function() {
-	  $("#autocomplete").autocomplete({
-		  source: function( request, response ) {
-				$.ajax({
-					url: "/getContentList",
-					transformResult: function(response) {				  
-						return {      	
-						  suggestions: $.map($.parseJSON(response), function(item) {
-						      return { value: item.name, data: item.id };
-						   })
-						            
-						};
-					        
-					}
-				});
-			}
-	  });
-  });*/
-
-  /*$('#autocomplete').autocomplete({
-		serviceUrl: '${pageContext.request.contextPath}/getContentList',
-		paramName: "search",
-		delimiter: ",",
-		transformResult: function(response) {	
-			return {      	
-			  resultList: $.map($.parseJSON(response), function(item) {
-				  return { name: item.name };
-			  })       
-			};        
-		}
-	});*/
 });
 
 $(document).keyup(function(e) {
@@ -78,18 +45,6 @@ window.onclick = function(event) {
   }
 }
 
-var results = [
-    { value: 'Moana', data: 'Moana' },
-    { value: 'Big Hero 6', data: 'Big Hero 6' },
-    { value: 'Logan', data: 'Logan' },
-    { value: 'Fantastic Beasts', data: 'Fantastic Beasts' },
-    { value: 'Zootopia', data: 'Zootopia' },
-    { value: 'Robocop', data: 'Robocop' },
-    { value: 'Early Man', data: 'Early Man' },
-    { value: 'Baywatch', data: 'Baywatch' },
-    { value: 'Suicide Squad', data: 'Suicide Squad' }
-];
-
  $('#autocomplete').autocomplete({
 	serviceUrl: '/getContentList',
 	paramName: "search",
@@ -99,3 +54,14 @@ var results = [
         //console.log(suggestion.data);
     }
 });
+ 
+ $('#searchbox').autocomplete({
+		serviceUrl: '/getSearchList',
+		paramName: "search",
+		delimiter: ",",
+	    onSelect: function (suggestion) {
+	        //window.location = "content/" + suggestion.data
+	        //console.log(suggestion.data);
+	    }
+});
+ 
