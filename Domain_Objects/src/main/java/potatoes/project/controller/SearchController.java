@@ -81,8 +81,10 @@ public class SearchController {
     
     @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
 	public @ResponseBody
-	List<Content> getSearches(@RequestParam String search) {
-		return getSearchPageResult(search);
+	ModelAndView getSearches(@RequestParam String search) {
+    	ModelAndView mav = new ModelAndView("search");
+    	mav.addObject("resultList", getSearchPageResult(search));
+		return mav;
 	}
     private List<Content> getSearchPageResult(String search) {
 		List<Content> result = new ArrayList<>();
