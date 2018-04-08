@@ -62,6 +62,44 @@ function submitReview() {
 	});
 }
 
+$("#removeRating").click(function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var movieId = $("meta[name='movie_id']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "DELETE",
+		url: "/content/" + movieId + "/delete-rating",
+		cache: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				$("#ownRating").rating('rate',0);
+			}
+			else {
+				if (data["reason"] === "login") {
+					$("#ratingError").text("You are not logged in. Please login to submit a rating.");
+				}
+				if (data["reason"] === "invalid") {
+					$("#ratingError").text("Invalid rating entered");
+				}
+				else {
+					$("#ratingError").text("An error occurred");
+				}
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});	
+});
+
 $("#ownRating").on('change', function() {
 //	alert('Rating: ' + $(this).val());
 	var token = $("meta[name='_csrf']").attr("content");

@@ -154,15 +154,15 @@ public class ContentController {
     public ResponseEntity<?> changeRating(@PathVariable int id, @RequestParam int rating){
         User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
-        Map<String, Boolean> resp = new HashMap<>();
+        Map<String, String> resp = new HashMap<>();
         
         if (rating < 1 || rating > 5){
-            resp.put("success", false);
+            resp.put("success", "false");
             return ResponseEntity.ok(resp);
         }
         
         c.changeRating(rating, u);
-        resp.put("success", true);
+        resp.put("success", "true");
         contentRepo.save(c);
         
         return ResponseEntity.ok(resp);
@@ -172,12 +172,31 @@ public class ContentController {
     @DeleteMapping("/content/{id}/delete-rating")
     public ResponseEntity<?> deleteRating(@PathVariable int id){
         User u = (User) session.getAttribute("user");
+        Map<String, String> resp = new HashMap<>();
+        
+        if (u == null) {
+        	resp.put("success", "false");
+        	resp.put("reason", "login");
+        	return ResponseEntity.ok(resp);
+        }
+        
         Content c = contentRepo.findByContentID(id);
-        Map<String, Boolean> resp = new HashMap<>();
+        for (Rating r : c.getRatings()) {
+        	if (r.getRater().equals(u)) {
+        		if (c.removeRating(u)) {
+        			resp.put("success", "true");
+        			contentRepo.save(c);
+        			rateRepo.delete(r);
+        			return ResponseEntity.ok(resp);
+        		}
+        		else {
+        			resp.put("success", "false");
+        			return ResponseEntity.ok(resp);
+        		}
+        	}
+        }
         
-        resp.put("success", c.removeRating(u));
-        contentRepo.save(c);
-        
+        resp.put("success", "false");
         return ResponseEntity.ok(resp);
     }
     

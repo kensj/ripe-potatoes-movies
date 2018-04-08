@@ -261,6 +261,7 @@
         	<input id="ownRating" th:if="${content.getRatings().size() != 0 and content.getRatings().get(i).getRater().getUserID() == session.user.getUserID()}" th:value="${content.getRatings().get(i).getScore()}" type="hidden" class="rating">
         </th:block>
         <input id="ownRating" th:if="${session.user == null}" type="hidden" class="rating">
+        <div><a id="removeRating" role="button">Remove Rating</a></div>
       </div>
     </div>
     <div class="row">
