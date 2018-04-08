@@ -40,7 +40,7 @@ public class SearchController {
 		data.add(Moana);
 		data.add(new Film("Big Hero 6"));
 		data.add(new Film("Logan"));
-		data.add(new TVSeries("Fantastic Beasts"));
+		data.add(new TVSeries("The Walking Dead"));
 		data.add(new Film("Zootopia"));
 		data.add(new Film("Robocop"));
 		data.add(new Film("Early Man"));

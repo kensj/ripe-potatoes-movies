@@ -263,6 +263,7 @@
         	<input id="ownRating" th:if="${content.getRatings().size() != 0 and content.getRatings().get(i).getRater().getUserID() == session.user.getUserID()}" th:value="${content.getRatings().get(i).getScore()}" type="hidden" class="rating">
         </th:block>
         <input id="ownRating" th:if="${session.user == null}" type="hidden" class="rating">
+        <input id="ownRating" th:if="${session.user != null and not content.checkForRater(session.user)}" type="hidden" class="rating">
         <div><a id="removeRating" role="button">Remove Rating</a></div>
       </div>
     </div>
@@ -289,7 +290,7 @@
 		<div class="col-md-4">
 	     	<h4>by <a th:href="'/users/' + ${content.getReviews().get(i).getAuthor().getUserID()}" th:text="${content.getReviews().get(i).getAuthor().getName()}"></a></h4>
 	        <span class="reviewText" th:text="${content.getReviews().get(i).getJustificationText()}"></span>
-	        <div class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Report this review' data-content='<form id="review5"><textarea class="form-control reportReview" rows="3" required></textarea><button class="btn-info reportReview" type="submit" name="submitRButton"><span class="glyphicon glyphicon-pencil"></span></button></form>'>Report</a></div>
+	        <div class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Report this review' th:attr="data-content='<form><h5 id=report' + ${content.getReviews().get(i).getReviewID()} +'></h5><textarea class=&quot;form-control reportReview&quot; rows=&quot;3&quot; required></textarea><button class=&quot;btn-info reportReview&quot; type=&quot;button&quot; name=&quot;submitRButton&quot; value=' + ${content.getReviews().get(i).getReviewID()} + '><span class=&quot;glyphicon glyphicon-pencil&quot;></span></button></form>'">Report</a></div>
 	        <div th:if="${session.user != null and content.getReviews().size() != 0 and content.getReviews().get(i).getAuthor().getUserID() == session.user.getUserID()}" class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placmeent="top" html="true" title='Delete review' data-content='<h3>Are you sure?</h3><button class="btn-info reportReview" onclick="deleteReview()" type="submit" name="submitRButton"><span class="glyphicon glyphicon-remove"></span></button>'>Delete</a></div>
       	</div>      
       </th:block>
