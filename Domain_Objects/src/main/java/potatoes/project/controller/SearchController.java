@@ -8,23 +8,18 @@ package potatoes.project.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
 import potatoes.project.domain_objects.TVSeries;
@@ -59,11 +54,9 @@ public class SearchController {
     
     @RequestMapping(value = "/getContentList", method = RequestMethod.GET)
 	public @ResponseBody
-	ResponseEntity<?>/*List<Content>*/ getContents(@RequestParam String search) {
+	ResponseEntity<?> getContents(@RequestParam String search) {
     	SearchResults results = new SearchResults(getSearchResult(search));
 		return new ResponseEntity<SearchResults>(results, HttpStatus.OK);
-		//return getSearchResult(search);
-    	//return new ResponseEntity<List<Content>>(getSearchResult(search), HttpStatus.OK);
 
 	}
     private List<SearchEntity> getSearchResult(String search) {
@@ -71,6 +64,28 @@ public class SearchController {
 		for (Content suggestions : data) {
 			if (suggestions.getName().contains(search)) {
 				result.add(new SearchEntity(suggestions.getName(),suggestions.getContentID()));
+			}
+		}
+		return result;
+	}
+    @RequestMapping(value = "/search", params = "searchBar", method = RequestMethod.GET)
+    @ResponseBody
+	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("search");
+		mav.addObject("searchBar", searchBar);
+		return mav;
+	}
+    @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
+	public @ResponseBody
+	List<Content> getSearches(@RequestParam String search) {
+		return getSearchPageResult(search);
+	}
+    private List<Content> getSearchPageResult(String search) {
+		List<Content> result = new ArrayList<>();
+		for (Content suggestions : data) {
+			if (suggestions.getName().contains(search)) {
+				result.add(suggestions);
 			}
 		}
 		return result;
