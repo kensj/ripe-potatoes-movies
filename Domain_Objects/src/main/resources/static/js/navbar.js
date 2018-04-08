@@ -1,7 +1,41 @@
 $(document).ready(function() {
   $("#forgotFrame").hide();
   $("#registerFrame").hide();
+  
+  
+  $(function() {
+	  $("#autocomplete").autocomplete({
+		  source: function( request, response ) {
+				$.ajax({
+					url: "/getContentList",
+					dataType: "json",
+					success: function( data ) {
+						response( $.map( data.content, function( item ) {
+							return {
+								label: item.name,
+								value: item.name
+							}
+						}));
+					}
+				});
+			}
+	  });
+  });
+
+  /*$('#autocomplete').autocomplete({
+		serviceUrl: '${pageContext.request.contextPath}/getContentList',
+		paramName: "search",
+		delimiter: ",",
+		transformResult: function(response) {	
+			return {      	
+			  resultList: $.map($.parseJSON(response), function(item) {
+				  return { name: item.name };
+			  })       
+			};        
+		}
+	});*/
 });
+
 $(document).keyup(function(e) {
   if (e.which == 27)
     closeLogin();
@@ -56,9 +90,9 @@ var countries = [
     { value: 'Suicide Squad', data: 'Suicide Squad' }
 ];
 
-$('#autocomplete').autocomplete({
+/* $('#autocomplete').autocomplete({
     lookup: countries,
     onSelect: function (suggestion) {
         console.log(suggestion.data);
     }
-});
+});*/
