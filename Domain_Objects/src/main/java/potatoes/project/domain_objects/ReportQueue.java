@@ -7,10 +7,13 @@ package potatoes.project.domain_objects;
 
 import java.util.concurrent.LinkedBlockingQueue;
 
+import javax.persistence.Entity;
+
 /**
  *
  * @author kdill
  */
+
 public class ReportQueue {
     private static LinkedBlockingQueue<Report> reportQueue;
     

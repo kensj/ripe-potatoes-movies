@@ -113,17 +113,26 @@ public class ContentController {
     @PostMapping("/content/{id}/add-rating")
     public ResponseEntity<?> addRating(@PathVariable int id, @RequestParam int rating){
         User u = (User) session.getAttribute("user");
+        Map<String, String> resp = new HashMap<>();
+        
+        if (u == null) {
+        	resp.put("success", "false");
+        	resp.put("reason", "login");
+        	return ResponseEntity.ok(resp);
+        }
+        
         Content c = contentRepo.findByContentID(id);
-        Map<String, Boolean> resp = new HashMap<>();
+        
         
         if (rating < 1 || rating > 5){
-            resp.put("success", false);
+            resp.put("success", "false");
+            resp.put("reason", "invalid");
             return ResponseEntity.ok(resp);
         }
         
         c.addRating(rating, u);
         contentRepo.save(c);
-        resp.put("success", true);
+        resp.put("success", "true");
         
         return ResponseEntity.ok(resp);
     }

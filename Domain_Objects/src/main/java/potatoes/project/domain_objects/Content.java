@@ -40,7 +40,7 @@ public abstract class Content {
     @OneToMany(cascade = CascadeType.ALL)
     protected List<Review> reviews;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     protected List<Rating> ratings;
     
     @ElementCollection
@@ -72,6 +72,10 @@ public abstract class Content {
         return ratings.isEmpty() ? sumRatings/ratings.size() : -1;
     }
     
+    public List<Rating> getRatings() {
+    	return ratings;
+    }
+    
     public void addRating(int rating, User rater){
         ratings.add(new Rating(rating, this, rater));
         sumRatings+=rating;
@@ -86,7 +90,7 @@ public abstract class Content {
                 return;
             }
         }
-        addRating(newRating, rater);
+//        addRating(newRating, rater);
     }
     
     public boolean removeRating(User rater){
