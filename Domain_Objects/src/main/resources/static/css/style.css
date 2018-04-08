@@ -222,6 +222,10 @@ legend {
 	border-color:pink;
 }
 
+#reviewError{
+	color:red;
+}
+
 .autocomplete-suggestions { border: 1px solid #999; background: #FFF; color:pink; overflow: auto; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
 .autocomplete-selected { background: #2e294e; }

@@ -22,6 +22,14 @@ function submitReview() {
 		},
 		success: function(data) {
 			console.log(data);
+			if (data["success"] === "true") {
+				window.location.reload();
+			}
+			else {
+				if (data["reason"] === "login") {
+					$("#reviewError").text("You are not logged in. Please login to submit a review.");
+				}
+			}
 		},
 		error: function(e) {
 			alert(e.responseText);
