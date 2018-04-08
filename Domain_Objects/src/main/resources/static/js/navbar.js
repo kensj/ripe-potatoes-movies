@@ -95,6 +95,7 @@ var results = [
 	paramName: "search",
 	delimiter: ",",
     onSelect: function (suggestion) {
-        console.log(suggestion.data);
+        window.location = "content/" + suggestion.data
+        //console.log(suggestion.data);
     }
 });
