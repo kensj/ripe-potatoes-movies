@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
 import potatoes.project.domain_objects.TVSeries;
+import potatoes.project.repository.ContentRepository;
 
 /**
  *
@@ -50,6 +51,10 @@ public class SearchController {
 	
     @Autowired
     private HttpSession session;
+    
+    @Autowired
+    private ContentRepository contentRepo;
+    
     List<Content> data = new ArrayList<Content>();
     
     @RequestMapping(value = "/getContentList", method = RequestMethod.GET)
@@ -88,13 +93,14 @@ public class SearchController {
 		return mav;
 	}
     private List<Content> getSearchPageResult(String search) {
-		List<Content> result = new ArrayList<>();
+		/*List<Content> result = new ArrayList<>();
 		for (Content suggestions : data) {
 			if (suggestions.getName().contains(search)) {
 				result.add(suggestions);
 			}
 		}
-		return result;
+		return result;*/
+		return contentRepo.findByNameIgnoreCaseContaining(search);
 	}
 }
 
