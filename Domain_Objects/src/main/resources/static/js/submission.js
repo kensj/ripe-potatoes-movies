@@ -5,6 +5,31 @@ $(document). ready(function() {
 	});
 });
 
+function deleteReview() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var movieId = $("meta[name='movie_id']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "DELETE",
+		url: "/content/" + movieId + "/delete-review",
+		cache: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			window.location.reload();
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+}
+
 function submitReview() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");

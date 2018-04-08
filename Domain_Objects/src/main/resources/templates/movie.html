@@ -80,6 +80,7 @@
     <div class="imgcontainer">
       <span onclick="closeLogin()" class="close" title="Close">&times;</span>
       <img id="icon" src="../images/icon.png" alt="Avatar" class="avatar">
+      <div class="text-center" id="errorMsg2"></div>
     </div>
 
     <div class="loginCContainer">
@@ -122,6 +123,7 @@
     <div class="imgcontainer">
       <span onclick="closeLogin()" class="close" title="Close">&times;</span>
       <img id="icon" src="../images/icon.png" alt="Avatar" class="avatar">
+      <div class="text-center" id="errorMsg3"></div>
     </div>
 
     <div class="loginCContainer">
@@ -263,11 +265,12 @@
       </div>
     </div>
     <div class="row">
-      <th:block th:each="i : ${#numbers.sequence(0, content.getReviews().size()-1)}">
+      <th:block th:if="${content.getReviews().size() != 0}" th:each="i : ${#numbers.sequence(0, content.getReviews().size()-1)}">
 		<div class="col-md-4">
 	     	<h4>by <a th:href="'/users/' + ${content.getReviews().get(i).getAuthor().getUserID()}" th:text="${content.getReviews().get(i).getAuthor().getName()}"></a></h4>
 	        <span class="reviewText" th:text="${content.getReviews().get(i).getJustificationText()}"></span>
 	        <div class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Report this review' data-content='<form id="review5"><textarea class="form-control reportReview" rows="3" required></textarea><button class="btn-info reportReview" type="submit" name="submitRButton"><span class="glyphicon glyphicon-pencil"></span></button></form>'>Report</a></div>
+	        <div th:if="${session.user != null and content.getReviews().size() != 0 and content.getReviews().get(i).getAuthor().getUserID() == session.user.getUserID()}" class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placmeent="top" html="true" title='Delete review' data-content='<h3>Are you sure?</h3><button class="btn-info reportReview" onclick="deleteReview()" type="submit" name="submitRButton"><span class="glyphicon glyphicon-remove"></span></button>'>Delete</a></div>
       	</div>      
       </th:block>
     </div>
@@ -280,7 +283,7 @@
         <form id="submitReview" class="" action="movie.html">
           <textarea id="reviewSubmit" class="form-control reviewWidth" rows="3" placeholder="Add your review (optional)" required>
           	<th:block th:each="i : ${#numbers.sequence(0, content.getReviews().size()-1)}">
-          		<span th:if="${session.user != null and content.getReviews().get(i).getAuthor().getUserID() == session.user.getUserID()}" th:remove="tag" th:text="${content.getReviews().get(i).getJustificationText()}"></span>
+          		<span th:if="${session.user != null and content.getReviews().size() != 0 and content.getReviews().get(i).getAuthor().getUserID() == session.user.getUserID()}" th:remove="tag" th:text="${content.getReviews().get(i).getJustificationText()}"></span>
           	</th:block>
           </textarea>
           <br><br>

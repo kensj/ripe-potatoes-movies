@@ -27,6 +27,7 @@ import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.ReviewRepository;
 
 /**
  *
@@ -40,6 +41,9 @@ public class ContentController {
     
     @Autowired
     private ContentRepository contentRepo;
+    
+    @Autowired
+    private ReviewRepository revRepo;
     
     /*
     * @args: 
@@ -90,12 +94,14 @@ public class ContentController {
     public ResponseEntity<?> deleteReview(@PathVariable int id){
         User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
+        System.out.println(c.getReviews().size());
         Map<String, Boolean> resp = new HashMap<>();
         
         for (Review r : c.getReviews()){
             if (r.getAuthor().equals(u)){
                 resp.put("success", c.getReviews().remove(r));
                 contentRepo.save(c);
+                revRepo.delete(r);
                 return ResponseEntity.ok(resp);
             }
         }

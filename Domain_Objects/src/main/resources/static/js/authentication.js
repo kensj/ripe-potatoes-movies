@@ -32,6 +32,17 @@ function sendLoginRequest() {
 		},
 		success: function(data) {
 			console.log(data);
+			if (data["success"] === "true") {
+				window.location.reload();
+			}
+			else {
+				if (data["reason"] === "username") {
+					$("#errorMsg2").text("Incorrect user or password");
+				}
+				else if (data["reason"] === "password") {
+					$("#errorMsg2").text("Incorrect user or password");
+				}
+			}
 		},
 		error: function(e) {
 			alert(e.responseText);
