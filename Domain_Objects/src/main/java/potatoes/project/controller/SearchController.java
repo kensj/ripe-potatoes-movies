@@ -40,7 +40,9 @@ public class SearchController {
 	 * THIS IS TEMPORARY TO ADD OBJECTS TO SIMULATE SEARCH
 	 */
 	SearchController() {
-		data.add(new Film("Moana"));
+		Film Moana = new Film("Moana");
+		Moana.setContentID(277834);
+		data.add(Moana);
 		data.add(new Film("Big Hero 6"));
 		data.add(new Film("Logan"));
 		data.add(new TVSeries("Fantastic Beasts"));
@@ -58,19 +60,17 @@ public class SearchController {
     @RequestMapping(value = "/getContentList", method = RequestMethod.GET)
 	public @ResponseBody
 	ResponseEntity<?>/*List<Content>*/ getContents(@RequestParam String search) {
-    	SearchResults newResults = new SearchResults(getSearchResult(search));
-		return new ResponseEntity<SearchResults>(newResults, HttpStatus.OK);
+    	SearchResults results = new SearchResults(getSearchResult(search));
+		return new ResponseEntity<SearchResults>(results, HttpStatus.OK);
 		//return getSearchResult(search);
     	//return new ResponseEntity<List<Content>>(getSearchResult(search), HttpStatus.OK);
 
 	}
-    private List<Content> getSearchResult(String search) {
-
-		List<Content> result = new ArrayList<Content>();
-		for (Content content : data) {
-			if (content.getName().contains(search)) {
-				result.add(content);
-				//System.out.println(content.getName());
+    private List<SearchEntity> getSearchResult(String search) {
+		List<SearchEntity> result = new ArrayList<>();
+		for (Content suggestions : data) {
+			if (suggestions.getName().contains(search)) {
+				result.add(new SearchEntity(suggestions.getName(),suggestions.getContentID()));
 			}
 		}
 		return result;
@@ -78,15 +78,27 @@ public class SearchController {
 }
 
 class SearchResults {
-    private List<Content> suggestions;
+    private List<SearchEntity> suggestions;
     public SearchResults() {}
-    public SearchResults(List<Content> content) {
-        this.suggestions = content;
+    public SearchResults(List<SearchEntity> suggestions) {
+        this.suggestions = suggestions;
     }
-    public List<Content> getContent() {
-    	return suggestions;
+    public List<SearchEntity> getSuggestions() {
+    	return this.suggestions;
     }
-    public List<Content> setContent(List<Content> content) {
-    	return this.suggestions = content;
+}
+class SearchEntity {
+    private String value;
+    private int data;
+    public SearchEntity() {}
+    public SearchEntity(String value, int data) {
+        this.value = value;
+        this.data = data;
+    }
+    public String getValue() {
+    	return this.value;
+    }
+    public int getData() {
+    	return this.data;
     }
 }
