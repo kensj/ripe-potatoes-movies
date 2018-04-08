@@ -59,14 +59,7 @@ public abstract class Content {
         ratings=new ArrayList<>();
         photos=new ArrayList<>();
     }
-    
-<<<<<<< HEAD
-    public String getName() {return this.name;}
-    
-    public void rate(int rating){
-        numRating++;
-        sumRating+=rating;
-=======
+
     public double getRating(){
         return ratings.isEmpty() ? sumRatings/ratings.size() : -1;
     }
@@ -97,7 +90,6 @@ public abstract class Content {
             }
         }
         return false;
->>>>>>> branch 'master' of https://kensj@bitbucket.org/KarlDill/ripe-potatoes.git
     }
     
     public int getContentID() {
