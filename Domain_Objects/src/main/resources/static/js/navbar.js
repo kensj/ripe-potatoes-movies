@@ -3,21 +3,15 @@ $(document).ready(function() {
   $("#registerFrame").hide();
   
   
-  $(function() {
+  /*$(function() {
 	  $("#autocomplete").autocomplete({
 		  source: function( request, response ) {
 				$.ajax({
 					url: "/getContentList",
-					type: 'GET',
-					cache: false,
-					data : $(this).serializeArray(),
-					transformResult: function(response) {
-				    	
+					transformResult: function(response) {				  
 						return {      	
-						  //must convert json to javascript object before process
 						  suggestions: $.map($.parseJSON(response), function(item) {
-						            	
-						      return { value: item.tagName, data: item.id };
+						      return { value: item.name, data: item.id };
 						   })
 						            
 						};
@@ -26,7 +20,7 @@ $(document).ready(function() {
 				});
 			}
 	  });
-  });
+  });*/
 
   /*$('#autocomplete').autocomplete({
 		serviceUrl: '${pageContext.request.contextPath}/getContentList',
@@ -96,9 +90,12 @@ var results = [
     { value: 'Suicide Squad', data: 'Suicide Squad' }
 ];
 
-/* $('#autocomplete').autocomplete({
-    lookup: results,
+ $('#autocomplete').autocomplete({
+	serviceUrl: '/getContentList',
+	paramName: "search",
+	delimiter: ",",
     onSelect: function (suggestion) {
-        console.log(suggestion.data);
+        window.location = "content/" + suggestion.data
+        //console.log(suggestion.data);
     }
-});*/
+});
