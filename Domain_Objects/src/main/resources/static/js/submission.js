@@ -118,7 +118,7 @@ $("#removeRating").click(function() {
 				if (data["reason"] === "login") {
 					$("#ratingError").text("You are not logged in. Please login to submit a rating.");
 				}
-				if (data["reason"] === "invalid") {
+				else if (data["reason"] === "invalid") {
 					$("#ratingError").text("Invalid rating entered");
 				}
 				else {
