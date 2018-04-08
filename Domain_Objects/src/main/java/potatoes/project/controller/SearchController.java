@@ -40,7 +40,9 @@ public class SearchController {
 	 * THIS IS TEMPORARY TO ADD OBJECTS TO SIMULATE SEARCH
 	 */
 	SearchController() {
-		data.add(new Film("Moana"));
+		Film Moana = new Film("Moana");
+		Moana.setContentID(277834);
+		data.add(Moana);
 		data.add(new Film("Big Hero 6"));
 		data.add(new Film("Logan"));
 		data.add(new TVSeries("Fantastic Beasts"));
