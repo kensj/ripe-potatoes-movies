@@ -8,14 +8,20 @@ $(document).ready(function() {
 		  source: function( request, response ) {
 				$.ajax({
 					url: "/getContentList",
-					dataType: "json",
-					success: function( data ) {
-						response( $.map( data.content, function( item ) {
-							return {
-								label: item.name,
-								value: item.name
-							}
-						}));
+					type: 'GET',
+					cache: false,
+					data : $(this).serializeArray(),
+					transformResult: function(response) {
+				    	
+						return {      	
+						  //must convert json to javascript object before process
+						  suggestions: $.map($.parseJSON(response), function(item) {
+						            	
+						      return { value: item.tagName, data: item.id };
+						   })
+						            
+						};
+					        
 					}
 				});
 			}
@@ -78,7 +84,7 @@ window.onclick = function(event) {
   }
 }
 
-var countries = [
+var results = [
     { value: 'Moana', data: 'Moana' },
     { value: 'Big Hero 6', data: 'Big Hero 6' },
     { value: 'Logan', data: 'Logan' },
@@ -91,7 +97,7 @@ var countries = [
 ];
 
 /* $('#autocomplete').autocomplete({
-    lookup: countries,
+    lookup: results,
     onSelect: function (suggestion) {
         console.log(suggestion.data);
     }
