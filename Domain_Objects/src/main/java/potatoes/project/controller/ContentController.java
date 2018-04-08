@@ -45,15 +45,20 @@ public class ContentController {
     * @args: 
     */
     @PostMapping("/content/{id}/add-review")
-    public void postReview(@PathVariable int id, @RequestParam String justificationText){
-        User u = (User) session.getAttribute("User");
+    public ResponseEntity<?> postReview(@PathVariable int id, @RequestParam String justificationText){
+    	Map<String, String> response = new HashMap<String, String>();
+        User u = (User) session.getAttribute("user");
+        if (u == null) {
+        	
+        }
         Content c = contentRepo.findByContentID(id);
         c.review(justificationText, u);
+        contentRepo.save(c);
     }
     
     @PostMapping("/content/{id}/edit-review")
     public void editReview(@PathVariable int id, @RequestParam String justificationText){
-        User u = (User) session.getAttribute("User");
+        User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
         
         for (Review r : c.getReviews()){
@@ -69,7 +74,7 @@ public class ContentController {
     //true return: boolean
     @DeleteMapping("/content/{id}/delete-review")
     public ResponseEntity<?> deleteReview(@PathVariable int id){
-        User u = (User) session.getAttribute("User");
+        User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
         Map<String, Boolean> resp = new HashMap<>();
         
@@ -86,7 +91,7 @@ public class ContentController {
     //true return: boolean
     @PostMapping("/content/{id}/add-rating")
     public ResponseEntity<?> addRating(@PathVariable int id, @RequestParam int rating){
-        User u = (User) session.getAttribute("User");
+        User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
         Map<String, Boolean> resp = new HashMap<>();
         
@@ -104,7 +109,7 @@ public class ContentController {
     //true return: boolean
     @PostMapping("/content/{id}/change-rating")
     public ResponseEntity<?> changeRating(@PathVariable int id, @RequestParam int rating){
-        User u = (User) session.getAttribute("User");
+        User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
         Map<String, Boolean> resp = new HashMap<>();
         
@@ -122,7 +127,7 @@ public class ContentController {
     //true return: boolean
     @DeleteMapping("/content/{id}/delete-rating")
     public ResponseEntity<?> deleteRating(@PathVariable int id){
-        User u = (User) session.getAttribute("User");
+        User u = (User) session.getAttribute("user");
         Content c = contentRepo.findByContentID(id);
         Map<String, Boolean> resp = new HashMap<>();
         
@@ -133,7 +138,7 @@ public class ContentController {
     
     @PostMapping("/content/{id}/report")
     public void reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
-        User reporter = (User) session.getAttribute("User");
+        User reporter = (User) session.getAttribute("user");
         Review context = contentRepo.findByContentID(id).getReviews().get(reviewID);
         
         ReportQueue.queueReport(new Report(description, reporter, context));

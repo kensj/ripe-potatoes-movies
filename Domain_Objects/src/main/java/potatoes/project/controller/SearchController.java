@@ -41,16 +41,16 @@ public class SearchController {
 	/*
 	 * THIS IS TEMPORARY TO ADD OBJECTS TO SIMULATE SEARCH
 	 */
-	SearchController() {
-		data.add(new Film("Moana"));
-		data.add(new TVSeries("Game of Thrones"));
-		data.add(new Film("Harry Potter 1"));
-		data.add(new TVSeries("Game of Something"));
-		data.add(new Film("Harry Potter 2"));
-		data.add(new Film("Monsters Inc."));
-		data.add(new Film("Avengers 1"));
-		data.add(new Film("Avengers 2"));
-	}
+//	SearchController() {
+//		data.add(new Film("Moana"));
+//		data.add(new TVSeries("Game of Thrones"));
+//		data.add(new Film("Harry Potter 1"));
+//		data.add(new TVSeries("Game of Something"));
+//		data.add(new Film("Harry Potter 2"));
+//		data.add(new Film("Monsters Inc."));
+//		data.add(new Film("Avengers 1"));
+//		data.add(new Film("Avengers 2"));
+//	}
     /*
      * DELETE ABOVE WHEN DONE WITH TESTING
      * 

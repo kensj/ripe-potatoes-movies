@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 //import javafx.scene.image.Image;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -36,7 +37,7 @@ public abstract class Content {
     
     protected String name;
     
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     protected List<Review> reviews;
     
     @OneToMany
@@ -60,13 +61,13 @@ public abstract class Content {
         photos=new ArrayList<>();
     }
     
-<<<<<<< HEAD
     public String getName() {return this.name;}
     
-    public void rate(int rating){
-        numRating++;
-        sumRating+=rating;
-=======
+//    public void rate(int rating){
+//        numRating++;
+//        sumRating+=rating;
+//    }
+
     public double getRating(){
         return ratings.isEmpty() ? sumRatings/ratings.size() : -1;
     }
@@ -97,7 +98,6 @@ public abstract class Content {
             }
         }
         return false;
->>>>>>> branch 'master' of https://kensj@bitbucket.org/KarlDill/ripe-potatoes.git
     }
     
     public int getContentID() {
@@ -118,10 +118,6 @@ public abstract class Content {
 
 	public void setFeatured(boolean isFeatured) {
 		this.isFeatured = isFeatured;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public void setName(String name) {

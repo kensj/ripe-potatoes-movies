@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  *
  * @author kdill
@@ -32,7 +35,7 @@ public class Review {
     public Review() {
     	
     }
-    
+        
     public Review(String justificationText, Content content, User author){
         this.justificationText=justificationText;
         this.content=content;
