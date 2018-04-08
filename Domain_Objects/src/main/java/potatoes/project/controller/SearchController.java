@@ -28,6 +28,7 @@ import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
 import potatoes.project.domain_objects.TVSeries;
+import potatoes.project.domain_objects.User;
 
 /**
  *
@@ -74,6 +75,12 @@ public class SearchController {
 			}
 		}
 		return result;
+	}
+    @RequestMapping("/search")
+	public ModelAndView search() {
+    	ModelAndView mav = new ModelAndView();
+    	mav.setViewName("search");
+    	return mav;
 	}
 }
 
