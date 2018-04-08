@@ -49,11 +49,15 @@ public class ContentController {
     	Map<String, String> response = new HashMap<String, String>();
         User u = (User) session.getAttribute("user");
         if (u == null) {
-        	
+        	response.put("success", "false");
+        	response.put("reason", "login");
+        	return ResponseEntity.ok(response);
         }
         Content c = contentRepo.findByContentID(id);
         c.review(justificationText, u);
         contentRepo.save(c);
+        response.put("success", "true");
+        return ResponseEntity.ok(response);
     }
     
     @PostMapping("/content/{id}/edit-review")
