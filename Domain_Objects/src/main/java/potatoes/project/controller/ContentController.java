@@ -29,6 +29,7 @@ import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.RatingRepository;
+import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
 
 /**
@@ -49,6 +50,9 @@ public class ContentController {
     
     @Autowired
     private RatingRepository rateRepo;
+    
+    @Autowired
+    private ReportRepository reportRepo;
     
     /*
     * @args: 
@@ -201,11 +205,27 @@ public class ContentController {
     }
     
     @PostMapping("/content/{id}/report")
-    public void reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
+    public ResponseEntity<?> reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
         User reporter = (User) session.getAttribute("user");
-        Review context = contentRepo.findByContentID(id).getReviews().get(reviewID);
+        Map<String, String> response = new HashMap<String, String>();
+        if (reporter == null) {
+        	response.put("success", "false");
+        	response.put("reason", "login");
+        	return ResponseEntity.ok(response);
+        }
         
-        ReportQueue.queueReport(new Report(description, reporter, context));
+        for(Review r : contentRepo.findByContentID(id).getReviews()) {
+        	if (r.getReviewID() == reviewID) {
+        		reportRepo.save(new Report(description, reporter, r));
+        		response.put("success", "true");
+        		return ResponseEntity.ok(response);
+        	}
+        }
+        
+        response.put("success", "false");
+        response.put("reason", "unknown");
+        return ResponseEntity.ok(response);
+//        ReportQueue.queueReport(new Report(description, reporter, context));
     }
     
     //true return: Content object stored in ModelAndView, View name dependent on type of content
