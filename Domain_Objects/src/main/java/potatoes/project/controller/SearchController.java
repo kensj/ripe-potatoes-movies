@@ -76,6 +76,7 @@ public class SearchController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("search");
 		mav.addObject("searchBar", searchBar);
+		mav.addObject("resultList", getSearchPageResult(searchBar));
 		return mav;
 	}
     
