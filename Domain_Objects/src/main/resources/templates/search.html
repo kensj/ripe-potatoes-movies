@@ -27,25 +27,27 @@
 	<h2 class="headline text-left">Search</h2>
   <div class="container">
     <input id="searchbox" class="form-control form-control-lg" type="text" th:value="${searchBar}"/>
-    <div class="dropdown sortFilter sortFilter1">
+    <div class="dropdown sortFilter">
     	<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Content
     	<span class="caret"></span></button>
     	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">TV</a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Movies</a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">All</a></li>
+      		<li role="presentation" class="sortFilterTV"><a role="menuitem" tabindex="-1" href="#">TV</a></li>
+      		<li role="presentation" class="sortFilterMovie"><a role="menuitem" tabindex="-1" href="#">Movies</a></li>
+      		<li role="presentation" class="sortFilterCeleb"><a role="menuitem" tabindex="-1" href="#">Celebrities</a></li>
+      		<li role="presentation" class="sortFilterAll"><a role="menuitem" tabindex="-1" href="#">All</a></li>
     	</ul>
   	</div>
   	<div class="dropdown sortFilter sortFilter2">
     	<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Rating
     	<span class="caret"></span></button>
     	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">5<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">4<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">3<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">2<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">1<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
-      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">All<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>      		
+      		<li role="presentation" class="sortRating5"><a role="menuitem" tabindex="-1" href="#">5<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation" class="sortRating4"><a role="menuitem" tabindex="-1" href="#">4<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation" class="sortRating3"><a role="menuitem" tabindex="-1" href="#">3<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation" class="sortRating2"><a role="menuitem" tabindex="-1" href="#">2<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation" class="sortRating1"><a role="menuitem" tabindex="-1" href="#">1<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation" class="sortRatingUnr"><a role="menuitem" tabindex="-1" href="#">Unrated</span></a></li>
+      		<li role="presentation" class="sortRatingAll"><a role="menuitem" tabindex="-1" href="#">All</a></li>      		
     	</ul>
   	</div>
   	<div class="dropdown sortFilter">
@@ -67,8 +69,10 @@
 	    		<div class="row searchResult">
 	    			<h4><a th:href="'/content/' + ${resultList.get(i).getContentID()}" th:text="${resultList.get(i).getName()}"></a></h4>
 	    			<h5 th:text="${resultList.get(i).getRating() == -1} ? 'Not yet rated' : ${resultList.get(i).getRating()}"></h5>
-	    			<p th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Media)}" th:text="${resultList.get(i).getSynopsis()}"></p>
-	    			<p th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Celebrity)}" th:text="${resultList.get(i).getBio()}"></p>
+	    			<!-- <p class="resultMedia" th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Media)}" th:text="${resultList.get(i).getSynopsis()}"></p> -->
+	    			<p class="resultFilm" th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Film)}" th:text="${resultList.get(i).getSynopsis()}"></p>
+	    			<p class="resultTV" th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.TVSeries)}" th:text="${resultList.get(i).getSynopsis()}"></p>
+	    			<p class="resultCeleb" th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Celebrity)}" th:text="${resultList.get(i).getBio()}"></p>
 	    		</div>
         	</th:block>
         	<h2 th:if="${resultList.isEmpty()}" th:text="'No Results'"></h2>
