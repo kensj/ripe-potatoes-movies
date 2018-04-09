@@ -177,6 +177,34 @@
 	<h2 class="headline text-left">Search</h2>
   <div class="container">
     <input id="searchbox" class="form-control form-control-lg" type="text" th:value="${searchBar}"/>
+    <div class="dropdown sortFilter">
+    	<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Content Filter
+    	<span class="caret"></span></button>
+    	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">TV</a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Movies</a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">All</a></li>
+    	</ul>
+  	</div>
+  	<div class="dropdown sortFilter">
+    	<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Rating Filter
+    	<span class="caret"></span></button>
+    	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">5<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">4<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">3<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">2<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">1<span class="glyphicon glyphicon-star" aria-hidden="true"></span></a></li>      		
+    	</ul>
+  	</div>
+  	<div class="dropdown sortFilter">
+    	<button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Sort By
+    	<span class="caret"></span></button>
+    	<ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Name</a></li>
+      		<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Rating</a></li>
+    	</ul>
+  	</div>
   </div>
 </div>
         
