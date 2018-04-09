@@ -191,8 +191,8 @@
 	    	<th:block th:if="${!resultList.isEmpty()}" th:each="i : ${#numbers.sequence(0,resultList.size()-1)}">
 	    		<div class="row">
 	    			<h4><a th:href="'/content/' + ${resultList.get(i).getContentID()}" th:text="${resultList.get(i).getName()}"></a></h4>
-	    			<h5 th:if="${resultList.get(i).getClass().toString().equals('Film') or resultList.get(i).getClass().toString().equals('TVSeries')}" th:text="${resultList.get(i).getSynopsis()}"></h5>
-	    			<h5 th:if="${resultList.get(i).getClass().toString().equals('Celebrity')}" th:text="${resultList.get(i).getBio()}"></h5>
+	    			<h5 th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Media)}" th:text="${resultList.get(i).getSynopsis()}"></h5>
+	    			<h5 th:if="${resultList.get(i) instanceof T(potatoes.project.domain_objects.Celebrity)}" th:text="${resultList.get(i).getBio()}"></h5>
 	    		</div>
         	</th:block>
         	<h2 th:if="${resultList.isEmpty()}" th:text="'No Results'"></h2>
