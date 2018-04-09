@@ -48,3 +48,9 @@ $(".sortFilter4").click(function() {
 		sortRatingState = 0;
 	}
 });
+$('#searchbox').keyup(function(e){
+    if(e.keyCode == 13)
+    {
+    	window.location = "search?searchBar=" + $('#searchbox').val()
+    }
+});
