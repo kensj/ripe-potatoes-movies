@@ -49,8 +49,8 @@ $(".sortFilter4").click(function() {
 	}
 });
 $('#searchbox').keyup(function(e){
-    if(e.keyCode == 13)
-    {
+    if(e.keyCode == 13) {
+    	console.log(window.location)
     	window.location = "search?searchBar=" + $('#searchbox').val()
     }
 });

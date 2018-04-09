@@ -42,7 +42,7 @@ var modal = document.getElementById('id01');
 window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
-  }
+  }	
 }
 
  $('#autocomplete').autocomplete({
@@ -50,7 +50,7 @@ window.onclick = function(event) {
 	paramName: "search",
 	delimiter: ",",
     onSelect: function (suggestion) {
-        window.location = "content/" + suggestion.data
+        window.location = "/" + "content/" + suggestion.data
         //console.log(suggestion.data);
     }
 });
