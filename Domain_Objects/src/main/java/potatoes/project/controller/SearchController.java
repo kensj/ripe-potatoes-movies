@@ -69,7 +69,7 @@ public class SearchController {
 		List<SearchEntity> result = new ArrayList<>();
 		List<Content> iterate = contentRepo.findByNameIgnoreCaseContaining(search);
 		for (Content suggestions : iterate) {
-			if (suggestions.getName().contains(search)) {
+			if (suggestions.getName().toLowerCase().contains(search.toLowerCase())) {
 				result.add(new SearchEntity(suggestions.getName(),suggestions.getContentID()));
 			}
 		}
