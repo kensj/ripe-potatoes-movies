@@ -25,7 +25,128 @@ function nestedSortReverse(parent, childSelector, keySelector) {
 	});
 	parent.append(items);
 }
-
+$(".sortFilterTV").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("p")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(resultChildren.get(i).className.toString() != "resultTV") {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortFilterMovie").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("p")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(resultChildren.get(i).className.toString() != "resultFilm") {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortFilterCeleb").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("p")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(resultChildren.get(i).className.toString() != "resultCeleb") {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortFilterAll").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("p")
+	for(var i = 0; i < resultChildren.length; i++) {
+		resultChildren.parent("div").get(i).style.display = "block";
+	}
+});
+$(".sortRating5").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(!resultChildren.get(i).innerText.startsWith("5")) {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortRating4").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(!resultChildren.get(i).innerText.startsWith("4")) {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortRating3").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(!resultChildren.get(i).innerText.startsWith("3")) {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortRating2").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(!resultChildren.get(i).innerText.startsWith("2")) {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortRating1").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(!resultChildren.get(i).innerText.startsWith("1")) {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortRatingUnr").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		if(!resultChildren.get(i).innerText.startsWith("Not")) {
+			resultChildren.parent("div").get(i).style.display = "none";
+		}
+		else {
+			resultChildren.parent("div").get(i).style.display = "block";
+		}
+	}
+});
+$(".sortRatingAll").click(function() {
+	var parent = $('.resultsHolder');
+	var resultChildren = parent.children("div").children("h5")
+	for(var i = 0; i < resultChildren.length; i++) {
+		resultChildren.parent("div").get(i).style.display = "block";
+	}
+});
 $(".sortFilter3").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortNameState == 0) {
