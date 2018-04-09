@@ -55,13 +55,4 @@ window.onclick = function(event) {
     }
 });
  
- $('#searchbox').autocomplete({
-		serviceUrl: '/getSearchList',
-		paramName: "search",
-		delimiter: ",",
-	    onSelect: function (suggestion) {
-	        //window.location = "content/" + suggestion.data
-	        //console.log(suggestion.data);
-	    }
-});
- 
+
