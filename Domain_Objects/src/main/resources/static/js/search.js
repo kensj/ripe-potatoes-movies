@@ -147,7 +147,7 @@ $(".sortRatingAll").click(function() {
 		resultChildren.parent("div").get(i).style.display = "block";
 	}
 });
-$(".sortFilter3").click(function() {
+$(".sortFilterName").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortNameState == 0) {
 		nestedSort(parent, "div", "h4");
@@ -158,7 +158,7 @@ $(".sortFilter3").click(function() {
 		sortNameState = 0;
 	}
 });
-$(".sortFilter4").click(function() {
+$(".sortFilterRating").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortRatingState == 0) {
 		nestedSort(parent, "div", "h5");
