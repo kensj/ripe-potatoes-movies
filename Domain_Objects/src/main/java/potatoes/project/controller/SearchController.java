@@ -35,7 +35,7 @@ public class SearchController {
 	/*
 	 * THIS IS TEMPORARY TO ADD OBJECTS TO SIMULATE SEARCH
 	 */
-	SearchController() {
+	/*SearchController() {
 		Film Moana = new Film("Moana");
 		Moana.setContentID(277834);
 		data.add(Moana);
@@ -47,7 +47,7 @@ public class SearchController {
 		data.add(new Film("Early Man"));
 		data.add(new TVSeries("Baywatch"));
 		data.add(new Film("Suicide Squad"));
-	}
+	}*/
 	
     @Autowired
     private HttpSession session;
@@ -55,7 +55,7 @@ public class SearchController {
     @Autowired
     private ContentRepository contentRepo;
     
-    List<Content> data = new ArrayList<Content>();
+    //List<Content> data = new ArrayList<Content>();
     
     @RequestMapping(value = "/getContentList", method = RequestMethod.GET)
 	public @ResponseBody
@@ -67,7 +67,8 @@ public class SearchController {
     
     private List<SearchEntity> getSearchResult(String search) {
 		List<SearchEntity> result = new ArrayList<>();
-		for (Content suggestions : data) {
+		List<Content> iterate = contentRepo.findByNameIgnoreCaseContaining(search);
+		for (Content suggestions : iterate) {
 			if (suggestions.getName().contains(search)) {
 				result.add(new SearchEntity(suggestions.getName(),suggestions.getContentID()));
 			}
