@@ -240,3 +240,6 @@ legend {
 .dropdown.sortFilter > ul {
 	background-color:pink;
 }
+.searchResult > h5 {
+	color: #d8315b;
+}
