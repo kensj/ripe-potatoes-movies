@@ -13,14 +13,6 @@
     <link rel="stylesheet" type="text/css" href="css/login.css" th:href="@{css/login.css}">
     <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{css/style.css}">
     <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico'/>
-    <style>
-    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
-	.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-	.autocomplete-selected { background: #F0F0F0; }
-	.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
-	.autocomplete-group { padding: 2px 5px; }
-	.autocomplete-group strong { display: block; border-bottom: 1px solid #000; }
-    </style>
 
 </head>
 
@@ -211,12 +203,6 @@
         
 <section class="call-to-action">
 	 <div class="container">
-	 	<div class="autocomplete-suggestions">
-	    <div class="autocomplete-group"></div>
-	    <div class="autocomplete-suggestion autocomplete-selected"></div>
-	    <div class="autocomplete-suggestion"></div>
-	    <div class="autocomplete-suggestion"></div>
-	    </div>
 	    <div class="row">
 	    <div class="text-left resultsHolder">
 	    	<th:block th:if="${!resultList.isEmpty()}" th:each="i : ${#numbers.sequence(0,resultList.size()-1)}">
