@@ -28,7 +28,6 @@ function nestedSortReverse(parent, childSelector, keySelector) {
 	parent.append(items);
 }
 
-
 $(".sortFilterTV").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -40,41 +39,61 @@ $(".sortFilterTV").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortRatingState == '5') 
-				if(resultRating.get(i).innerText.startsWith("5")) 
+			if(sortRatingState == '5') {
+				if(resultRating.get(i).innerText.startsWith("5")) {
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '4') 
-				if(resultRating.get(i).innerText.startsWith("4")) 
+				}
+			}
+			if(sortRatingState == '4') { 
+				if(resultRating.get(i).innerText.startsWith("4")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '3') 
-				if(resultRating.get(i).innerText.startsWith("3")) 
+				}
+			}
+			if(sortRatingState == '3') { 
+				if(resultRating.get(i).innerText.startsWith("3")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '2') 
-				if(resultRating.get(i).innerText.startsWith("2")) 
+				}
+			}
+			if(sortRatingState == '2') { 
+				if(resultRating.get(i).innerText.startsWith("2")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '1') 
-				if(resultRating.get(i).innerText.startsWith("1")) 
+				}
+			}
+			if(sortRatingState == '1') { 
+				if(resultRating.get(i).innerText.startsWith("1")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == 'Unr') 
-				if(resultRating.get(i).innerText.startsWith("N")) 
+				}
+			}
+			if(sortRatingState == 'Unr') {
+				if(resultRating.get(i).innerText.startsWith("N")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == 'All') 
+				}
+			}
+			if(sortRatingState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}	
 });
+
 $(".sortFilterMovie").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -86,41 +105,61 @@ $(".sortFilterMovie").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortRatingState == '5') 
-				if(resultRating.get(i).innerText.startsWith("5")) 
+			if(sortRatingState == '5') {
+				if(resultRating.get(i).innerText.startsWith("5")) {
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '4') 
-				if(resultRating.get(i).innerText.startsWith("4")) 
+				}
+			}
+			if(sortRatingState == '4') { 
+				if(resultRating.get(i).innerText.startsWith("4")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '3') 
-				if(resultRating.get(i).innerText.startsWith("3")) 
+				}
+			}
+			if(sortRatingState == '3') { 
+				if(resultRating.get(i).innerText.startsWith("3")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '2') 
-				if(resultRating.get(i).innerText.startsWith("2")) 
+				}
+			}
+			if(sortRatingState == '2') { 
+				if(resultRating.get(i).innerText.startsWith("2")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '1') 
-				if(resultRating.get(i).innerText.startsWith("1")) 
+				}
+			}
+			if(sortRatingState == '1') { 
+				if(resultRating.get(i).innerText.startsWith("1")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == 'Unr') 
-				if(resultRating.get(i).innerText.startsWith("N")) 
+				}
+			}
+			if(sortRatingState == 'Unr') {
+				if(resultRating.get(i).innerText.startsWith("N")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == 'All') 
+				}
+			}
+			if(sortRatingState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortFilterCeleb").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -132,41 +171,61 @@ $(".sortFilterCeleb").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortRatingState == '5') 
-				if(resultRating.get(i).innerText.startsWith("5")) 
+			if(sortRatingState == '5') {
+				if(resultRating.get(i).innerText.startsWith("5")) {
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '4') 
-				if(resultRating.get(i).innerText.startsWith("4")) 
+				}
+			}
+			if(sortRatingState == '4') { 
+				if(resultRating.get(i).innerText.startsWith("4")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '3') 
-				if(resultRating.get(i).innerText.startsWith("3")) 
+				}
+			}
+			if(sortRatingState == '3') { 
+				if(resultRating.get(i).innerText.startsWith("3")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '2') 
-				if(resultRating.get(i).innerText.startsWith("2")) 
+				}
+			}
+			if(sortRatingState == '2') { 
+				if(resultRating.get(i).innerText.startsWith("2")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == '1') 
-				if(resultRating.get(i).innerText.startsWith("1")) 
+				}
+			}
+			if(sortRatingState == '1') { 
+				if(resultRating.get(i).innerText.startsWith("1")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == 'Unr') 
-				if(resultRating.get(i).innerText.startsWith("N")) 
+				}
+			}
+			if(sortRatingState == 'Unr') {
+				if(resultRating.get(i).innerText.startsWith("N")) { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortRatingState == 'All') 
+				}
+			}
+			if(sortRatingState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortFilterAll").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -174,40 +233,60 @@ $(".sortFilterAll").click(function() {
 	sortContentState = 'All'
 	$(".contentB").get(0).firstChild.nodeValue = 'Content'
 	for(var i = 0; i < resultChildren.length; i++) {
-		if(sortRatingState == '5') 
-			if(resultRating.get(i).innerText.startsWith("5")) 
+		if(sortRatingState == '5') {
+			if(resultRating.get(i).innerText.startsWith("5")) {
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortRatingState == '4') 
-			if(resultRating.get(i).innerText.startsWith("4")) 
+			}
+		}
+		if(sortRatingState == '4') { 
+			if(resultRating.get(i).innerText.startsWith("4")) { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortRatingState == '3') 
-			if(resultRating.get(i).innerText.startsWith("3")) 
+			}
+		}
+		if(sortRatingState == '3') { 
+			if(resultRating.get(i).innerText.startsWith("3")) { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortRatingState == '2') 
-			if(resultRating.get(i).innerText.startsWith("2")) 
+			}
+		}
+		if(sortRatingState == '2') { 
+			if(resultRating.get(i).innerText.startsWith("2")) { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortRatingState == '1') 
-			if(resultRating.get(i).innerText.startsWith("1")) 
+			}
+		}
+		if(sortRatingState == '1') { 
+			if(resultRating.get(i).innerText.startsWith("1")) { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortRatingState == 'Unr') 
-			if(resultRating.get(i).innerText.startsWith("N")) 
+			}
+		}
+		if(sortRatingState == 'Unr') {
+			if(resultRating.get(i).innerText.startsWith("N")) { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortRatingState == 'All') 
+			}
+		}
+		if(sortRatingState == 'All') { 
 			resultChildren.parent("div").get(i).style.display = "block";
+		}
 	}	
 });
+
 $(".sortRating5").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -219,26 +298,37 @@ $(".sortRating5").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortContentState == 'TV') 
-				if(resultContent.get(i).className.toString() == "resultTV") 
+			if(sortContentState == 'TV') {
+				if(resultContent.get(i).className.toString() == "resultTV") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Movie') 
-				if(resultContent.get(i).className.toString() == "resultFilm") 
+				}
+			}
+			if(sortContentState == 'Movie') { 
+				if(resultContent.get(i).className.toString() == "resultFilm") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Celeb') 
-				if(resultContent.get(i).className.toString() == "resultCeleb") 
+				}
+			}
+			if(sortContentState == 'Celeb') { 
+				if(resultContent.get(i).className.toString() == "resultCeleb") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'All') 
+				}
+			}
+			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortRating4").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -250,26 +340,37 @@ $(".sortRating4").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortContentState == 'TV') 
-				if(resultContent.get(i).className.toString() == "resultTV") 
+			if(sortContentState == 'TV') {
+				if(resultContent.get(i).className.toString() == "resultTV") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Movie') 
-				if(resultContent.get(i).className.toString() == "resultFilm") 
+				}
+			}
+			if(sortContentState == 'Movie') { 
+				if(resultContent.get(i).className.toString() == "resultFilm") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Celeb') 
-				if(resultContent.get(i).className.toString() == "resultCeleb") 
+				}
+			}
+			if(sortContentState == 'Celeb') { 
+				if(resultContent.get(i).className.toString() == "resultCeleb") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'All') 
+				}
+			}
+			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortRating3").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -281,26 +382,37 @@ $(".sortRating3").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortContentState == 'TV') 
-				if(resultContent.get(i).className.toString() == "resultTV") 
+			if(sortContentState == 'TV') {
+				if(resultContent.get(i).className.toString() == "resultTV") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Movie') 
-				if(resultContent.get(i).className.toString() == "resultFilm") 
+				}
+			}
+			if(sortContentState == 'Movie') { 
+				if(resultContent.get(i).className.toString() == "resultFilm") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Celeb') 
-				if(resultContent.get(i).className.toString() == "resultCeleb") 
+				}
+			}
+			if(sortContentState == 'Celeb') { 
+				if(resultContent.get(i).className.toString() == "resultCeleb") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'All') 
+				}
+			}
+			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortRating2").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -312,26 +424,37 @@ $(".sortRating2").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortContentState == 'TV') 
-				if(resultContent.get(i).className.toString() == "resultTV") 
+			if(sortContentState == 'TV') {
+				if(resultContent.get(i).className.toString() == "resultTV") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Movie') 
-				if(resultContent.get(i).className.toString() == "resultFilm") 
+				}
+			}
+			if(sortContentState == 'Movie') { 
+				if(resultContent.get(i).className.toString() == "resultFilm") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Celeb') 
-				if(resultContent.get(i).className.toString() == "resultCeleb") 
+				}
+			}
+			if(sortContentState == 'Celeb') { 
+				if(resultContent.get(i).className.toString() == "resultCeleb") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'All') 
+				}
+			}
+			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortRating1").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -343,26 +466,37 @@ $(".sortRating1").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortContentState == 'TV') 
-				if(resultContent.get(i).className.toString() == "resultTV") 
+			if(sortContentState == 'TV') {
+				if(resultContent.get(i).className.toString() == "resultTV") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Movie') 
-				if(resultContent.get(i).className.toString() == "resultFilm") 
+				}
+			}
+			if(sortContentState == 'Movie') { 
+				if(resultContent.get(i).className.toString() == "resultFilm") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Celeb') 
-				if(resultContent.get(i).className.toString() == "resultCeleb") 
+				}
+			}
+			if(sortContentState == 'Celeb') { 
+				if(resultContent.get(i).className.toString() == "resultCeleb") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'All') 
+				}
+			}
+			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortRatingUnr").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -374,26 +508,37 @@ $(".sortRatingUnr").click(function() {
 			resultChildren.parent("div").get(i).style.display = "none";
 		}
 		else {
-			if(sortContentState == 'TV') 
-				if(resultContent.get(i).className.toString() == "resultTV") 
+			if(sortContentState == 'TV') {
+				if(resultContent.get(i).className.toString() == "resultTV") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Movie') 
-				if(resultContent.get(i).className.toString() == "resultFilm") 
+				}
+			}
+			if(sortContentState == 'Movie') { 
+				if(resultContent.get(i).className.toString() == "resultFilm") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'Celeb') 
-				if(resultContent.get(i).className.toString() == "resultCeleb") 
+				}
+			}
+			if(sortContentState == 'Celeb') { 
+				if(resultContent.get(i).className.toString() == "resultCeleb") { 
 					resultChildren.parent("div").get(i).style.display = "block";
-				else 
+				}
+				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
-			if(sortContentState == 'All') 
+				}
+			}
+			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
+			}
 		}
 	}
 });
+
 $(".sortRatingAll").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -401,25 +546,36 @@ $(".sortRatingAll").click(function() {
 	sortRatingState = 'All'
 	$(".ratingB").get(0).firstChild.nodeValue = 'Rating'
 	for(var i = 0; i < resultChildren.length; i++) {
-		if(sortContentState == 'TV') 
-			if(resultContent.get(i).className.toString() == "resultTV") 
+		if(sortContentState == 'TV') {
+			if(resultContent.get(i).className.toString() == "resultTV") { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortContentState == 'Movie') 
-			if(resultContent.get(i).className.toString() == "resultFilm") 
+			}
+		}
+		if(sortContentState == 'Movie') { 
+			if(resultContent.get(i).className.toString() == "resultFilm") { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortContentState == 'Celeb') 
-			if(resultContent.get(i).className.toString() == "resultCeleb") 
+			}
+		}
+		if(sortContentState == 'Celeb') { 
+			if(resultContent.get(i).className.toString() == "resultCeleb") { 
 				resultChildren.parent("div").get(i).style.display = "block";
-			else 
+			}
+			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
-		if(sortContentState == 'All') 
+			}
+		}
+		if(sortContentState == 'All') { 
 			resultChildren.parent("div").get(i).style.display = "block";
+		}
 	}
 });
+
 $(".sortFilterName").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortNameState == 0) {
@@ -433,6 +589,7 @@ $(".sortFilterName").click(function() {
 		sortNameState = 0;
 	}
 });
+
 $(".sortFilterRating").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortRatingState == 0) {
@@ -446,6 +603,7 @@ $(".sortFilterRating").click(function() {
 		sortRatingState = 0;
 	}
 });
+
 $('#searchbox').keyup(function(e){
     if(e.keyCode == 13) {
     	console.log(window.location)
