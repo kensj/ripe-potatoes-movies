@@ -20,8 +20,8 @@ public class Season {
     @OneToMany
     private List<Episode> episodes;
     @Id
-    private int seasonId;
-    private int tvId;
+    private int seasonID;
+    private int contentID;
     private String synopsis;
     
     public Season() {
@@ -30,5 +30,13 @@ public class Season {
     
     public String getSynopsis() {
     	return synopsis;
+    }
+    
+    public int getContentID() {
+    	return contentID;
+    }
+    
+    public int getseasonID() {
+    	return seasonID;
     }
 }

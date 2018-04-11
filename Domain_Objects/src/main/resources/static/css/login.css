@@ -46,43 +46,54 @@
     from {transform: scale(0)}
     to {transform: scale(1)}
 }
+
 .imgcontainer {
     text-align: center;
     margin: 12px 12px 12px 12px;
     position: relative;
 }
+
 #icon {
   max-height:200px;
 }
+
 #id01 {
   color:#d8315b;
 }
+
 .loginCContainer {
   text-align:center;
   position: relative;
   display:block;
 }
+
 .loginButton {
   min-width:75px;
   border-radius:4px;
 }
+
 .modalOption {
   cursor:pointer;
 }
+
 .modalOption span:hover {
   color:#2e294e;
 }
+
 .loginC {
   padding:10px;
   border-radius: 4px;
   border-color:#2e294e;
 }
+
 .loginC:focus {
   outline:none;
 }
+
 input.chk-btn {
   display: none;
 }
+
 input.chk-btn + label {
   border: 2px solid #2e294e;
   background: #fffaff;
@@ -91,21 +102,26 @@ input.chk-btn + label {
   border-radius: 5px;
   user-select:none;
 }
+
 input.chk-btn:not(:checked) + label:hover {
   box-shadow: 0px 1px 3px;
 }
+
 input.chk-btn + label:active,
 input.chk-btn:checked + label {
   box-shadow: 0px 0px 3px inset;
   background: #d8315b;
   color:#fffaff
 }
+
 .registerTable {
   margin: 0px auto;
 }
+
 .registerTable td {
   padding:0px 35px 20px 35px;
 }
+
 #errorMsg3 {
 	text-align:center;
 	color:#2e294e;

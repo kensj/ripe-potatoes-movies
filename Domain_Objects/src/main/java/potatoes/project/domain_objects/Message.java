@@ -19,4 +19,24 @@ public class Message {
     public void markAsRead(){
         read=true;
     }
+    
+    public void markAsUnread() {
+    	read=false;
+    }
+    
+    public String getBody() {
+    	return body;
+    }
+    
+    public User getSender() {
+    	return from;
+    }
+    
+    public User getReciever() {
+    	return to;
+    }
+    
+    public boolean isReprimand() {
+    	return isReprimand;
+    }
 }

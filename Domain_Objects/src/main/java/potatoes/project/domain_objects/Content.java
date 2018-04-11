@@ -62,11 +62,6 @@ public abstract class Content {
     }
     
     public String getName() {return this.name;}
-    
-//    public void rate(int rating){
-//        numRating++;
-//        sumRating+=rating;
-//    }
 
     public double getRating(){
         return ratings.isEmpty() ? -1 : sumRatings/ratings.size() ;
@@ -90,7 +85,6 @@ public abstract class Content {
                 return;
             }
         }
-//        addRating(newRating, rater);
     }
     
     public boolean removeRating(User rater){
