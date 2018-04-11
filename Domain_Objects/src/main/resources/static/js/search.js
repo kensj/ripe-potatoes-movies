@@ -28,7 +28,6 @@ function nestedSortReverse(parent, childSelector, keySelector) {
 	parent.append(items);
 }
 
-
 $(".sortFilterTV").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -94,6 +93,7 @@ $(".sortFilterTV").click(function() {
 		}
 	}	
 });
+
 $(".sortFilterMovie").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -159,6 +159,7 @@ $(".sortFilterMovie").click(function() {
 		}
 	}
 });
+
 $(".sortFilterCeleb").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -224,6 +225,7 @@ $(".sortFilterCeleb").click(function() {
 		}
 	}
 });
+
 $(".sortFilterAll").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("p")
@@ -284,6 +286,7 @@ $(".sortFilterAll").click(function() {
 		}
 	}	
 });
+
 $(".sortRating5").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -325,6 +328,7 @@ $(".sortRating5").click(function() {
 		}
 	}
 });
+
 $(".sortRating4").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -366,6 +370,7 @@ $(".sortRating4").click(function() {
 		}
 	}
 });
+
 $(".sortRating3").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -407,6 +412,7 @@ $(".sortRating3").click(function() {
 		}
 	}
 });
+
 $(".sortRating2").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -448,6 +454,7 @@ $(".sortRating2").click(function() {
 		}
 	}
 });
+
 $(".sortRating1").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -489,6 +496,7 @@ $(".sortRating1").click(function() {
 		}
 	}
 });
+
 $(".sortRatingUnr").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -530,6 +538,7 @@ $(".sortRatingUnr").click(function() {
 		}
 	}
 });
+
 $(".sortRatingAll").click(function() {
 	var parent = $('.resultsHolder');
 	var resultChildren = parent.children("div").children("h5")
@@ -566,6 +575,7 @@ $(".sortRatingAll").click(function() {
 		}
 	}
 });
+
 $(".sortFilterName").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortNameState == 0) {
@@ -579,6 +589,7 @@ $(".sortFilterName").click(function() {
 		sortNameState = 0;
 	}
 });
+
 $(".sortFilterRating").click(function() {
 	var parent = $('.resultsHolder');
 	if (sortRatingState == 0) {
@@ -592,6 +603,7 @@ $(".sortFilterRating").click(function() {
 		sortRatingState = 0;
 	}
 });
+
 $('#searchbox').keyup(function(e){
     if(e.keyCode == 13) {
     	console.log(window.location)
