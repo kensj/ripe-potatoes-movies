@@ -31,32 +31,13 @@ import potatoes.project.repository.ContentRepository;
  */
 @RestController
 public class SearchController {
-	
-	/*
-	 * THIS IS TEMPORARY TO ADD OBJECTS TO SIMULATE SEARCH
-	 */
-	/*SearchController() {
-		Film Moana = new Film("Moana");
-		Moana.setContentID(277834);
-		data.add(Moana);
-		data.add(new Film("Big Hero 6"));
-		data.add(new Film("Logan"));
-		data.add(new TVSeries("The Walking Dead"));
-		data.add(new Film("Zootopia"));
-		data.add(new Film("Robocop"));
-		data.add(new Film("Early Man"));
-		data.add(new TVSeries("Baywatch"));
-		data.add(new Film("Suicide Squad"));
-	}*/
-	
     @Autowired
     private HttpSession session;
     
     @Autowired
     private ContentRepository contentRepo;
     
-    //List<Content> data = new ArrayList<Content>();
-    
+    // Used for Navbar
     @RequestMapping(value = "/getContentList", method = RequestMethod.GET)
 	public @ResponseBody
 	ResponseEntity<?> getContents(@RequestParam String search) {
@@ -64,7 +45,6 @@ public class SearchController {
 		return new ResponseEntity<SearchResults>(results, HttpStatus.OK);
 
 	}
-    
     private List<SearchEntity> getSearchResult(String search) {
 		List<SearchEntity> result = new ArrayList<>();
 		List<Content> iterate = contentRepo.findByNameIgnoreCaseContaining(search);
@@ -76,35 +56,17 @@ public class SearchController {
 		return result;
 	}
     
-    @RequestMapping(value = "/search", params = "searchBar", method = RequestMethod.GET)
-    @ResponseBody
-	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("search");
-		mav.addObject("searchBar", searchBar);
-		mav.addObject("resultList", getSearchPageResult(searchBar));
-		return mav;
-	}
-    
+    // Used for Search Page
     @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
 	public @ResponseBody
 	ModelAndView getSearches(@RequestParam String search) {
     	ModelAndView mav = new ModelAndView("search");
-    	mav.addObject("resultList", getSearchPageResult(search));
+    	mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(search));
 		return mav;
-	}
-    private List<Content> getSearchPageResult(String search) {
-		/*List<Content> result = new ArrayList<>();
-		for (Content suggestions : data) {
-			if (suggestions.getName().contains(search)) {
-				result.add(suggestions);
-			}
-		}
-		return result;*/
-		return contentRepo.findByNameIgnoreCaseContaining(search);
 	}
 }
 
+// Convert to necessary Json format for JQuery
 class SearchResults {
     private List<SearchEntity> suggestions;
     public SearchResults() {}
