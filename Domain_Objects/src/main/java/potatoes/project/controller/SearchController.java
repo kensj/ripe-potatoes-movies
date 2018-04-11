@@ -64,9 +64,17 @@ public class SearchController {
     	mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(search));
 		return mav;
 	}
+    @RequestMapping(value = "/search", params = "searchBar", method = RequestMethod.GET)
+    @ResponseBody
+	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("search");
+		mav.addObject("searchBar", searchBar);
+		mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(searchBar));
+		return mav;
+	}
 }
 
-// Convert to necessary Json format for JQuery
 class SearchResults {
     private List<SearchEntity> suggestions;
     public SearchResults() {}
