@@ -54,9 +54,7 @@ public class ContentController {
     @Autowired
     private ReportRepository reportRepo;
     
-    /*
-    * @args: 
-    */
+    
     @PostMapping("/content/{id}/add-review")
     public ResponseEntity<?> postReview(@PathVariable int id, @RequestParam String justificationText){
     	Map<String, String> response = new HashMap<String, String>();
@@ -67,8 +65,8 @@ public class ContentController {
         	return ResponseEntity.ok(response);
         }
         Content c = contentRepo.findByContentID(id);
-        for (Review x : c.getReviews()) {
-        	if (x.getAuthor().equals(u)) {
+        for (Review r : c.getReviews()) {
+        	if (r.getAuthor().equals(u)) {
         		c.editReview(justificationText, u);
         		contentRepo.save(c);
         		response.put("success", "true");
@@ -98,7 +96,6 @@ public class ContentController {
         contentRepo.save(c);
     }
     
-    //true return: boolean
     @DeleteMapping("/content/{id}/delete-review")
     public ResponseEntity<?> deleteReview(@PathVariable int id){
         User u = (User) session.getAttribute("user");
@@ -118,7 +115,6 @@ public class ContentController {
         return ResponseEntity.ok(resp);
     }
     
-    //true return: boolean
     @PostMapping("/content/{id}/add-rating")
     public ResponseEntity<?> addRating(@PathVariable int id, @RequestParam int rating){
         User u = (User) session.getAttribute("user");
@@ -153,7 +149,6 @@ public class ContentController {
         return ResponseEntity.ok(resp);
     }
     
-    //true return: boolean
     @PostMapping("/content/{id}/change-rating")
     public ResponseEntity<?> changeRating(@PathVariable int id, @RequestParam int rating){
         User u = (User) session.getAttribute("user");
@@ -172,7 +167,6 @@ public class ContentController {
         return ResponseEntity.ok(resp);
     }
     
-    //true return: boolean
     @DeleteMapping("/content/{id}/delete-rating")
     public ResponseEntity<?> deleteRating(@PathVariable int id){
         User u = (User) session.getAttribute("user");
@@ -232,10 +226,8 @@ public class ContentController {
         response.put("success", "false");
         response.put("reason", "unknown");
         return ResponseEntity.ok(response);
-//        ReportQueue.queueReport(new Report(description, reporter, context));
     }
     
-    //true return: Content object stored in ModelAndView, View name dependent on type of content
     @GetMapping("/content/{id}")
     public ModelAndView getContent(@PathVariable int id, Model model){
         ModelAndView mav = new ModelAndView();
