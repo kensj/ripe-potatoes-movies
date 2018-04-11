@@ -318,6 +318,7 @@ $(".sortRating5").click(function() {
 				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
 				}
+			}
 			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
 			}
@@ -358,6 +359,7 @@ $(".sortRating4").click(function() {
 				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
 				}
+			}
 			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
 			}
@@ -398,6 +400,7 @@ $(".sortRating3").click(function() {
 				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
 				}
+			}
 			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
 			}
@@ -438,6 +441,7 @@ $(".sortRating2").click(function() {
 				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
 				}
+			}
 			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
 			}
@@ -478,6 +482,7 @@ $(".sortRating1").click(function() {
 				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
 				}
+			}
 			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
 			}
@@ -518,6 +523,7 @@ $(".sortRatingUnr").click(function() {
 				else { 
 					resultChildren.parent("div").get(i).style.display = "none";
 				}
+			}
 			if(sortContentState == 'All') { 
 				resultChildren.parent("div").get(i).style.display = "block";
 			}
@@ -554,6 +560,7 @@ $(".sortRatingAll").click(function() {
 			else { 
 				resultChildren.parent("div").get(i).style.display = "none";
 			}
+		}
 		if(sortContentState == 'All') { 
 			resultChildren.parent("div").get(i).style.display = "block";
 		}
