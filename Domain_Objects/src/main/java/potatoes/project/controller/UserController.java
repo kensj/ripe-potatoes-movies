@@ -28,7 +28,6 @@ import com.fasterxml.jackson.annotation.JsonView;
 
 import potatoes.project.domain_objects.PasswordAuthentication;
 import potatoes.project.domain_objects.User;
-import potatoes.project.domain_objects.UserManager;
 import potatoes.project.service.UserService;
 import potatoes.project.validator.UserValidator;
 
@@ -48,7 +47,7 @@ public class UserController {
 		if (errors.hasErrors()) {
 			response.put("error", "ajax register request failed");
 			return ResponseEntity.badRequest().body(response);
-                }
+        }
 		
 		
 		if (userService.findByUsername(user.getName()) != null) {

@@ -43,8 +43,8 @@ public class SearchController {
 	ResponseEntity<?> getContents(@RequestParam String search) {
     	SearchResults results = new SearchResults(getSearchResult(search));
 		return new ResponseEntity<SearchResults>(results, HttpStatus.OK);
-
 	}
+    
     private List<SearchEntity> getSearchResult(String search) {
 		List<SearchEntity> result = new ArrayList<>();
 		List<Content> iterate = contentRepo.findByNameIgnoreCaseContaining(search);
@@ -64,6 +64,7 @@ public class SearchController {
     	mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(search));
 		return mav;
 	}
+    
     @RequestMapping(value = "/search", params = "searchBar", method = RequestMethod.GET)
     @ResponseBody
 	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
@@ -77,25 +78,33 @@ public class SearchController {
 
 class SearchResults {
     private List<SearchEntity> suggestions;
+    
     public SearchResults() {}
+    
     public SearchResults(List<SearchEntity> suggestions) {
         this.suggestions = suggestions;
     }
+    
     public List<SearchEntity> getSuggestions() {
     	return this.suggestions;
     }
 }
+
 class SearchEntity {
     private String value;
     private int data;
+    
     public SearchEntity() {}
+    
     public SearchEntity(String value, int data) {
         this.value = value;
         this.data = data;
     }
+    
     public String getValue() {
     	return this.value;
     }
+    
     public int getData() {
     	return this.data;
     }

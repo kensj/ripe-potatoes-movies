@@ -26,8 +26,6 @@ public class Celebrity extends Content {
     private Date birthday;
 	
     private String bio;
-    //private Media bestRated;
-    //private Media worstRated;
     private byte[] picture;
     
     private boolean isActor;

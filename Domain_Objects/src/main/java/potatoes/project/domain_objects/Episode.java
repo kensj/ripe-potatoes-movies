@@ -15,7 +15,11 @@ import javax.persistence.Id;
 @Entity
 public class Episode {
 	@Id
-    private int seasonId;
+    private int seasonID;
     private String synopsis;
     private int episodeNum;
+    
+    public String getSynopsis() {return synopsis;}
+    public int getEpisodeNum() { return episodeNum;}
+    public int getSeasonID() {return seasonID;}
 }

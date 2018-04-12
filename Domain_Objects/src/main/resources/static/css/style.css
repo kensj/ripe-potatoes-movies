@@ -3,11 +3,13 @@ body {
 	color: #f7f7f7;
 	font-family: 'Montserrat', sans-serif;
 }
+
 h1,
 h2 {
 	font-weight: bold;
 	color: #2e294e;
 }
+
 p {
 	font-size: 16px;
 	color: black;
@@ -15,110 +17,137 @@ p {
 h3 {
 	color: #d8315b;
 }
+
 h4 {
 	color: black;
 }
+
 .navbar-brand{
 	display:inline-block;
 }
+
 .btn-info {
 	background: #ef476f;
 	border-color: #d8315b;
 	margin-left:0.5em;
 }
+
 .btn-info:hover{
 	background: #fffaff;
 	color: #d8315b;
 	border-color: #d8315b;
 }
+
 .searchForm{
 	display:inline-block;
 	padding-left:4em;
 }
+
 .navbar {
 	margin-bottom: 0;
 	background: #2e294e;
 	border:0;
 }
+
 .icon{
 	max-width:130%;
 	max-height:130%;
 }
+
 .projname{
 	padding-left:1em;
 	color: white;
 }
+
 .jumbotron {
 	background: #fcedfc;
 	color: black;
 	text-align: center;
 }
+
 .jumbotron p {
 	color: black;
 	font-size: 26px;
 }
+
 .navbar-inverse {
 	background: #2e294e;
 	border: 0;
 }
+
 .dropdown-menu {
 	background: #ef476f;
 	border-radius: 0;
 	border: 0;
 }
+
 .navbar-inverse .navbar-nav li a {
 	color: #f7f7f7;
 	font-size: 16px;
 }
+
 .navbar-inverse .navbar-nav li a:hover {
 	background: #fcedfc;
 	color: #2e294e;
 }
+
 .navbar-inverse .navbar-nav .dropdown-menu li a:hover {
 	background: #fffaff;
 }
+
 .dropdown-menu li a {
 	padding: 10px;
 }
+
 .dropdown:hover>.dropdown-menu {
 	display:block;
 }
+
 .btn-primary {
 	color: black;
 	background-color: transparent;
 	border-color: black;
 	margin-bottom: 5px;
 }
+
 .btn-primary:hover {
 	color: #fffaff;
 	background-color: #d8315b;
 	border-color: #2e294e;
 }
+
 .btn-footer {
 	color:white;
 	border-color:transparent;
 }
+
 .glyphicon-large {
 	font-size: 100px;
 	color: black;
 }
+
 .glyphicon-off {
 	color:white;
 }
+
 .call-to-action {
 	text-align: center;
 }
+
 .call-to-action p {
 	margin-bottom: 30px;
 	font-family: sans-serif;
 }
+
 .carousel {
 	max-height: 400px;
 	margin:0 auto;
 }
+
 .poster {
 	max-height:325px;
 }
+
 .col-centered {
     float: none;
     margin: 0 auto;
@@ -135,6 +164,7 @@ h4 {
     background-image: none;
     opacity: 1;
 }
+
 .carousel-control > a > span {
     color: white;
 	  font-size: 29px !important;
@@ -237,9 +267,11 @@ legend {
 .dropdown.sortFilter{
 	display:inline-block;
 }
+
 .dropdown.sortFilter > ul {
 	background-color:pink;
 }
+
 .searchResult > h5 {
 	color: #d8315b;
 }
