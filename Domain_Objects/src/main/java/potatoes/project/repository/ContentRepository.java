@@ -21,4 +21,5 @@ public interface ContentRepository extends JpaRepository<Content, Integer>{
     List<Content> findByNameIgnoreCaseContaining(String name);
     
     Content findByContentID(int userID);
+    
 }

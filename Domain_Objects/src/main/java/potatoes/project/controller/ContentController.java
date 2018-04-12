@@ -5,10 +5,14 @@
  */
 package potatoes.project.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
+import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
 import potatoes.project.domain_objects.ReportQueue;
@@ -28,6 +33,7 @@ import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.MediaRepository;
 import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
@@ -53,6 +59,9 @@ public class ContentController {
     
     @Autowired
     private ReportRepository reportRepo;
+    
+    @Autowired 
+    private MediaRepository medRepo;
     
     /*
     * @args: 
@@ -253,5 +262,17 @@ public class ContentController {
         }
     	
         return mav;
+    }
+    
+    @GetMapping("/releaseCalendar")
+    public ResponseEntity<?> getReleaseCalendar(Model model) {
+//    	ModelAndView mav = new ModelAndView();
+    	Calendar c = Calendar.getInstance();
+    	int days = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+    	int month = c.get(Calendar.MONTH) + 1;
+    	int year = c.get(Calendar.YEAR);
+    	List<Media> mediaList = medRepo.findByMonth(month);
+    	return new ResponseEntity<>(mediaList, HttpStatus.OK);
+//    	return mav;
     }
 }
