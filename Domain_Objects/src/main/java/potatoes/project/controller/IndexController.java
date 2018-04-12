@@ -13,6 +13,7 @@ import potatoes.project.domain_objects.User;
 
 @Controller
 public class IndexController {
+	
 	@RequestMapping("/")
 	public ModelAndView index(Model model) {
 		System.out.println("in controller");
@@ -23,10 +24,12 @@ public class IndexController {
 		mav.addObject("user", test);
 		return mav;
 	}
+	
 	@RequestMapping("/movie")
 	public String index() {
 		return "movie";
 	}
+	
 	@RequestMapping("/profile")
 	public ModelAndView profile(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
