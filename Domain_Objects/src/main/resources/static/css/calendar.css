@@ -15,7 +15,7 @@ ul {list-style-type: none;}
 
 .month ul li {
     color: #2e294e;
-    font-size: 20px;
+    font-size: xx-large;
     text-transform: uppercase;
     letter-spacing: 3px;
 }
@@ -55,9 +55,10 @@ ul {list-style-type: none;}
     display: inline-block;
     width: 13.6%;
     text-align: center;
-    margin-bottom: 5px;
+    margin-bottom: 50px;
     color: #2e294e;
     padding-left:20px;
+    font-size: xx-large;
 }
 
 .days li .active {

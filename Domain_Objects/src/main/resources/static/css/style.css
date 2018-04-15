@@ -288,3 +288,7 @@ legend {
 	background-color:white;
 	border:solid 1.5px pink;
 }
+
+.buttonContainer {
+	padding-bottom:60px;
+}
