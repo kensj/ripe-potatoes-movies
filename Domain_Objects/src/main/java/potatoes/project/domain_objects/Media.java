@@ -49,4 +49,8 @@ public abstract class Media extends Content{
     public List<String> getCast(){
     	return cast;
     }
+    
+    public Date getReleaseDate() {
+    	return releaseDate;
+    }
 }

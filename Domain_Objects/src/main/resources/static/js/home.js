@@ -2,6 +2,7 @@ $(document).ready(function() {
 	$(".recommendedContainer").hide();
 	$(".calendarContainer").hide();
 	populateCalendar();
+	fillCalendar(showTooltips);
 });
 
 $('.carousel[data-type="multi"] .item').each(function() {
@@ -20,6 +21,12 @@ $('.carousel[data-type="multi"] .item').each(function() {
 		next.children(':first-child').clone().appendTo($(this));
 	}
 });
+
+function showTooltips() {
+	$('[data-toggle="tooltip"]').tooltip({
+		trigger: 'hover click'
+	});
+}
 
 function showCalendar() {
 	$(".statsContainer").hide();
@@ -51,14 +58,52 @@ function populateCalendar() {
 	var lastDay = new Date(date.getFullYear(), date.getMonth()+1, 0);
 	var numDays = lastDay.getDate();
 	var startDay = firstDay.getDay();
+	var currentDay = date.getDate();
 	
 	for (var i = 0; i < startDay; i++) {
 		$(".days").append("<li></li>");
 	}
 	
 	for (var i = 0; i < numDays; i++) {
-		$(".days").append("<li>" + (i + 1) + "</li>");
+		$(".days").append("<li><span data-toggle='tooltip' title='' id='" + (i+1) + "'>" + (i+1) + "</span></li>");
+		if (i == (currentDay - 1)) {
+			$("#" + (i+1)).addClass('currentDay');
+		} 
 	}
 	
 }
 
+function fillCalendar(callback) {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "GET",
+		url: "/releaseCalendar",
+		cache: false,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			for (var p in data) {
+				if (!data.hasOwnProperty(p)) {
+					continue;
+				}
+//				console.log(data[p][0]);
+//				console.log(data[p][1]);
+//				console.log(p);
+//				console.log($("#"+data[p][1]));
+				var movie = $("#" + data[p][1]).attr('title');
+				$("#" + data[p][1]).attr('title', movie + p);
+				$("#" + data[p][1]).addClass('active');
+			}
+			callback();
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+}

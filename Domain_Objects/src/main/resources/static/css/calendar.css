@@ -67,6 +67,12 @@ ul {list-style-type: none;}
     color: white !important
 }
 
+.days li .currentDay {
+	padding: 5px;
+	background: #2e294e;
+	color: white !important
+}
+
 /* Add media queries for smaller screens */
 @media screen and (max-width:720px) {
     .weekdays li, .days li {width: 13.1%;}

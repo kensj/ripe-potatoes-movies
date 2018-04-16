@@ -266,8 +266,16 @@ public class ContentController {
     	int days = c.getActualMaximum(Calendar.DAY_OF_MONTH);
     	int month = c.get(Calendar.MONTH) + 1;
     	int year = c.get(Calendar.YEAR);
-    	List<Media> mediaList = medRepo.findByMonth(month);
-    	return new ResponseEntity<>(mediaList, HttpStatus.OK);
+    	List<Media> mediaList = medRepo.findByMonth(month,year);
+    	Map<String,String[]> response = new HashMap<String,String[]>();
+    	for (Media m : mediaList) {
+    		c.setTime(m.getReleaseDate());
+    		String[] temp = new String[2];
+    		temp[0] = "" + m.getContentID();
+    		temp[1] = "" + c.get(Calendar.DAY_OF_MONTH);
+    		response.put(m.getName(), temp);
+    	}
+    	return new ResponseEntity<>(response, HttpStatus.OK);
 //    	return mav;
     }
 }
