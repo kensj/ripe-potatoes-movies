@@ -1,0 +1,8 @@
+<div align="center" class="embed-responsive embed-responsive-16by9" th:fragment="trailer">
+	<script>
+	
+   	</script>
+	<video loop controls class="embed-responsive-item" th:poster="@{/thumbnails/__${content.getContentID()}__.jpg}">
+    	<source th:src="@{/trailers/__${content.getContentID()}__.mp4}" type="video/mp4">    	
+	</video>
+</div>
