@@ -29,9 +29,12 @@
     <h1 class="headline text-left" th:text="${content.getName()}"></h1><br>
     <div class="row">
       <div class="col-md-7">
-        <div class="embed-responsive embed-responsive-16by9">
+      <!-- 
+      	<div class="embed-responsive embed-responsive-16by9">
           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/LKFuXETZUsI"></iframe>
-        </div>
+        </div> 
+       -->
+      <div th:replace="fragments/trailer :: trailer"></div>
       </div>
       <div class="col-md-4 col-md-offset-1">
         <table class="table ratingTable">
