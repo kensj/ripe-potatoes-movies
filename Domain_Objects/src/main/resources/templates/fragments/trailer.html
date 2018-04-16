@@ -1,8 +1,10 @@
 <div align="center" class="embed-responsive embed-responsive-16by9" th:fragment="trailer">
-	<script>
-	
-   	</script>
-	<video loop controls class="embed-responsive-item" th:poster="@{/thumbnails/__${content.getContentID()}__.jpg}">
+	<button class="btn btn-sm btn-warning" id="loadingTrailer">
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> 
+		Loading...
+	</button>
+	<video hidden loop controls class="embed-responsive-item" th:poster="@{/thumbnails/__${content.getContentID()}__.jpg}" id="trailerElement">
     	<source th:src="@{/trailers/__${content.getContentID()}__.mp4}" type="video/mp4">    	
 	</video>
+	<p hidden id="trailerNotFoundElement"> No Media Content exists </p>
 </div>
