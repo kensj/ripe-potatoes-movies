@@ -52,7 +52,7 @@ public class User {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userID;
+    private int userID;
     
     public User() {
     	
@@ -85,7 +85,7 @@ public class User {
         return password;
     }
     
-    public long getUserID() {
+    public int getUserID() {
     	return userID;
     }
     
