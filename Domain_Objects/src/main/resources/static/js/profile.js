@@ -1,3 +1,7 @@
+$(document).ready(function() {
+	$("#deleteWarning").hide();
+});
+
 $('[rel="tooltip"]').tooltip({
 	animated: 'fade',
 	placement: 'top',
@@ -17,3 +21,11 @@ function openM() {
 	$("#manageAccount").show();
 	document.getElementById('id01').style.display='block';
 }
+$(".deleteAccount").click(function() {
+	if ($("#deleteWarning").is(":visible")) {
+		alert("delete here");
+	}
+	else {
+		$("#deleteWarning").show();
+	}
+});

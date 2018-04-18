@@ -5,8 +5,11 @@
  */
 package potatoes.project.domain_objects;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,23 +42,33 @@ public class User {
     private Rank userRank;
     private ImageIcon icon;
     
+    @ElementCollection
     @OneToMany
-    private List<Media> wishlist;
+    private Map<Integer,Media> wishlist;
+    
+    @ElementCollection
     @OneToMany
-    private List<Media> notInterestedList;
+    private Map<Integer,Media> notInterestedList;
+    
+    @ElementCollection
     @OneToMany
-    private List<User> blockedUsers;
+    private Map<Integer,User> blockedUsers;
+    
+    @ElementCollection
     @OneToMany
-    private List<User> followedUsers;
+    private Map<Integer,User> followedUsers;
     
     private int reprimands;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userID;
+    private int userID;
     
     public User() {
-    	
+    	wishlist = new HashMap<Integer,Media>();
+    	notInterestedList = new HashMap<Integer,Media>();
+    	blockedUsers = new HashMap<Integer,User>();
+    	followedUsers = new HashMap<Integer,User>();
     }
     
     @JsonCreator
@@ -63,6 +76,10 @@ public class User {
         this.name=name;
         this.email=email;
         this.password=password;
+        wishlist = new HashMap<Integer,Media>();
+    	notInterestedList = new HashMap<Integer,Media>();
+    	blockedUsers = new HashMap<Integer,User>();
+    	followedUsers = new HashMap<Integer,User>();
     }
     
     @Override
@@ -78,19 +95,19 @@ public class User {
     }
     
     public void addToWishlist(Media media) {
-    	wishlist.add(media);
+    	wishlist.put(media.getContentID(), media);
     }
     
     public boolean removeFromWishlist(Media media) {
-    	return wishlist.remove(media);
+    	return wishlist.remove(media.getContentID()) != null;
     }
     
     public void addToNotInterestedList(Media media) {
-    	notInterestedList.add(media);
+    	notInterestedList.put(media.getContentID(), media);
     }
     
     public boolean removeFromNotInterestedList(Media media) {
-    	return notInterestedList.remove(media);
+    	return notInterestedList.remove(media.getContentID(), media);
     }
     
     public String getName() {
@@ -101,7 +118,7 @@ public class User {
         return password;
     }
     
-    public long getUserID() {
+    public int getUserID() {
     	return userID;
     }
     

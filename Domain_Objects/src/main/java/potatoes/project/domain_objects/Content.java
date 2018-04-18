@@ -6,8 +6,14 @@
 package potatoes.project.domain_objects;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 //import javafx.scene.image.Image;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorColumn;
@@ -37,14 +43,16 @@ public abstract class Content {
     
     protected String name;
     
+    @ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
-    protected List<Review> reviews;
-    
-    @OneToMany(cascade = CascadeType.ALL)
-    protected List<Rating> ratings;
+    protected Map<Integer, Review> reviews;
     
     @ElementCollection
-    protected List<byte[]> photos;
+    @OneToMany(cascade = CascadeType.ALL)
+    protected Map<Integer, Rating> ratings;
+    
+    @ElementCollection
+    protected Set<byte[]> photos;
     @Id
     protected int contentID;
     
@@ -56,9 +64,9 @@ public abstract class Content {
         isFeatured=false;
         sumRatings=0.0;
         this.name=name;
-        reviews=new ArrayList<>();
-        ratings=new ArrayList<>();
-        photos=new ArrayList<>();
+        reviews=new ConcurrentHashMap<Integer, Review>();
+        ratings=new ConcurrentHashMap<Integer, Rating>();
+        photos=new HashSet<>();
     }
     
     public String getName() {return this.name;}
@@ -67,35 +75,53 @@ public abstract class Content {
         return ratings.isEmpty() ? -1 : sumRatings/ratings.size() ;
     }
     
-    public List<Rating> getRatings() {
+    public Map<Integer, Rating> getRatings() {
     	return ratings;
     }
     
     public void addRating(int rating, User rater){
-        ratings.add(new Rating(rating, this, rater));
+        ratings.put(rater.getUserID(), new Rating(rating, this, rater));
         sumRatings+=rating;
     }
     
     public void changeRating(int newRating, User rater){
-        for (Rating r : ratings){
-            if (r.getRater().equals(rater)){
-                sumRatings-=r.getScore();
-                sumRatings+=newRating;
-                r.setScore(newRating);
-                return;
-            }
+//        for (Rating r : ratings){
+//            if (r.getRater().equals(rater)){
+//                sumRatings-=r.getScore();
+//                sumRatings+=newRating;
+//                r.setScore(newRating);
+//                return;
+//            }
+//        }
+        for(Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
+        	Rating r = entry.getValue();
+        	if (r.getRater().equals(rater)) {
+        		sumRatings-=r.getScore();
+        		sumRatings+=newRating;
+        		r.setScore(newRating);
+        		return;
+        	}
         }
     }
     
     public boolean removeRating(User rater){
-        for (Rating r : ratings){
-            if (r.getRater().equals(rater)){
-                sumRatings-=r.getScore();
-                ratings.remove(r);
-                return true;
-            }
-        }
-        return false;
+//        for (Rating r : ratings){
+//            if (r.getRater().equals(rater)){
+//                sumRatings-=r.getScore();
+//                ratings.remove(r);
+//                return true;
+//            }
+//        }
+//        return false;
+    	for (Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
+    		Rating r = entry.getValue();
+    		if (r.getRater().equals(rater)) {
+    			sumRatings-=r.getScore();
+    			ratings.remove(r.getRater().getUserID());
+    			return true;
+    		}
+    	}
+    	return false;
     }
     
     public int getContentID() {
@@ -103,11 +129,18 @@ public abstract class Content {
     }
     
     public void review(String justificationText, User author){
-        reviews.add(new Review(justificationText, this, author));
+        reviews.put(author.getUserID(), new Review(justificationText, this, author));
     }
 
     public void editReview(String newText, User author) {
-    	for (Review r : reviews) {
+//    	for (Review r : reviews) {
+//    		if (r.getAuthor().getUserID() == author.getUserID()) {
+//    			r.setJustificationText(newText);
+//    			return;
+//    		}
+//    	}
+    	for (Map.Entry<Integer, Review> entry : reviews.entrySet()) {
+    		Review r = entry.getValue();
     		if (r.getAuthor().getUserID() == author.getUserID()) {
     			r.setJustificationText(newText);
     			return;
@@ -116,7 +149,14 @@ public abstract class Content {
     }
     
     public boolean checkForRater(User user) {
-    	for (Rating r : ratings) {
+//    	for (Rating r : ratings) {
+//    		if (r.getRater().equals(user)) {
+//    			return true;
+//    		}
+//    	}
+//    	return false;
+    	for (Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
+    		Rating r = entry.getValue();
     		if (r.getRater().equals(user)) {
     			return true;
     		}
@@ -124,7 +164,7 @@ public abstract class Content {
     	return false;
     }
     
-    public List<Review> getReviews() {
+    public Map<Integer,Review> getReviews() {
         return reviews;
     }
 
@@ -140,15 +180,15 @@ public abstract class Content {
 		this.name = name;
 	}
 
-	public List<byte[]> getPhotos() {
+	public Set<byte[]> getPhotos() {
 		return photos;
 	}
 
-	public void setPhotos(List<byte[]> photos) {
+	public void setPhotos(Set<byte[]> photos) {
 		this.photos = photos;
 	}
 
-	public void setReviews(List<Review> reviews) {
+	public void setReviews(Map<Integer,Review> reviews) {
 		this.reviews = reviews;
 	}
 
