@@ -88,4 +88,39 @@
       <span onclick="openL()"class="modalOption "><span>Login</span></span>
     </div>
   </form>
+  
+  <form id="manageAccount" class="modal-content animate form-horizontal" action="#">
+    <div class="imgcontainer">
+      <span onclick="closeLogin()" class="close" title="Close">&times;</span>
+      <legend>Manage Account</legend>
+    </div>
+    <div class="loginCContainer">
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="email"><b>Change Email</b></label>
+        <input class="loginC" type="text" placeholder="Enter new email" name="changeEmail">
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="psw"><b>Change Password</b></label>
+        <input class="loginC" type="text" placeholder="Enter new password" name="changePW1">
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="psw"><b>Retype New Password</b></label>
+        <input class="loginC" type="text" placeholder="Retype new password" name="changePW2">
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="profileIcon"><b>Change Profile Icon</b></label>
+        <label class="btn btn-default loginC">
+          <input type="file" hidden name="changeIcon">
+        </label>
+      </div>
+      <br>
+      <button class="btn-info loginButton" type="submit" name="manageButton"><span class="glyphicon glyphicon-edit"></button>
+      <br><br>
+
+    </div>
+  </form>
 </div>

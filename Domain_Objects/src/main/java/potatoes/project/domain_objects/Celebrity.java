@@ -6,8 +6,11 @@
 package potatoes.project.domain_objects;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -33,18 +36,20 @@ public class Celebrity extends Content {
     private boolean isWriter;
     private boolean isMisc;
     
+    @ElementCollection
     @OneToMany
-    private List<Media> filmography;
+    private Map<Integer,Media> filmography;
     
     public Celebrity() {
-    	
+    	filmography = new HashMap<Integer,Media>();
     }
     
     public Celebrity(String name){
         super(name);
+        filmography = new HashMap<Integer,Media>();
     }
     
-    public List<Media> getFilmography(){
+    public Map<Integer,Media> getFilmography(){
     	return filmography;
     }
     

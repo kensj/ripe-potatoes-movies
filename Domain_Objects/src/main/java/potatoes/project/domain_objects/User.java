@@ -5,8 +5,11 @@
  */
 package potatoes.project.domain_objects;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -39,14 +42,21 @@ public class User {
     private Rank userRank;
     private ImageIcon icon;
     
+    @ElementCollection
     @OneToMany
-    private List<Media> wishList;
+    private Map<Integer,Media> wishList;
+    
+    @ElementCollection
     @OneToMany
-    private List<Media> notInterestedList;
+    private Map<Integer,Media> notInterestedList;
+    
+    @ElementCollection
     @OneToMany
-    private List<User> blockedUsers;
+    private Map<Integer,User> blockedUsers;
+    
+    @ElementCollection
     @OneToMany
-    private List<User> followedUsers;
+    private Map<Integer,User> followedUsers;
     
     private int reprimands;
     
@@ -55,7 +65,10 @@ public class User {
     private int userID;
     
     public User() {
-    	
+    	wishList = new HashMap<Integer,Media>();
+    	notInterestedList = new HashMap<Integer,Media>();
+    	blockedUsers = new HashMap<Integer,User>();
+    	followedUsers = new HashMap<Integer,User>();
     }
     
     @JsonCreator
@@ -63,6 +76,10 @@ public class User {
         this.name=name;
         this.email=email;
         this.password=password;
+        wishList = new HashMap<Integer,Media>();
+    	notInterestedList = new HashMap<Integer,Media>();
+    	blockedUsers = new HashMap<Integer,User>();
+    	followedUsers = new HashMap<Integer,User>();
     }
     
     @Override
