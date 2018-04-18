@@ -1,0 +1,11 @@
+      <div class="col-md-4" th:fragment="rating">
+        <span class="glyphicon glyphicon-share glyphicon-large" aria-hidden="true"></span>
+        <h3>Your Rating</h3>
+        <h3 id="ratingError"></h3>
+        <th:block th:if="${session.user != null}">
+        	<input id="ownRating" th:if="${content.getRatings().get(session.user.getUserID()) != null}" th:value="${content.getRatings().get(session.user.getUserID()).getScore()}" type="hidden" class="rating">
+        </th:block>
+        <input id="ownRating" th:if="${session.user == null}" type="hidden" class="rating">
+        <input id="ownRating" th:if="${session.user != null and not content.checkForRater(session.user)}" type="hidden" class="rating">
+        <div><a id="removeRating" role="button">Remove Rating</a></div>
+      </div>

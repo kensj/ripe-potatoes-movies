@@ -115,50 +115,10 @@
         	<h4 th:text="${content.getCast().get(i)}"></h4>
         </th:block>
       </div>
-      <div class="col-md-4">
-        <span class="glyphicon glyphicon-share glyphicon-large" aria-hidden="true"></span>
-        <h3>Your Rating</h3>
-        <h3 id="ratingError"></h3>
-        <th:block th:if="${session.user != null}">
-        	<input id="ownRating" th:if="${content.getRatings().get(session.user.getUserID()) != null}" th:value="${content.getRatings().get(session.user.getUserID()).getScore()}" type="hidden" class="rating">
-        </th:block>
-        <input id="ownRating" th:if="${session.user == null}" type="hidden" class="rating">
-        <input id="ownRating" th:if="${session.user != null and not content.checkForRater(session.user)}" type="hidden" class="rating">
-        <div><a id="removeRating" role="button">Remove Rating</a></div>
-      </div>
+	  <div th:replace="fragments/rating :: rating"></div>
     </div>
-    <div class="row">
-      <div class="col-md-12">
-        <legend><h2>Reviews</h2></legend>
-      </div>
-    </div>
-    <div class="row">
-      <th:block th:if="${content.getReviews().size() != 0}" th:each="i : ${content.getReviews()}">
-		<div class="col-md-4">
-	     	<h4>by <a th:href="'/users/' + ${i.value.getAuthor().getUserID()}" th:text="${i.value.getAuthor().getName()}"></a></h4>
-	        <span class="reviewText" th:text="${i.value.getJustificationText()}"></span>
-	        <div class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Report this review' th:attr="data-content='<form><h5 id=report' + ${i.value.getReviewID()} +'></h5><textarea class=&quot;form-control reportReview&quot; rows=&quot;3&quot; required></textarea><button class=&quot;btn-info reportReview&quot; type=&quot;button&quot; name=&quot;submitRButton&quot; value=' + ${i.value.getReviewID()} + '><span class=&quot;glyphicon glyphicon-pencil&quot;></span></button></form>'">Report</a></div>
-	        <div th:if="${session.user != null and content.getReviews().size() != 0 and i.value.getAuthor().getUserID() == session.user.getUserID()}" class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Delete review' data-content='<h3>Are you sure?</h3><button class="btn-info reportReview" onclick="deleteReview()" type="submit"><span class="glyphicon glyphicon-remove"></span></button>'>Delete</a></div>
-      	</div>      
-      </th:block>
-    </div>
-    <div class="row">
-      <div class="col-sm-12">
-        <legend><h2>Your Review</h2></legend>
-      </div>
-      <div class="col-sm-12">
-      	<div id="reviewError"></div>
-        <form id="submitReview" class="" action="movie.html">
-          <textarea id="reviewSubmit" class="form-control reviewWidth" rows="3" placeholder="Add your review (optional)" required>
-          	
-          		<span th:if="${session.user != null and content.getReviews().size() != 0 and content.getReviews().get(session.user.getUserID()) != null}" th:remove="tag" th:text="${content.getReviews().get(session.user.getUserID()).getJustificationText()}"></span>
-          	
-          </textarea>
-          <br><br>
-          <button class="btn-info loginButton" type="submit" name="submitReButton"><span class="glyphicon glyphicon-pencil"></span></button>
-        </form>
-      </div>
-    </div>
+    <div th:replace="fragments/reviews :: reviews"></div>
+	<div th:replace="fragments/your_review :: your_review"></div>
   </div>
 </section>
 

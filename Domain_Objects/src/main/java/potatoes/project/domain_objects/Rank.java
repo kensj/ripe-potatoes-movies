@@ -16,7 +16,9 @@ public enum Rank {
     LEVEL3(10),
     LEVEL4(25),
     LEVEL5(50),
-    LEVEL6(100)
+    LEVEL6(100),
+    LEVEL7(500),
+    LEVEL8(1000)
     ;
     
     public final int threshold;
