@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -26,8 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.fasterxml.jackson.annotation.JsonView;
 
+import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.PasswordAuthentication;
 import potatoes.project.domain_objects.User;
+import potatoes.project.repository.ContentRepository;
 import potatoes.project.service.UserService;
 import potatoes.project.validator.UserValidator;
 
@@ -36,6 +40,9 @@ public class UserController {
     
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private ContentRepository contentRepo;
         
     @Autowired
     private HttpSession session;
@@ -117,6 +124,90 @@ public class UserController {
 		catch (Exception e) {}
 		
 		response.put("success", "true");
+		return ResponseEntity.ok(response);
+	}
+	/*
+	@PostMapping("/update-password")
+	public ResponseEntity<?> updatePassword(@RequestParam String oldPass, @RequestParam String newPass){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null || !userService.authenticate(u.getName(), oldPass)) {
+			response.put("success", "false");
+		} else {
+			u.changePassword(newPass);
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}*/
+	
+	@PostMapping("/update-email")
+	public ResponseEntity<?> updatePassword(@RequestParam String password, @RequestParam String newEmail){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null || !userService.authenticate(u.getName(), password)) {
+			response.put("success", "false");
+		} else {
+			u.setEmail(newEmail);
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/content/{id}/add-to-wishlist")
+	public ResponseEntity<?> addToWishlist(@PathVariable int contentID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null) {
+			response.put("success", "false");
+		} else {
+			u.addToWishlist((Media) contentRepo.findByContentID(contentID));
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("/content/{id}/remove-from-wishlist")
+	public ResponseEntity<?> removeFromWishlist(@PathVariable int contentID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null) {
+			response.put("success", "false");
+		} else {
+			u.removeFromWishlist((Media) contentRepo.findByContentID(contentID));
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/content/{id}/add-to-not-interested-list")
+	public ResponseEntity<?> addToNotInterestedList(@PathVariable int contentID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null) {
+			response.put("success", "false");
+		} else {
+			u.addToNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("/content/{id}/remove-from--not-interested-list")
+	public ResponseEntity<?> removeFromNotInterestedList(@PathVariable int contentID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null) {
+			response.put("success", "false");
+		} else {
+			u.removeFromNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			response.put("success", "true");
+		}
 		return ResponseEntity.ok(response);
 	}
 }

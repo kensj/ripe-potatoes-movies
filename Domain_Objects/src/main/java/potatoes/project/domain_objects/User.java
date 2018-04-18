@@ -40,7 +40,7 @@ public class User {
     private ImageIcon icon;
     
     @OneToMany
-    private List<Media> wishList;
+    private List<Media> wishlist;
     @OneToMany
     private List<Media> notInterestedList;
     @OneToMany
@@ -77,6 +77,22 @@ public class User {
         return (int)userID;
     }
     
+    public void addToWishlist(Media media) {
+    	wishlist.add(media);
+    }
+    
+    public boolean removeFromWishlist(Media media) {
+    	return wishlist.remove(media);
+    }
+    
+    public void addToNotInterestedList(Media media) {
+    	notInterestedList.add(media);
+    }
+    
+    public boolean removeFromNotInterestedList(Media media) {
+    	return notInterestedList.remove(media);
+    }
+    
     public String getName() {
     	return name;
     }
@@ -91,6 +107,10 @@ public class User {
     
     public String getEmail() {
     	return email;
+    }
+    
+    public void setEmail(String email) {
+    	this.email = email;
     }
     
     public void setPassword(String password) {
