@@ -5,11 +5,15 @@
  */
 package potatoes.project.domain_objects;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -32,14 +36,18 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int reviewID;
     
+    @Temporal(TemporalType.DATE)
+    private Date reviewDate;
+    
     public Review() {
-    	
+    	reviewDate = new Date();
     }
         
     public Review(String justificationText, Content content, User author){
         this.justificationText=justificationText;
         this.content=content;
         this.author=author;
+        reviewDate = new Date();
     }
 
     public String getJustificationText() {
@@ -48,6 +56,7 @@ public class Review {
 
     public void setJustificationText(String justificationText) {
         this.justificationText = justificationText;
+        reviewDate = new Date();
     }
 
     public Content getContent() {

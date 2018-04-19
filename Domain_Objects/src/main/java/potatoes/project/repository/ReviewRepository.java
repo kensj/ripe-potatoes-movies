@@ -6,4 +6,6 @@ import potatoes.project.domain_objects.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	Review findByReviewID(int reviewID);
+	
+	Review findFirst5ByOrderByReviewDateDesc();
 }
