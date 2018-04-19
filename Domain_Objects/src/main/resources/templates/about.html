@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>Ripe Potatoes</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css" th:href="@{css/login.css}">
+    <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{css/style.css}">
+    <link rel="stylesheet" type="text/css" href="css/calendar.css" th:href="@{css/calendar.css}">
+    <link rel="stylesheet" type="text/css" href="css/about.css" th:href="@{css/about.css}">
+    <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico'/>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div th:replace="fragments/login+register :: 'login+register'"></div>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="headline text-left">
+				About Ripe Potatoes
+			</h1>
+			<h3>
+				Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lacus ligula, imperdiet nec tellus at, rhoncus maximus massa. Phasellus id tortor est. Donec volutpat neque sit amet felis hendrerit lacinia. Mauris vel nisl fringilla, lobortis neque a, hendrerit nulla. Vestibulum dapibus nisl non risus auctor vehicula. Maecenas ultrices lorem id neque porta, non ultricies arcu iaculis. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque euismod hendrerit lectus. Proin nec massa sit amet ex commodo iaculis. Morbi feugiat tortor sit amet turpis tempus dapibus.
+			</h3>
+		</div>
+	</div>
+
+	<section class="call-to-action">
+		<div class="container">
+			<blockquote class="blockquote-reverse">
+				<h4>
+					Phasellus facilisis dictum mi, vitae elementum enim auctor non. Sed elementum porta massa, vitae laoreet nunc vulputate a. Curabitur eget velit fermentum, tincidunt enim vehicula, sodales diam. Praesent consectetur, est eget tincidunt tincidunt, dolor velit sagittis eros, vitae mattis ex sapien quis est. Sed molestie tempor nisl eu finibus. Vivamus ut sapien turpis. Mauris blandit, ante id luctus egestas, augue turpis sagittis odio, in volutpat mi metus id leo. Mauris pharetra neque tortor, vitae tincidunt leo pharetra viverra. Mauris placerat gravida lectus, ut ornare ipsum egestas at. Etiam id mollis tortor. Praesent suscipit tortor leo, ultrices suscipit purus fermentum a.
+				</h4>
+			</blockquote>
+	
+			<blockquote class="blockquote-normal">
+				<h4>
+					Duis sed pellentesque mauris. Vestibulum porttitor ligula vitae arcu finibus venenatis. Mauris elementum at ex ut faucibus. Fusce et volutpat orci. Vivamus facilisis feugiat hendrerit. Nulla sodales eros eu elementum consectetur. Donec eget tincidunt risus. Nullam sit amet ligula sit amet nulla elementum lobortis. Nullam placerat euismod tortor, a consequat quam feugiat a. Curabitur consectetur feugiat diam. Nulla felis ex, condimentum eu libero a, facilisis imperdiet odio. Mauris eu purus augue. Nullam euismod dapibus urna eget fermentum. Vivamus molestie pretium elementum. Nullam dictum tempus elit, dapibus rutrum lorem egestas non. Suspendisse pellentesque ac lacus non scelerisque.
+				</h4>
+			</blockquote>
+			
+			<blockquote class="blockquote-reverse">
+				<h4>
+					Maecenas molestie libero ac ligula auctor, vel commodo ipsum dictum. Suspendisse sit amet mattis purus. Donec elementum non dolor et consectetur. Ut vestibulum, lacus ut tristique rhoncus, enim nisi hendrerit augue, at mattis sem diam ac leo. Nullam vitae pharetra tellus. Ut convallis sodales molestie. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean volutpat ornare lectus, quis finibus arcu fringilla nec. Vivamus faucibus metus vel massa pellentesque cursus. Cras ultricies consectetur tincidunt. Cras iaculis lorem nunc, at aliquet lacus vestibulum nec. Nam non tincidunt elit. Proin accumsan dui eu dolor cursus, ac rutrum ante dictum. Fusce bibendum sapien neque, eget sollicitudin nisl placerat a. Donec vitae rutrum nisi, in hendrerit purus. Aenean ante mauris, porta vitae fermentum ac, feugiat id nibh.
+				</h4>
+			</blockquote>
+	
+			<blockquote class="blockquote-normal">
+				<h4>
+					Fusce accumsan sapien eget fringilla tincidunt. Phasellus nec tellus dui. Nam quis varius justo, id elementum sem. Nullam pretium nibh id tellus placerat laoreet. Cras at sagittis odio, eu convallis ex. Quisque in aliquam ante. Praesent vulputate dolor vitae lectus consectetur, non molestie ipsum mattis. Donec vel cursus lacus. Suspendisse augue justo, placerat quis sollicitudin nec, convallis ut nisi. Proin hendrerit faucibus pulvinar. Etiam tempor condimentum mi, finibus tempus risus tincidunt facilisis. Nam gravida, erat at bibendum porttitor, mi libero vestibulum tortor, congue luctus purus libero nec mauris. Maecenas sit amet ante condimentum, tempus erat a, convallis urna. Nulla vitae justo tincidunt, ultrices diam eget, eleifend eros. Nunc eget sapien sit amet enim accumsan dictum venenatis non mauris.
+				</h4>
+			</blockquote>
+		</div>
+	</section>
+	
+	<br><br><br><br>
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+	<script src='js/home.js'></script>
+	<script src='js/jquery.autocomplete.js'></script>
+	<script src='js/navbar.js'></script>
+	<script src='js/authentication.js'></script>
+
+</body>
+
+</html>

@@ -30,6 +30,11 @@ public class IndexController {
 		return "movie";
 	}
 	
+	@RequestMapping("/about")
+	public String aboutPage() {
+		return "about";
+	}
+	
 	@RequestMapping("/profile")
 	public ModelAndView profile(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
