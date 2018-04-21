@@ -27,8 +27,8 @@ public abstract class Media extends Content{
     protected int year;
     protected double criticRating;
     
-    @ElementCollection
-    protected List<File> trailers;
+    //@ElementCollection
+    //protected List<File> trailers;
     protected Date releaseDate;
     
     @OneToMany

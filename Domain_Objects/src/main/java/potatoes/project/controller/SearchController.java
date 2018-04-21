@@ -57,19 +57,18 @@ public class SearchController {
 	}
     
     // Used for Search Page
-    @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
+ /*   @RequestMapping(value = "/getSearchList", method = RequestMethod.GET)
 	public @ResponseBody
 	ModelAndView getSearches(@RequestParam String search) {
     	ModelAndView mav = new ModelAndView("search");
     	mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(search));
 		return mav;
-	}
+	}*/
     
     @RequestMapping(value = "/search", params = "searchBar", method = RequestMethod.GET)
     @ResponseBody
 	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("search");
+		ModelAndView mav = new ModelAndView("search");
 		mav.addObject("searchBar", searchBar);
 		mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(searchBar));
 		return mav;
