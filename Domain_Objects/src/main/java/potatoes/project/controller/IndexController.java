@@ -31,19 +31,19 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("index");
 		mav.addObject("currentWeek",mediaRepo.findByCurrentWeek());
-		for (Media x : mediaRepo.findByCurrentWeek()) {
-			System.out.println(x.getName());
-		}
+//		for (Media x : mediaRepo.findByCurrentWeek()) {
+//			System.out.println(x.getName());
+//		}
 		mav.addObject("topBox", mediaRepo.findTopBoxOffice());
-		for (Object[] x : mediaRepo.findTopBoxOffice()) {
-			for (Object y : x) {
-				System.out.println(y);
-			}
-		}
+//		for (Object[] x : mediaRepo.findTopBoxOffice()) {
+//			for (Object y : x) {
+//				System.out.println(y);
+//			}
+//		}
 		mav.addObject("latestReviews", revRepo.findFirst5ByOrderByReviewDateDesc());
-		for (Review r : revRepo.findFirst5ByOrderByReviewDateDesc()) {
-			System.out.println(r.getJustificationText());
-		}
+//		for (Review r : revRepo.findFirst5ByOrderByReviewDateDesc()) {
+//			System.out.println(r.getJustificationText());
+//		}
 		
 		return mav;
 	}

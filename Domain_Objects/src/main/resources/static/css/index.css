@@ -2,3 +2,26 @@
 	padding: 0px 5px 20px 10px;
 	color: plum;
 }
+.table-hover > thead > tr > th {
+	background-color: inherit;
+	color: #2e294e;
+	text-align: center;
+}
+.table-striped > tbody > tr:nth-child(odd) > td {
+	background-color: lavender;
+}
+.table-hover tbody tr:hover td {
+	background-color: #2e294e;
+	color: plum;
+}
+.table-hover tbody tr:hover td a{
+	color: plum;
+}
+.table-hover > tbody > tr > td {
+	color: #d3185b;
+	font-weight:bold;
+}
+.table-hover > tbody > tr > td > a {
+	text-decoration: overline underline;
+	color: #d3185b;
+}

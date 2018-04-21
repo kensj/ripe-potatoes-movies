@@ -140,7 +140,24 @@
   		</div>
   		<div class="col-sm-9">
 			<th:block th:if="${topBox.size() != 0}">
-				
+				<div class="table-responsive">
+					<table class="table table-striped table-hover">
+						<thead>
+							<tr>
+								<th>Movie</th>
+								<th>Box Office Revenue</th>
+							</tr>
+						</thead>
+						<tbody>
+							<th:block th:each="i : ${#numbers.sequence(0,topBox.size()-1)}">
+								<tr>
+									<td th:utext="${'<a href=' + '/content/' + topBox.get(i)[4] + '>' + topBox.get(i)[6] + '</a>'}"></td>
+									<td th:text="${'$' + topBox.get(i)[5]}"></td>
+								</tr>
+							</th:block>
+						</tbody>
+					</table>
+				</div>
 			</th:block>
 			<h4 th:if="${topBox.size() == 0}">No top box office recently.</h4>
   		</div>
