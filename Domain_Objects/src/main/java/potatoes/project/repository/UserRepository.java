@@ -4,10 +4,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import potatoes.project.domain_objects.User;
 
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<User, Integer>{
 	User findByName(String name);
 	
-    User findByUserID(long userID);
+    User findByUserID(int userID);
     
     User findByEmail(String email);
 }

@@ -292,3 +292,7 @@ legend {
 .buttonContainer {
 	padding-bottom:60px;
 }
+
+.statJumbo1 {
+	display: table-caption;
+}

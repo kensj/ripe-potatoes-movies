@@ -14,6 +14,8 @@
     <link rel="stylesheet" type="text/css" href="css/login.css" th:href="@{css/login.css}">
     <link rel="stylesheet" type="text/css" href="css/style.css" th:href="@{css/style.css}">
     <link rel="stylesheet" type="text/css" href="css/calendar.css" th:href="@{css/calendar.css}">
+    <link rel="stylesheet" type="text/css" href="css/about.css" th:href="@{css/about.css}">
+    <link rel="stylesheet" type="text/css" href="css/index.css" th:href="@{css/index.css}">
     <link rel='shortcut icon' type='image/x-icon' href='images/favicon.ico'/>
 
 </head>
@@ -122,7 +124,40 @@
   </div>
   <div class="container statsContainer">
   	<div class="row">
-  		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+  		<div class="jumbotron statJumbo1 col-sm-3">
+  			<h3>Opening this Week</h3>
+  		</div>
+  		<div class="col-sm-9">
+			<th:block th:if="${currentWeek.size() != 0}" th:each="i : ${#numbers.sequence(0,currentWeek.size() - 1)}">
+				<a th:href="${'/content/' + currentWeek.get(i).getContentID()}" th:text=${currentWeek.get(i).getName()}></a>
+			</th:block>
+			<h4 th:if="${currentWeek.size() == 0}">No openings this week.</h4>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="jumbotron statJumbo1 col-sm-3">
+			<h3>Top Box Office</h3>  		
+  		</div>
+  		<div class="col-sm-9">
+			<th:block th:if="${topBox.size() != 0}">
+				
+			</th:block>
+			<h4 th:if="${topBox.size() == 0}">No top box office recently.</h4>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="jumbotron statJumbo1 col-sm-3">
+			<h3>Latest Reviews</h3>  		
+  		</div>
+  		<div class="col-sm-9">
+			<th:block th:if="${latestReviews.size() != 0}" th:each="i : ${#numbers.sequence(0,latestReviews.size() - 1)}">
+				<blockquote class="blockquote-normal">
+					<h5 th:text="${latestReviews.get(i).getJustificationText()}"></h5>
+					<footer th:utext="${'by <a href=' + '/users/' + latestReviews.get(i).getAuthor().getUserID() + '>' + latestReviews.get(i).getAuthor().getName() + '</a> on <a href=' + '/content/' + latestReviews.get(i).getContent().getContentID() + '>' + latestReviews.get(i).getContent().getName()} + '</a>'"></footer>
+				</blockquote>
+			</th:block>
+			<h4 th:if="${latestReviews.size() == 0}">No reviews yet.</h4>
+  		</div>
   	</div>
   </div>
   <div class="container recommendedContainer">
@@ -138,13 +173,13 @@
 	  		</ul>
 		</div>
 		<ul class="weekdays">
+			<li>Su</li>
 	  		<li>Mo</li>
 	  		<li>Tu</li>
 	  		<li>We</li>
 	  		<li>Th</li>
 	  		<li>Fr</li>
 	  		<li>Sa</li>
-	  		<li>Su</li>
 		</ul>
 		<ul class="days">  
 	  		

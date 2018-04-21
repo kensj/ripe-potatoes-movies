@@ -80,7 +80,7 @@ public class UserController {
         
     @ResponseBody
     @GetMapping("/users/{id}")
-    public ModelAndView getUser(@PathVariable long id, Model model){
+    public ModelAndView getUser(@PathVariable int id, Model model){
     	ModelAndView mav = new ModelAndView();
     	User toGet = userService.findByUserID(id);
     	mav.setViewName("profile");
