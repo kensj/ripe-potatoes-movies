@@ -7,12 +7,12 @@ package potatoes.project.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,9 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import potatoes.project.domain_objects.Content;
-import potatoes.project.domain_objects.Film;
-import potatoes.project.domain_objects.TVSeries;
+import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.UserRepository;
 
 /**
  *
@@ -36,6 +36,8 @@ public class SearchController {
     
     @Autowired
     private ContentRepository contentRepo;
+    @Autowired
+    private UserRepository userRepo;
     
     // Used for Navbar
     @RequestMapping(value = "/getContentList", method = RequestMethod.GET)
@@ -71,6 +73,25 @@ public class SearchController {
 		ModelAndView mav = new ModelAndView("search");
 		mav.addObject("searchBar", searchBar);
 		mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(searchBar));
+		return mav;
+	}
+    
+    // user search
+    @RequestMapping(value = "/usersearch", method = RequestMethod.GET)
+    @ResponseBody
+	public ModelAndView getUserSearchQuery() {
+		ModelAndView mav = new ModelAndView("usersearch");
+		mav.addObject("searchBar", "");
+		mav.addObject("resultList", new ArrayList<User>());
+		return mav;
+	}
+    
+    @RequestMapping(value = "/usersearch", params = "searchBar", method = RequestMethod.GET)
+    @ResponseBody
+	public ModelAndView getUserSearchQuery(@RequestParam("searchBar") String searchBar) {
+		ModelAndView mav = new ModelAndView("usersearch");
+		mav.addObject("searchBar", searchBar);
+		mav.addObject("resultList", userRepo.findByNameIgnoreCaseContaining(searchBar));
 		return mav;
 	}
 }
