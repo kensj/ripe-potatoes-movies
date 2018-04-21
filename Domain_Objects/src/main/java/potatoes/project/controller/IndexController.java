@@ -58,7 +58,7 @@ public class IndexController {
 		return "about";
 	}
 	
-	@RequestMapping("/profile")
+	/*@RequestMapping("/profile")
 	public ModelAndView profile(Model model, HttpSession session) {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("profile");
@@ -67,5 +67,5 @@ public class IndexController {
 			mav.addObject("user",(User) session.getAttribute("user"));
 		}
 		return mav;
-	}
+	}*/
 }
