@@ -85,14 +85,21 @@ public class ContentController {
 //        		return ResponseEntity.ok(response);
 //        	}
 //        }
-        for (Map.Entry<Integer, Review> entry : c.getReviews().entrySet()) {
-        	Review r = entry.getValue();
-        	if (r.getAuthor().equals(u)) {
-        		c.editReview(justificationText, u);
-        		contentRepo.save(c);
-        		response.put("success", "true");
-        		return ResponseEntity.ok(response);
-        	}
+//        for (Map.Entry<Integer, Review> entry : c.getReviews().entrySet()) {
+//        	Review r = entry.getValue();
+//        	if (r.getAuthor().equals(u)) {
+//        		c.editReview(justificationText, u);
+//        		contentRepo.save(c);
+//        		response.put("success", "true");
+//        		return ResponseEntity.ok(response);
+//        	}
+//        }
+        Review r = c.getReviews().get(u.getUserID());
+        if (r != null) {
+        	c.editReview(justificationText, u);
+        	contentRepo.save(c);
+        	response.put("success", "true");
+        	return ResponseEntity.ok(response);
         }
         c.review(justificationText, u);
         contentRepo.save(c);
@@ -132,15 +139,23 @@ public class ContentController {
 //                return ResponseEntity.ok(resp);
 //            }
 //        }
-        for (Map.Entry<Integer, Review> entry : c.getReviews().entrySet()) {
-        	Review r = entry.getValue();
-        	if (r.getAuthor().equals(u)) {
-        		resp.put("success", "true");
-        		c.getReviews().remove(r.getAuthor().getUserID());
-        		revRepo.delete(r);
-        		contentRepo.save(c);
-        		return ResponseEntity.ok(resp);
-        	}
+//        for (Map.Entry<Integer, Review> entry : c.getReviews().entrySet()) {
+//        	Review r = entry.getValue();
+//        	if (r.getAuthor().equals(u)) {
+//        		resp.put("success", "true");
+//        		c.getReviews().remove(r.getAuthor().getUserID());
+//        		revRepo.delete(r);
+//        		contentRepo.save(c);
+//        		return ResponseEntity.ok(resp);
+//        	}
+//        }
+        Review r = c.getReviews().get(u.getUserID());
+        if (r != null) {
+        	c.getReviews().remove(r.getAuthor().getUserID());
+        	revRepo.delete(r);
+        	contentRepo.save(c);
+        	resp.put("success", "true");
+        	return ResponseEntity.ok(resp);
         }
         resp.put("success", "false");
         return ResponseEntity.ok(resp);
@@ -172,14 +187,21 @@ public class ContentController {
 //        		return ResponseEntity.ok(resp);
 //        	}
 //        }
-        for (Map.Entry<Integer, Rating> entry : c.getRatings().entrySet()) {
-        	Rating r = entry.getValue();
-        	if (r.getRater().equals(u)) {
-        		c.changeRating(rating, u);
-        		contentRepo.save(c);
-        		resp.put("success", "true");
-        		return ResponseEntity.ok(resp);
-        	}
+//        for (Map.Entry<Integer, Rating> entry : c.getRatings().entrySet()) {
+//        	Rating r = entry.getValue();
+//        	if (r.getRater().equals(u)) {
+//        		c.changeRating(rating, u);
+//        		contentRepo.save(c);
+//        		resp.put("success", "true");
+//        		return ResponseEntity.ok(resp);
+//        	}
+//        }
+        Rating r = c.getRatings().get(u.getUserID());
+        if (r != null) {
+        	c.changeRating(rating, u);
+        	contentRepo.save(c);
+        	resp.put("success", "true");
+        	return ResponseEntity.ok(resp);
         }
         
         c.addRating(rating, u);
@@ -233,19 +255,32 @@ public class ContentController {
 //        		}
 //        	}
 //        }
-        for(Map.Entry<Integer, Rating> entry : c.getRatings().entrySet()) {
-        	Rating r = entry.getValue();
-        	if (r.getRater().equals(u)) {
-        		if (c.removeRating(u)) {
-        			resp.put("success", "true");
-        			contentRepo.save(c);
-        			rateRepo.delete(r);
-        			return ResponseEntity.ok(resp);
-        		}
-        		else {
-        			resp.put("success", "false");
-        			return ResponseEntity.ok(resp);
-        		}
+//        for(Map.Entry<Integer, Rating> entry : c.getRatings().entrySet()) {
+//        	Rating r = entry.getValue();
+//        	if (r.getRater().equals(u)) {
+//        		if (c.removeRating(u)) {
+//        			resp.put("success", "true");
+//        			contentRepo.save(c);
+//        			rateRepo.delete(r);
+//        			return ResponseEntity.ok(resp);
+//        		}
+//        		else {
+//        			resp.put("success", "false");
+//        			return ResponseEntity.ok(resp);
+//        		}
+//        	}
+//        }
+        Rating r = c.getRatings().get(u.getUserID());
+        if (r != null) {
+        	if (c.removeRating(u)) {
+        		resp.put("success", "true");
+        		contentRepo.save(c);
+        		rateRepo.delete(r);
+        		return ResponseEntity.ok(resp);
+        	}
+        	else {
+        		resp.put("success", "false");
+        		return ResponseEntity.ok(resp);
         	}
         }
         
@@ -277,24 +312,31 @@ public class ContentController {
 //        		return ResponseEntity.ok(response);
 //        	}
 //        }
-        for(Map.Entry<Integer, Review> entry : contentRepo.findByContentID(id).getReviews().entrySet()) {
-        	Review r = entry.getValue();
-        	for (Report s : reportRepo.findByReporter(reporter)) {
-        		if (s.getReported().equals(r.getAuthor())) {
-        			response.put("success", "false");
-        			response.put("reason","repeat");
-        			return ResponseEntity.ok(response);
-        		}
-        	}
-        	if (r.getReviewID() == reviewID) {
-        		reportRepo.save(new Report(description, reporter, r));
-        		response.put("success", "true");
+//        for(Map.Entry<Integer, Review> entry : contentRepo.findByContentID(id).getReviews().entrySet()) {
+//        	Review r = entry.getValue();
+//        	for (Report s : reportRepo.findByReporter(reporter)) {
+//        		if (s.getReported().equals(r.getAuthor())) {
+//        			response.put("success", "false");
+//        			response.put("reason","repeat");
+//        			return ResponseEntity.ok(response);
+//        		}
+//        	}
+//        	if (r.getReviewID() == reviewID) {
+//        		reportRepo.save(new Report(description, reporter, r));
+//        		response.put("success", "true");
+//        		return ResponseEntity.ok(response);
+//        	}
+//        }
+        Review r = revRepo.findByReviewID(reviewID);
+        for (Report s : reportRepo.findByReporter(reporter)) {
+        	if (s.getReported().equals(r.getAuthor())) {
+        		response.put("success","false");
+        		response.put("reason", "repeat");
         		return ResponseEntity.ok(response);
         	}
         }
-        
-        response.put("success", "false");
-        response.put("reason", "unknown");
+        reportRepo.save(new Report(description, reporter, r));
+        response.put("success", "true");
         return ResponseEntity.ok(response);
     }
     

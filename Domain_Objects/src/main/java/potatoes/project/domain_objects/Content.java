@@ -93,15 +93,22 @@ public abstract class Content {
 //                return;
 //            }
 //        }
-        for(Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
-        	Rating r = entry.getValue();
-        	if (r.getRater().equals(rater)) {
-        		sumRatings-=r.getScore();
-        		sumRatings+=newRating;
-        		r.setScore(newRating);
-        		return;
-        	}
-        }
+//        for(Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
+//        	Rating r = entry.getValue();
+//        	if (r.getRater().equals(rater)) {
+//        		sumRatings-=r.getScore();
+//        		sumRatings+=newRating;
+//        		r.setScore(newRating);
+//        		return;
+//        	}
+//        }
+    	Rating r = ratings.get(rater.getUserID());
+    	if (r != null) {
+    		sumRatings -= r.getScore();
+    		sumRatings += newRating;
+    		r.setScore(newRating);
+    		return;
+    	}
     }
     
     public boolean removeRating(User rater){
@@ -113,13 +120,19 @@ public abstract class Content {
 //            }
 //        }
 //        return false;
-    	for (Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
-    		Rating r = entry.getValue();
-    		if (r.getRater().equals(rater)) {
-    			sumRatings-=r.getScore();
-    			ratings.remove(r.getRater().getUserID());
-    			return true;
-    		}
+//    	for (Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
+//    		Rating r = entry.getValue();
+//    		if (r.getRater().equals(rater)) {
+//    			sumRatings-=r.getScore();
+//    			ratings.remove(r.getRater().getUserID());
+//    			return true;
+//    		}
+//    	}
+    	Rating r = ratings.get(rater.getUserID());
+    	if (r != null) {
+    		sumRatings -= r.getScore();
+    		ratings.remove(r.getRater().getUserID());
+    		return true;
     	}
     	return false;
     }
@@ -139,12 +152,17 @@ public abstract class Content {
 //    			return;
 //    		}
 //    	}
-    	for (Map.Entry<Integer, Review> entry : reviews.entrySet()) {
-    		Review r = entry.getValue();
-    		if (r.getAuthor().getUserID() == author.getUserID()) {
-    			r.setJustificationText(newText);
-    			return;
-    		}
+//    	for (Map.Entry<Integer, Review> entry : reviews.entrySet()) {
+//    		Review r = entry.getValue();
+//    		if (r.getAuthor().getUserID() == author.getUserID()) {
+//    			r.setJustificationText(newText);
+//    			return;
+//    		}
+//    	}
+    	Review r = reviews.get(author.getUserID());
+    	if (r != null) {
+    		r.setJustificationText(newText);
+    		return;
     	}
     }
     
@@ -155,11 +173,15 @@ public abstract class Content {
 //    		}
 //    	}
 //    	return false;
-    	for (Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
-    		Rating r = entry.getValue();
-    		if (r.getRater().equals(user)) {
-    			return true;
-    		}
+//    	for (Map.Entry<Integer, Rating> entry : ratings.entrySet()) {
+//    		Rating r = entry.getValue();
+//    		if (r.getRater().equals(user)) {
+//    			return true;
+//    		}
+//    	}
+    	Rating r = ratings.get(user.getUserID());
+    	if (r.getRater().equals(user)) {
+    		return true;
     	}
     	return false;
     }
