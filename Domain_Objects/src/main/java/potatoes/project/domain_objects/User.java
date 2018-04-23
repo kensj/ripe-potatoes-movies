@@ -160,6 +160,10 @@ public class User {
 	
     public String getConfirmPassword() {
     	return confirmPassword;
-    }    
+    }
+    
+    public Rank getRank() {
+    	return userRank;
+    }
     
 }

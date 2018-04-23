@@ -21,6 +21,10 @@ public enum Rank {
     LEVEL8(1000)
     ;
     
-    public final int threshold;
+    private final int threshold;
     Rank(int threshold){this.threshold=threshold;}
+    
+    public int getRankValue() {
+        return this.threshold;
+    }
 }

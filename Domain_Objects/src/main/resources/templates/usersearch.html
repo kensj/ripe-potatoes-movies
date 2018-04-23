@@ -69,6 +69,17 @@
 	    	<th:block th:if="${!resultList.isEmpty()}" th:each="i : ${#numbers.sequence(0,resultList.size()-1)}">
 	    		<div class="row searchResult">
 	    			<h4><a th:href="'/users/' + ${resultList.get(i).getUserID()}" th:text="${resultList.get(i).getName()}"></a></h4>
+	    			
+	    			<div th:if="${resultList.get(i).getRank() != null}">
+	    			<h5 class="RankLevel" th:text="'Rank: ' + ${resultList.get(i).getRank().getRankValue()}"></h5>
+	    			</div>
+	    			
+	    			<div th:if="${resultList.get(i).getRank() == null}">
+	    			<h5 class="RankLevel">User is Unranked</h5>
+	    			</div>
+	    			
+	    			<div th:if="${resultList.get(i).isCritic()}"><h5 class="isCritic">Critic</h5></div>
+	    			<div th:if="${resultList.get(i).isSuperUser()}"><h5 class="isSuperUser">Super User</h5></div>
 	    		</div>
         	</th:block>
         	<h2 th:if="${resultList.isEmpty()}" th:text="'No Results'"></h2>
