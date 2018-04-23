@@ -25,15 +25,15 @@
 
 
 <div class="jumbotron">
-	<h2 class="headline text-left">SuperUser Panel</h2>
+	<h2 th:if="${session.user == null or not session.user.isSuperUser()}">You do not have permissions to access this page.</h2>
+    <h2 th:if="${session.user != null and session.user.isSuperUser()}">Welcome to the SuperUser Panel</h2>
 </div>
         
 <section class="call-to-action">
 	 <div class="container">
 	    <div class="row">
 	    <div class="text-left">
-	    	<h2 th:if="${session.user == null or not session.user.isSuperUser()}">You do not have permissions to access this page.</h2>
-        	<h2 th:if="${session.user != null and session.user.isSuperUser()}">Welcome to the SuperUser Panel</h2>
+	    	<div th:replace="fragments/reports :: reports"></div>
         </div>
 	    </div>
 	</div>
