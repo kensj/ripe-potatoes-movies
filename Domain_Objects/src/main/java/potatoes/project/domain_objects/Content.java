@@ -180,7 +180,10 @@ public abstract class Content {
 //    		}
 //    	}
     	Rating r = ratings.get(user.getUserID());
-    	if (r.getRater().equals(user)) {
+    	if (r == null) {
+    		return false;
+    	}
+    	else if (r.getRater().equals(user)) {
     		return true;
     	}
     	return false;
