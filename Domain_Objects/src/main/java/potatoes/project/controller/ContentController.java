@@ -335,6 +335,7 @@ public class ContentController {
         		return ResponseEntity.ok(response);
         	}
         }
+        System.out.println("report is" + description);
         reportRepo.save(new Report(description, reporter, r));
         response.put("success", "true");
         return ResponseEntity.ok(response);

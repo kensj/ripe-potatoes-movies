@@ -67,13 +67,15 @@ $(document).on('click', "[name='submitRButton']", function() {
 	var header = $("meta[name='_csrf_header']").attr("content");
 	var movieId = $("meta[name='content_id']").attr("content");
 	var msgIdentifier = $(this).val();
+	var test = $(this).siblings("textarea").val();
+	console.log(test);
 	$.ajax({
 		headers: {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
 		type: "POST",
-		url: "/content/" + movieId + "/report?reviewID=" + $(this).val() + "&" + "description=" + $(this).siblings().first().val(),
+		url: "/content/" + movieId + "/report?reviewID=" + $(this).val() + "&" + "description=" + $(this).siblings("textarea").val(),
 		cache: true,
 		beforeSend: function(xhr) {
 			xhr.setRequestHeader(header, token);
