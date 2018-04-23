@@ -47,6 +47,7 @@
         </li>
         <li><a th:href="${'/usersearch'}">User Search</a></li>
         <li th:if="${session.user != null}"><a th:href="${'/users/' + session.user.getUserID()}">Profile</a></li>
+        <li th:if="${session.user != null and session.user.isSuperUser()}"><a th:href="${'/admin'}">SuperUser Panel</a></li>
         <li><a class="ll" onclick="login()" href="#" th:text="${session.user != null} ? 'Logout' : 'Login'"></a></li>
       </ul>
     </div>

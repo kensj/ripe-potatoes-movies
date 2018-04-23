@@ -210,4 +210,9 @@ public class UserController {
 		}
 		return ResponseEntity.ok(response);
 	}
+	
+	@RequestMapping("/admin")
+	public ModelAndView adminPage() {
+		return new ModelAndView("admin");
+	}
 }
