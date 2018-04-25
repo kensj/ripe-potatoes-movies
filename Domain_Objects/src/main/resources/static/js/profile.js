@@ -1,5 +1,9 @@
 $(document).ready(function() {
 	$("#deleteWarning").hide();
+	$(".rrContainer").hide();
+	$(".wishlistContainer").hide();
+	$(".followingContainer").hide();
+	$(".followedContainer").hide();
 });
 
 $('[rel="tooltip"]').tooltip({
@@ -29,3 +33,31 @@ $(".deleteAccount").click(function() {
 		$("#deleteWarning").show();
 	}
 });
+
+function showRR() {
+	$(".rrContainer").show();
+	$(".wishlistContainer").hide();
+	$(".followingContainer").hide();
+	$(".followedContainer").hide();
+}
+
+function showWishlist() {
+	$(".rrContainer").hide();
+	$(".wishlistContainer").show();
+	$(".followingContainer").hide();
+	$(".followedContainer").hide();
+}
+
+function showFollowing() {
+	$(".rrContainer").hide();
+	$(".wishlistContainer").hide();
+	$(".followingContainer").show();
+	$(".followedContainer").hide();
+}
+
+function showFollowed() {
+	$(".rrContainer").hide();
+	$(".wishlistContainer").hide();
+	$(".followingContainer").hide();
+	$(".followedContainer").show();
+}
