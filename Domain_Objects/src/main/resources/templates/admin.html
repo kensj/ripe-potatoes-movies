@@ -32,10 +32,34 @@
 <section class="call-to-action">
 	 <div class="container">
 	    <div class="row">
-	    <div class="text-left">
-	    	<div th:replace="fragments/reports :: reports"></div>
-        </div>
+	    	<div class="text-left">
+		    	<div th:replace="fragments/reports :: reports"></div>
+        	</div>
 	    </div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<h3>Create a page</h3>
+			<form>
+				<button class="btn-info loginButton" type="submit" name="loginButton"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span></button>
+			</form>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<h3>Delete a user</h3>
+			<form>
+				<button class="btn-info loginButton" type="submit" name="loginButton"><span class="glyphicon glyphicon-remove"></span><span class="glyphicon glyphicon-user"></span></button>
+			</form>
+		</div>	
+	</div>
+	<div class="container">
+		<div class="row">
+			<h3>Delete a review</h3>
+			<form>
+				<button class="btn-info loginButton" type="submit" name="loginButton"><span class="glyphicon glyphicon-remove"></span><span class="glyphicon glyphicon-pencil"></span></button>
+			</form>
+		</div>	
 	</div>
 </section>
 
