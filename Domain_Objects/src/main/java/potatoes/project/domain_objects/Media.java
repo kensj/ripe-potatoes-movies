@@ -5,7 +5,6 @@
  */
 package potatoes.project.domain_objects;
 
-import java.io.File;
 import java.sql.Date; // extends java.util.Date;
 import java.util.List;
 
