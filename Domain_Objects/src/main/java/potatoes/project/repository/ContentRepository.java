@@ -6,6 +6,10 @@
 package potatoes.project.repository;
 
 import java.util.List;
+
+import javax.persistence.CascadeType;
+import javax.persistence.ElementCollection;
+import javax.persistence.OneToMany;
 import org.springframework.data.jpa.repository.JpaRepository;
 import potatoes.project.domain_objects.Content;
 
@@ -15,6 +19,8 @@ import potatoes.project.domain_objects.Content;
  */
 public interface ContentRepository extends JpaRepository<Content, Integer>{
     
+	@ElementCollection
+    @OneToMany(cascade = CascadeType.ALL)
     List<Content> findByNameIgnoreCaseContaining(String name);
     
     Content findByContentID(int userID);

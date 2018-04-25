@@ -10,6 +10,8 @@ import java.util.List;
 
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 /**
@@ -18,13 +20,13 @@ import javax.persistence.OneToMany;
  */
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Media extends Content{
     
 	@ElementCollection
     protected List<String> cast;
     protected String synopsis;
-    protected int year;
-    protected double criticRating;
+    //protected double criticRating;
     
     //@ElementCollection
     //protected List<File> trailers;
