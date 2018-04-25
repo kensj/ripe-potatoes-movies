@@ -5,7 +5,6 @@
  */
 package potatoes.project.controller;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -28,7 +27,6 @@ import potatoes.project.domain_objects.Film;
 import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
-import potatoes.project.domain_objects.ReportQueue;
 import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;

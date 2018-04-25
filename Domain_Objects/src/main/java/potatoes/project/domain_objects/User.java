@@ -38,7 +38,6 @@ public class User {
     private boolean isCritic;
     private boolean isSuperUser;
     
-    private int numFollowers;
     private Rank userRank;
     private ImageIcon icon;
     
@@ -58,6 +57,10 @@ public class User {
     @OneToMany
     private Map<Integer,User> followedUsers;
     
+    @ElementCollection
+    @OneToMany
+    private Map<Integer,User> followingUsers;
+    
     private int reprimands;
     
     @Id
@@ -69,6 +72,7 @@ public class User {
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
     	followedUsers = new HashMap<Integer,User>();
+    	followingUsers = new HashMap<Integer,User>();
     }
     
     @JsonCreator
@@ -80,6 +84,7 @@ public class User {
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
     	followedUsers = new HashMap<Integer,User>();
+    	followingUsers = new HashMap<Integer,User>();
     }
     
     @Override
