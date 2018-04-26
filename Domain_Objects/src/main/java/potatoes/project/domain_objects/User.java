@@ -52,13 +52,13 @@ public class User {
     @OneToMany
     private Map<Integer,User> blockedUsers;
     
-    @ElementCollection
+   /* @ElementCollection
     @OneToMany
     private Map<Integer,User> followedUsers;
     
     @ElementCollection
     @OneToMany
-    private Map<Integer,User> followingUsers;
+    private Map<Integer,User> followingUsers;*/
     
     private int reprimands;
     
@@ -70,8 +70,8 @@ public class User {
     	wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new HashMap<Integer,User>();
-    	followingUsers = new HashMap<Integer,User>();
+    	//followedUsers = new HashMap<Integer,User>();
+    	//followingUsers = new HashMap<Integer,User>();
     }
     
     @JsonCreator
@@ -82,8 +82,8 @@ public class User {
         wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new HashMap<Integer,User>();
-    	followingUsers = new HashMap<Integer,User>();
+    	//followedUsers = new HashMap<Integer,User>();
+    	//followingUsers = new HashMap<Integer,User>();
     }
     
     @Override
