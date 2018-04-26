@@ -15,4 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer>{
     User findByUserID(int userID);
     
     User findByEmail(String email);
+    
+    //@Query("SELECT followed_users_userid FROM user_followed_users WHERE user_userid = ?1")
+  	//List<Integer> findFollowedUsers(int userID);
 }

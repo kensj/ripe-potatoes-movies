@@ -10,7 +10,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.OneToMany;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+
 import potatoes.project.domain_objects.Content;
 
 /**
