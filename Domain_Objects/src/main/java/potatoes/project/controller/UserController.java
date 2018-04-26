@@ -202,8 +202,23 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@RequestMapping("/admin")
-	public ModelAndView adminPage() {
-		return new ModelAndView("admin");
+	@PostMapping("/follow/{userID}")
+	public ResponseEntity<?> followUser(@PathVariable int userID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		User f = (User) userService.findByUserID(userID);
+		if (u == null || f == null) response.put("success", "false");
+		else response.put("success", "true");	
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/unfollow/{userID}")
+	public ResponseEntity<?> unfollowUser(@PathVariable int userID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		User f = (User) userService.findByUserID(userID);
+		if (u == null || f == null) response.put("success", "false");
+		else response.put("success", "true");	
+		return ResponseEntity.ok(response);
 	}
 }
