@@ -34,7 +34,7 @@
         <h1 class="headline text-left" th:text="${user.getName()}">Username</h1>
         <input type="hidden" id="userID" th:value="${user.getUserID()}"/>
       </div>
-      <div th:if="${session.user != null}" class="col-md-2">
+      <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()}" class="col-md-2">
       	<button class="fbtn followButton" rel="6" style="margin-top:40px;">Follow</button>
      </div>
     </div>
