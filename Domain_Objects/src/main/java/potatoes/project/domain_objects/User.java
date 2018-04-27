@@ -9,8 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +17,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
-
-import org.hibernate.annotations.SQLInsert;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -58,8 +54,8 @@ public class User {
     private Map<Integer,User> blockedUsers;
     
     @ElementCollection
-    @OneToMany(cascade = CascadeType.ALL)
-    private Map<Integer,User> followedUsers;
+    //@OneToMany(cascade = CascadeType.ALL)
+    private Map<Integer,String> followedUsers;
     
     private int reprimands;
     
@@ -71,7 +67,7 @@ public class User {
     	wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new ConcurrentHashMap<Integer,User>();
+    	followedUsers = new ConcurrentHashMap<Integer,String>();
     }
     
     @JsonCreator
@@ -82,7 +78,7 @@ public class User {
         wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new ConcurrentHashMap<Integer,User>();
+    	followedUsers = new ConcurrentHashMap<Integer,String>();
     }
     
     @Override
@@ -170,10 +166,23 @@ public class User {
     }
     
     public void follow(User f) {
-    	followedUsers.put(this.userID, f);
+    	String s = followedUsers.get(this.userID);
+    	if(s == null) s = "";
+    	String put = Integer.toString(f.getUserID()) + "|";
+    	if(!s.contains(put)) followedUsers.put(this.userID, s + put);
     }
+    
     public void unfollow(User uf) {
-    	//followedUsers.remove();
-    	System.out.println(followedUsers.get(this.userID).getUserID());
+    	String s = followedUsers.get(this.userID);
+    	if(s == null) return;
+    	String rem = Integer.toString(uf.getUserID()) + "|";
+    	if(s.contains(rem)) followedUsers.put(this.userID, s.replace(rem,""));
+    }
+    
+    public boolean isFollowing(int userID) {
+    	String s = followedUsers.get(this.userID);
+    	String fol = userID + "|";
+    	if(s != null && s.contains(fol)) return true;
+    	return false;
     }
 }

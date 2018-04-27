@@ -228,7 +228,7 @@ public class UserController {
 		else {
 			response.put("success", "true");
 			u.unfollow(uf);
-			//userRepository.save(u);
+			userRepository.save(u);
 		}
 		return ResponseEntity.ok(response);
 	}
