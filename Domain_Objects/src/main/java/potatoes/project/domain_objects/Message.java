@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -21,25 +22,23 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Message {
-    private boolean read;
+	
+	private boolean isReprimand;
+    private boolean messageRead;
     private String body;
     
     @OneToOne
     private User sender;
     @OneToOne
     private User receiver;
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int messageID;    
     @Temporal(TemporalType.DATE)
     private Date timeStamp;
     
-    private boolean isReprimand;
-    
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int messageID;
-    
     public Message() {
-    	read=false;
+    	messageRead=false;
     }
     
     public Message(User sender, User receiver, String body, boolean isReprimand) {
@@ -47,16 +46,16 @@ public class Message {
     	this.receiver=receiver;
     	this.body=body;
     	this.isReprimand=isReprimand;
-    	read=false;
+    	messageRead=false;
     	timeStamp = new Date();
     }
     
     public void markAsRead(){
-        read=true;
+        messageRead=true;
     }
     
     public void markAsUnread() {
-    	read=false;
+    	messageRead=false;
     }
     
     public String getBody() {
@@ -76,14 +75,14 @@ public class Message {
     }
     
     public boolean isRead() {
-    	return read;
+    	return messageRead;
     }
     
     public void setRead() {
-    	read=true;
+    	messageRead=true;
     }
     
     public void setUnread() {
-    	read=false;
+    	messageRead=false;
     }
 }

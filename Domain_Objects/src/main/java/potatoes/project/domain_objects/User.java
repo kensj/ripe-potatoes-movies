@@ -54,8 +54,12 @@ public class User {
     private Map<Integer,User> blockedUsers;
     
     @ElementCollection
-    //@OneToMany(cascade = CascadeType.ALL)
+    //@OneToMany
     private Map<Integer,String> followedUsers;
+    
+    @ElementCollection
+    //@OneToMany
+    private Map<Integer,String> messages;
     
     private int reprimands;
     
@@ -68,6 +72,7 @@ public class User {
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
     	followedUsers = new ConcurrentHashMap<Integer,String>();
+    	messages = new ConcurrentHashMap<Integer,String>();
     }
     
     @JsonCreator
@@ -79,6 +84,7 @@ public class User {
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
     	followedUsers = new ConcurrentHashMap<Integer,String>();
+    	messages = new ConcurrentHashMap<Integer,String>();
     }
     
     @Override
