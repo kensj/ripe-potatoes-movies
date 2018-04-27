@@ -3,7 +3,6 @@ package potatoes.project.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
 import potatoes.project.domain_objects.User;
 
@@ -16,7 +15,5 @@ public interface UserRepository extends JpaRepository<User, Integer>{
     User findByUserID(int userID);
     
     User findByEmail(String email);
-    
-    //@Query("SELECT followed_users_userid FROM user_followed_users WHERE user_userid = ?1")
-  	//List<Integer> findFollowedUsers(int userID);
+
 }

@@ -210,10 +210,12 @@ public class UserController {
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
 		User f = (User) userService.findByUserID(userID);
-		u.follow(f);
-		userRepository.save(u);
 		if (u == null || f == null) response.put("success", "false");
-		else response.put("success", "true");	
+		else {
+			response.put("success", "true");
+			u.follow(f);
+			userRepository.save(u);
+		}
 		return ResponseEntity.ok(response);
 	}
 	
@@ -221,9 +223,13 @@ public class UserController {
 	public ResponseEntity<?> unfollowUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User f = (User) userService.findByUserID(userID);
-		if (u == null || f == null) response.put("success", "false");
-		else response.put("success", "true");	
+		User uf = (User) userService.findByUserID(userID);
+		if (u == null || uf == null) response.put("success", "false");
+		else {
+			response.put("success", "true");
+			u.unfollow(uf);
+			//userRepository.save(u);
+		}
 		return ResponseEntity.ok(response);
 	}
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +19,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
+
+import org.hibernate.annotations.SQLInsert;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -68,7 +71,7 @@ public class User {
     	wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new HashMap<Integer,User>();
+    	followedUsers = new ConcurrentHashMap<Integer,User>();
     }
     
     @JsonCreator
@@ -168,5 +171,9 @@ public class User {
     
     public void follow(User f) {
     	followedUsers.put(this.userID, f);
+    }
+    public void unfollow(User uf) {
+    	//followedUsers.remove();
+    	System.out.println(followedUsers.get(this.userID).getUserID());
     }
 }
