@@ -42,9 +42,8 @@ public abstract class Content {
     @ElementCollection
     @OneToMany(cascade = CascadeType.ALL)
     protected Map<Integer, Rating> ratings;
-    
-    @ElementCollection
-    protected Set<byte[]> photos;
+   
+    protected String photos;
     @Id
     protected int contentID;
     
@@ -58,7 +57,7 @@ public abstract class Content {
         this.name=name;
         reviews=new ConcurrentHashMap<Integer, Review>();
         ratings=new ConcurrentHashMap<Integer, Rating>();
-        photos=new HashSet<>();
+        photos="";
     }
     
     public String getName() {return this.name;}
@@ -197,11 +196,11 @@ public abstract class Content {
 		this.name = name;
 	}
 
-	public Set<byte[]> getPhotos() {
+	public String getPhotos() {
 		return photos;
 	}
 
-	public void setPhotos(Set<byte[]> photos) {
+	public void setPhotos(String photos) {
 		this.photos = photos;
 	}
 
