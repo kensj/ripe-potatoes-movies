@@ -206,6 +206,8 @@ public class UserController {
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
 		User f = (User) userService.findByUserID(userID);
+		u.follow(f);
+		userService.save(u);
 		if (u == null || f == null) response.put("success", "false");
 		else response.put("success", "true");	
 		return ResponseEntity.ok(response);

@@ -7,7 +7,9 @@ package potatoes.project.domain_objects;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,7 +55,7 @@ public class User {
     private Map<Integer,User> blockedUsers;
     
     @ElementCollection
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private Map<Integer,User> followedUsers;
     
     private int reprimands;
@@ -77,7 +79,7 @@ public class User {
         wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new HashMap<Integer,User>();
+    	followedUsers = new ConcurrentHashMap<Integer,User>();
     }
     
     @Override
@@ -164,4 +166,7 @@ public class User {
     	return userRank;
     }
     
+    public void follow(User f) {
+    	followedUsers.put(this.userID, f);
+    }
 }
