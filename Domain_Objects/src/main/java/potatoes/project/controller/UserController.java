@@ -23,10 +23,14 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.UserRepository;
 import potatoes.project.service.UserService;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	private UserRepository userRepository;
     
 	@Autowired
 	private UserService userService;
@@ -207,7 +211,7 @@ public class UserController {
 		User u = (User) session.getAttribute("user");
 		User f = (User) userService.findByUserID(userID);
 		u.follow(f);
-		userService.save(u);
+		userRepository.save(u);
 		if (u == null || f == null) response.put("success", "false");
 		else response.put("success", "true");	
 		return ResponseEntity.ok(response);
