@@ -58,7 +58,7 @@ body {
     background: #fafafa;
 }
 
-.fbtn {
+.fbtn, .bbtn {
     cursor:pointer;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -92,7 +92,7 @@ body {
     
 }
 
-.fbtn:hover {
+.fbtn:hover, .bbtn:hover {
     color:#333;
     border-color:#999;
     background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f6f6f6)); /* Saf4+, Chrome */
@@ -102,7 +102,7 @@ body {
     background-image:      -o-linear-gradient(top, #ffffff, #f6f6f6); /* Opera 11.10+ */
     background-image:         linear-gradient(top, #ffffff, #f6f6f6);
 }
-.fbtn:active{
+.fbtn:active, .bbtn:active {
     background-image: -webkit-gradient(linear, left top, left bottom, from(#e8e8e8), to(#ffffff)); /* Saf4+, Chrome */
     background-image: -webkit-linear-gradient(top, #e8e8e8, #ffffff); /* Chrome 10+, Saf5.1+, iOS 5+ */
     background-image:    -moz-linear-gradient(top, #e8e8e8, #ffffff); /* FF3.6 */
@@ -110,7 +110,7 @@ body {
     background-image:      -o-linear-gradient(top, #e8e8e8, #ffffff); /* Opera 11.10+ */
     background-image:         linear-gradient(top, #e8e8e8, #ffffff);
 }
-.fbtn:focus {
+.fbtn:focus, .bbtn:focus {
     outline: none;
     border-color:#BD4A39;
 }
@@ -118,10 +118,10 @@ body {
 
 /* Follow Button Styles */
 
-button.followButton{
+button.followButton, button.blockButton{
     width:160px;
 }
-button.followButton.following{
+button.followButton.following, button.blockButton.blocking{
     background-color: #57A957;
     background-repeat: repeat-x;
     background-image: -khtml-gradient(linear, left top, left bottom, from(#62c462), to(#57a957));
@@ -137,7 +137,7 @@ button.followButton.following{
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
     color:#fff;
 }
-button.followButton.unfollow{
+button.followButton.unfollow, button.blockButton.unblock{
     background-color: #C43C35;
     background-repeat: repeat-x;
     background-image: -khtml-gradient(linear, left top, left bottom, from(#ee5f5b), to(#c43c35));

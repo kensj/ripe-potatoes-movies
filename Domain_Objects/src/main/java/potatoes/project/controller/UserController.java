@@ -109,6 +109,13 @@ public class UserController {
         		else {
         			mav.addObject("following", false);
         		}
+        		
+        		if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),toGet.getUserID()) != null) {
+        			mav.addObject("blocking", true);
+        		}
+        		else {
+        			mav.addObject("blocking", false);
+        		}
         	}   		
     	}
     	
