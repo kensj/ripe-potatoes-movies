@@ -5,10 +5,8 @@
  */
 package potatoes.project.domain_objects;
 
-import java.util.HashSet;
 //import javafx.scene.image.Image;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.persistence.CascadeType;

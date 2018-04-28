@@ -9,12 +9,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.persistence.CascadeType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
@@ -55,10 +57,6 @@ public class User {
     
     @ElementCollection
     //@OneToMany
-    private Map<Integer,String> followedUsers;
-    
-    @ElementCollection
-    //@OneToMany
     private Map<Integer,String> messages;
     
     private int reprimands;
@@ -71,7 +69,6 @@ public class User {
     	wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new ConcurrentHashMap<Integer,String>();
     	messages = new ConcurrentHashMap<Integer,String>();
     }
     
@@ -83,7 +80,6 @@ public class User {
         wishlist = new HashMap<Integer,Media>();
     	notInterestedList = new HashMap<Integer,Media>();
     	blockedUsers = new HashMap<Integer,User>();
-    	followedUsers = new ConcurrentHashMap<Integer,String>();
     	messages = new ConcurrentHashMap<Integer,String>();
     }
     
@@ -171,24 +167,4 @@ public class User {
     	return userRank;
     }
     
-    public void follow(User f) {
-    	String s = followedUsers.get(this.userID);
-    	if(s == null) s = "";
-    	String put = Integer.toString(f.getUserID()) + "|";
-    	if(!s.contains(put)) followedUsers.put(this.userID, s + put);
-    }
-    
-    public void unfollow(User uf) {
-    	String s = followedUsers.get(this.userID);
-    	if(s == null) return;
-    	String rem = Integer.toString(uf.getUserID()) + "|";
-    	if(s.contains(rem)) followedUsers.put(this.userID, s.replace(rem,""));
-    }
-    
-    public boolean isFollowing(int userID) {
-    	String s = followedUsers.get(this.userID);
-    	String fol = userID + "|";
-    	if(s != null && s.contains(fol)) return true;
-    	return false;
-    }
 }

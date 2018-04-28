@@ -35,8 +35,9 @@
         <input type="hidden" id="userID" th:value="${user.getUserID()}"/>
       </div>
       <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()})" class="col-md-2">
-      	<button th:if="${session.user.isFollowing(user.getUserID())}" class="fbtn followButton following" rel="6" style="margin-top:40px;">Following</button>
-      	<button th:if="${not session.user.isFollowing(user.getUserID())}" class="fbtn followButton" rel="6" style="margin-top:40px;">Follow</button>
+      	<button th:if="${following}" class="fbtn followButton following" rel="6" style="margin-top:40px;">Following</button>
+      	<button th:if="${not following}" class="fbtn followButton" rel="6" style="margin-top:40px;">Follow</button>
+      	<!-- <button class="fbtn followButton" rel="6" style="margin-top:40px;">Follow</button>  -->
      </div>
     </div>
     <div class="row">    	

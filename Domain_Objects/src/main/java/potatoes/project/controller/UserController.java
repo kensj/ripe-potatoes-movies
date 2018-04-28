@@ -8,7 +8,6 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,9 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import potatoes.project.domain_objects.Follow;
 import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.FollowRepository;
 import potatoes.project.repository.UserRepository;
 import potatoes.project.service.UserService;
 
@@ -31,6 +32,9 @@ public class UserController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private FollowRepository followRepository;
     
 	@Autowired
 	private UserService userService;
@@ -74,11 +78,24 @@ public class UserController {
         
     @ResponseBody
     @GetMapping("/users/{id}")
-    public ModelAndView getUser(@PathVariable int id, Model model){
+    public ModelAndView getUser(@PathVariable int id){
     	ModelAndView mav = new ModelAndView();
     	User toGet = userService.findByUserID(id);
     	mav.setViewName("profile");
     	mav.addObject("user", toGet);
+    	
+    	if(session.getAttribute("user") != null) {
+    		User u = (User) session.getAttribute("user");
+    		if(u.getUserID() != toGet.getUserID()) {
+        		if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),toGet.getUserID()) != null) {
+        			mav.addObject("following", true);
+        		}
+        		else {
+        			mav.addObject("following", false);
+        		}
+        	}   		
+    	}
+    	
     	return mav;
     }
         
@@ -213,8 +230,8 @@ public class UserController {
 		if (u == null || f == null) response.put("success", "false");
 		else {
 			response.put("success", "true");
-			u.follow(f);
-			userRepository.save(u);
+			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),f.getUserID()) == null) 
+				followRepository.save(new Follow(u,f));			
 		}
 		return ResponseEntity.ok(response);
 	}
@@ -227,8 +244,8 @@ public class UserController {
 		if (u == null || uf == null) response.put("success", "false");
 		else {
 			response.put("success", "true");
-			u.unfollow(uf);
-			userRepository.save(u);
+			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID()) != null) 
+				followRepository.deleteByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
 		}
 		return ResponseEntity.ok(response);
 	}
