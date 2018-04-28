@@ -21,12 +21,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import potatoes.project.domain_objects.Block;
 import potatoes.project.domain_objects.Follow;
 import potatoes.project.domain_objects.Media;
+import potatoes.project.domain_objects.NotInterested;
 import potatoes.project.domain_objects.User;
+import potatoes.project.domain_objects.Wishlist;
+import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.FollowRepository;
+import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.UserRepository;
+import potatoes.project.repository.WishlistRepository;
 import potatoes.project.service.UserService;
 
 @RestController
@@ -37,6 +43,15 @@ public class UserController {
 	
 	@Autowired
 	private FollowRepository followRepository;
+	
+	@Autowired
+	private BlockRepository blockRepository;
+	
+	@Autowired
+	private WishlistRepository wishlistRepository;
+	
+	@Autowired
+	private NotInterestedRepository notInterestedRepository;
     
 	@Autowired
 	private UserService userService;
@@ -175,7 +190,9 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			u.addToWishlist((Media) contentRepo.findByContentID(contentID));
+			//u.addToWishlist((Media) contentRepo.findByContentID(contentID));
+			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) == null) 
+				wishlistRepository.save(new Wishlist(u,contentRepo.findByContentID(contentID)));	
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -189,7 +206,9 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			u.removeFromWishlist((Media) contentRepo.findByContentID(contentID));
+			//u.removeFromWishlist((Media) contentRepo.findByContentID(contentID));
+			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null) 
+				wishlistRepository.deleteByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID());
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -203,7 +222,9 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			u.addToNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			//u.addToNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			if(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) == null) 
+				notInterestedRepository.save(new NotInterested(u,contentRepo.findByContentID(contentID)));	
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -217,7 +238,9 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			u.removeFromNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			//u.removeFromNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			if(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null) 
+				notInterestedRepository.deleteByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID());
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -247,6 +270,34 @@ public class UserController {
 			response.put("success", "true");
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID()) != null) 
 				followRepository.deleteByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/block/{userID}")
+	public ResponseEntity<?> blockUser(@PathVariable int userID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		User f = (User) userService.findByUserID(userID);
+		if (u == null || f == null) response.put("success", "false");
+		else {
+			response.put("success", "true");
+			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),f.getUserID()) == null) 
+				blockRepository.save(new Block(u,f));			
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/unblock/{userID}")
+	public ResponseEntity<?> unblockUser(@PathVariable int userID){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		User uf = (User) userService.findByUserID(userID);
+		if (u == null || uf == null) response.put("success", "false");
+		else {
+			response.put("success", "true");
+			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),uf.getUserID()) != null) 
+				blockRepository.deleteByBlockerUserIDAndBlockedUserID(u.getUserID(),uf.getUserID());
 		}
 		return ResponseEntity.ok(response);
 	}

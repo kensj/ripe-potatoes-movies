@@ -43,44 +43,19 @@ public class User {
     private Rank userRank;
     private ImageIcon icon;
     
-    @ElementCollection
-    @OneToMany
-    private Map<Integer,Media> wishlist;
-    
-    @ElementCollection
-    @OneToMany
-    private Map<Integer,Media> notInterestedList;
-    
-    @ElementCollection
-    @OneToMany
-    private Map<Integer,User> blockedUsers;
-    
-    @ElementCollection
-    //@OneToMany
-    private Map<Integer,String> messages;
-    
     private int reprimands;
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userID;
     
-    public User() {
-    	wishlist = new HashMap<Integer,Media>();
-    	notInterestedList = new HashMap<Integer,Media>();
-    	blockedUsers = new HashMap<Integer,User>();
-    	messages = new ConcurrentHashMap<Integer,String>();
-    }
+    public User() {}
     
     @JsonCreator
     public User (@JsonProperty("name") String name, @JsonProperty("email") String email, @JsonProperty("password") String password){
         this.name=name;
         this.email=email;
         this.password=password;
-        wishlist = new HashMap<Integer,Media>();
-    	notInterestedList = new HashMap<Integer,Media>();
-    	blockedUsers = new HashMap<Integer,User>();
-    	messages = new ConcurrentHashMap<Integer,String>();
     }
     
     @Override
@@ -95,7 +70,7 @@ public class User {
         return (int)userID;
     }
     
-    public void addToWishlist(Media media) {
+    /*public void addToWishlist(Media media) {
     	wishlist.put(media.getContentID(), media);
     }
     
@@ -109,7 +84,7 @@ public class User {
     
     public boolean removeFromNotInterestedList(Media media) {
     	return notInterestedList.remove(media.getContentID(), media);
-    }
+    }*/
     
     public String getName() {
     	return name;
