@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/inbox.css">
     <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.ico'/>
 
 </head>
@@ -23,45 +24,12 @@
 
 <div th:replace="fragments/login+register :: 'login+register'"></div>
 
-
 <div class="jumbotron">
-	<h2 th:if="${session.user == null or not session.user.isSuperUser()}">You do not have permissions to access this page.</h2>
-    <h2 th:if="${session.user != null and session.user.isSuperUser()}">Welcome to the SuperUser Panel</h2>
+	<h2 th:if="${session.user == null}">You must be logged in to see your messages.</h2>
+    <h2 th:if="${session.user != null}">Inbox</h2>
 </div>
-        
-<section class="call-to-action">
-	 <div class="container">
-	    <div class="row">
-	    	<div class="text-left">
-		    	<div th:replace="fragments/reports :: reports"></div>
-        	</div>
-	    </div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<h3>Create a page</h3>
-			<form>
-				<button class="btn-info loginButton" type="submit" name="loginButton"><span class="glyphicon glyphicon-plus"></span><span class="glyphicon glyphicon-file"></span></button>
-			</form>
-		</div>
-	</div>
-	<div class="container">
-		<div class="row">
-			<h3>Delete a user</h3>
-			<form>
-				<button class="btn-info loginButton" type="submit" name="loginButton"><span class="glyphicon glyphicon-remove"></span><span class="glyphicon glyphicon-user"></span></button>
-			</form>
-		</div>	
-	</div>
-	<div class="container">
-		<div class="row">
-			<h3>Delete a review</h3>
-			<form>
-				<button class="btn-info loginButton" type="submit" name="loginButton"><span class="glyphicon glyphicon-remove"></span><span class="glyphicon glyphicon-pencil"></span></button>
-			</form>
-		</div>	
-	</div>
-</section>
+
+<div th:replace="fragments/messages :: messages"></div>
 
 <br><br><br><br>
 

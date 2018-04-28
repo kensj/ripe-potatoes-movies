@@ -45,9 +45,10 @@
             <li><a href="#">Random</a></li>
           </ul>
         </li>
-        <li><a th:href="${'/usersearch'}">User Search</a></li>
+        <li><a th:href="${'/usersearch'}">Members</a></li>
+        <li th:if="${session.user != null}"><a th:href="${'/inbox'}">Inbox</a></li>
         <li th:if="${session.user != null}"><a th:href="${'/users/' + session.user.getUserID()}">Profile</a></li>
-        <li th:if="${session.user != null and session.user.isSuperUser()}"><a th:href="${'/admin'}">SuperUser Panel</a></li>
+        <li th:if="${session.user != null and session.user.isSuperUser()}"><a th:href="${'/admin'}">Admin</a></li>
         <li><a class="ll" onclick="login()" href="#" th:text="${session.user != null} ? 'Logout' : 'Login'"></a></li>
       </ul>
     </div>
