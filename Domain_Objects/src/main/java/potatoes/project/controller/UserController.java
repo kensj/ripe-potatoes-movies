@@ -285,12 +285,12 @@ public class UserController {
 	public ResponseEntity<?> blockUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User f = (User) userService.findByUserID(userID);
-		if (u == null || f == null) response.put("success", "false");
+		User b = (User) userService.findByUserID(userID);
+		if (u == null || b == null) response.put("success", "false");
 		else {
 			response.put("success", "true");
-			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),f.getUserID()) == null) 
-				blockRepository.save(new Block(u,f));			
+			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),b.getUserID()) == null) 
+				blockRepository.save(new Block(u,b));			
 		}
 		return ResponseEntity.ok(response);
 	}
@@ -299,12 +299,14 @@ public class UserController {
 	public ResponseEntity<?> unblockUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User uf = (User) userService.findByUserID(userID);
-		if (u == null || uf == null) response.put("success", "false");
+		User ub = (User) userService.findByUserID(userID);
+		if (u == null || ub == null) response.put("success", "false");
 		else {
 			response.put("success", "true");
-			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),uf.getUserID()) != null) 
-				blockRepository.deleteByBlockerUserIDAndBlockedUserID(u.getUserID(),uf.getUserID());
+			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID()) != null) 
+				followRepository.deleteByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID());
+			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID()) != null) 
+				blockRepository.deleteByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID());
 		}
 		return ResponseEntity.ok(response);
 	}
