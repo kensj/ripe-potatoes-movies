@@ -94,7 +94,15 @@ function wishlist() {
         beforeSend: function(xhr) {
 			xhr.setRequestHeader(header, token);
 		},
-        success: function (response) {},
+        success: function (response) {
+        	$button = $('button.notinterestedButton');
+        	if($button.hasClass('notinteresteding')){       
+        		unnotinterested();     
+        		$button.removeClass('notinteresteding');
+        		$button.removeClass('unnotinterested');
+        		$button.text("I'm Not Interested");
+        	}
+        },
         error: function (jQXHR, textStatus, errorThrown) {
             console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
         }
@@ -111,6 +119,84 @@ function unwishlist() {
 		},
 		type: 'POST',
         url: '/unwishlist/' + $("#contentID").val(),
+        cache: false,
+        beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+        success: function (response) {},
+        error: function (jQXHR, textStatus, errorThrown) {
+            console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
+        }
+    });
+}
+
+$('button.notinterestedButton').live('click', function(e){
+    e.preventDefault();
+    $button = $(this);
+    if($button.hasClass('notinteresteding')){       
+        unnotinterested();     
+        $button.removeClass('notinteresteding');
+        $button.removeClass('unnotinterested');
+        $button.text("I'm Not Interested");
+    } else {       
+        notinterested();
+        $button.addClass('notinteresteding');
+        $button.text('Not Interested');
+    }
+});
+
+$('button.notinterestedButton').hover(function(){
+     $button = $(this);
+    if($button.hasClass('notinteresteding')){
+        $button.addClass('unnotinterested');
+        $button.text('Remove Not Interested');
+    }
+}, function(){
+    if($button.hasClass('notinteresteding')){
+        $button.removeClass('unnotinterested');
+        $button.text('Not Interested');
+    }
+});
+
+function notinterested() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+    	headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: 'POST',
+        url: '/notinterested/' + $("#contentID").val(),
+        cache: false,
+        beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+        success: function (response) {
+        	$button = $('button.wishlistButton')
+        	if($button.hasClass('wishlisting')){
+        		unwishlist();     
+        		$button.removeClass('wishlisting');
+        		$button.removeClass('unwishlist');
+        		$button.text('Wishlist');
+        	}
+        },
+        error: function (jQXHR, textStatus, errorThrown) {
+            console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
+        }
+    });
+}
+
+function unnotinterested() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+    	headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: 'POST',
+        url: '/unnotinterested/' + $("#contentID").val(),
         cache: false,
         beforeSend: function(xhr) {
 			xhr.setRequestHeader(header, token);

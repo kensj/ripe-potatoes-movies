@@ -9,7 +9,6 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -226,6 +225,8 @@ public class UserController {
 			response.put("success", "false");
 		} else {
 			//u.addToNotInterestedList((Media) contentRepo.findByContentID(contentID));
+			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentID) != null) 
+				wishlistRepository.deleteByUserUserIDAndContentContentID(u.getUserID(),contentID);
 			if(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) == null) 
 				notInterestedRepository.save(new NotInterested(u,contentRepo.findByContentID(contentID)));	
 			response.put("success", "true");
@@ -233,7 +234,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@DeleteMapping("/unnotinterested/{contentID}")
+	@PostMapping("/unnotinterested/{contentID}")
 	public ResponseEntity<?> removeFromNotInterestedList(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");

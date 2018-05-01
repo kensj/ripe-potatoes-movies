@@ -35,6 +35,7 @@ import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.MediaRepository;
+import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
@@ -67,6 +68,9 @@ public class ContentController {
     
     @Autowired
     private WishlistRepository wishlistRepo;
+    
+    @Autowired
+    private NotInterestedRepository notIntRepo;
     
     /*
     * @args: 
@@ -367,6 +371,11 @@ public class ContentController {
         		mav.addObject("wishlisting", true);
         	}
         	else mav.addObject("wishlisting", false);
+        	
+        	if(notIntRepo.findByUserUserIDAndContentContentID(u.getUserID(), toGet.getContentID()) != null) {
+        		mav.addObject("notinteresteding", true);
+        	}
+        	else mav.addObject("notinteresteding", false);
         }
         return mav;
     }

@@ -30,15 +30,17 @@
 <div class="jumbotron">
   <div class="container">
   	<div class="row">
-	    <div class="col-md-2"> 
-	    	<h1 class="headline text-left" th:text="${content.getName()}"></h1> 
-	    </div>
-		<div class="col-md-3"> 
-		   	<div th:if="${session.user != null}">
-	     		<button th:if="${wishlisting}" class="wbtn wishlistButton wishlisting" rel="6" style="margin-top:40px;">Wishlisted</button>
-	     		<button th:if="${not wishlisting}" class="wbtn wishlistButton" rel="6" style="margin-top:40px;">Wishlist</button>
-	    	</div> 
+    	<h1 class="headline text-left" th:text="${content.getName()}"></h1> 
+   	</div>
+   	<div class="row">
+   		<div th:if="${session.user != null}" class="col-md-2"> 
+     		<button th:if="${wishlisting}" class="wbtn wishlistButton wishlisting" rel="6" style="margin-top:40px;">Wishlisted</button>
+     		<button th:if="${not wishlisting}" class="wbtn wishlistButton" rel="6" style="margin-top:40px;">Wishlist</button>
 	   	</div>
+	   	<div th:if="${session.user != null}" class="col-md-2">
+	      	<button th:if="${notinteresteding}" class="nibtn notinterestedButton notinteresteding" rel="6" style="margin-top:40px;">Not Interested</button>
+	      	<button th:if="${not notinteresteding}" class="nibtn notinterestedButton" rel="6" style="margin-top:40px;">I'm Not Interested</button>
+     	</div>
    	</div>
     <br>
     <div class="row">
