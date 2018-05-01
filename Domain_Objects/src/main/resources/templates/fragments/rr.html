@@ -13,7 +13,7 @@
 	<th:block th:if="${!ratinglist.isEmpty()}" th:each="i : ${#numbers.sequence(0,ratinglist.size()-1)}">
  		<div class="col-md-8 center-block">
  			<h4><a th:href="'/content/' + ${ratinglist.get(i).getContent().getContentID()}" th:text="${ratinglist.get(i).getContent().getName()}"></a></h4>
-			<p th:text="'Rating: ' + ${ratinglist.get(i).getScore()}"></p>
+			<p><span style="color:red">Rating: </span><span th:text="${ratinglist.get(i).getScore()}"></span></p>
  		</div>
     </th:block>
    	</div>
