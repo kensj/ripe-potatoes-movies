@@ -70,7 +70,7 @@
 	      </div>
 	      <div class="btn-group" role="group" aria-label="...">
 	      	<button type="button" class="btn btn-default indexButton" onclick="showNI()">
-		        <span class="glyphicon glyphicon glyphicon-remove glyphicon-large" aria-hidden="true"></span>
+		        <span class="glyphicon glyphicon-remove glyphicon-large" aria-hidden="true"></span>
 		        <h3>Not Interested</h3>
 	        </button>
 	      </div>
@@ -88,7 +88,7 @@
 	      </div>
 	      <div th:if="${session.user != null} and (${session.user.getUserID()} == ${user.getUserID()})" class="btn-group" role="group" aria-label="...">
 	      	<button type="button" class="btn btn-default indexButton" onclick="showBlocked()">
-		        <span class="glyphicon glyphicon glyphicon-ban-circle glyphicon-large" aria-hidden="true"></span>
+		        <span class="glyphicon glyphicon-ban-circle glyphicon-large" aria-hidden="true"></span>
 		        <h3>Blocked Users</h3>
 	        </button>
 	      </div>
