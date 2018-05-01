@@ -11,6 +11,7 @@
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
     <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/admin.css">
     <link rel="stylesheet" type="text/css" href="/css/login.css">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.ico'/>
@@ -23,10 +24,14 @@
 
 <div th:replace="fragments/login+register :: 'login+register'"></div>
 
+<div class="alert alert-success" role="alert">
+Welcome to the SuperUser Panel
+</div>
+
 
 <div class="jumbotron">
 	<h2 th:if="${session.user == null or not session.user.isSuperUser()}">You do not have permissions to access this page.</h2>
-    <h2 th:if="${session.user != null and session.user.isSuperUser()}">Welcome to the SuperUser Panel</h2>
+    <h2 th:if="${session.user != null and session.user.isSuperUser()}" class="adminHeader"></h2>
 </div>
 
 <section th:if="${session.user != null and session.user.isSuperUser()}" class="call-to-action">
@@ -66,7 +71,7 @@
       	</div>
     </div>
   </div>
-   <div th:replace="fragments/reportqueue :: 'reportqueue'"></div>
+  <div th:replace="fragments/reportqueue :: 'reportqueue'"></div>
   <div th:replace="fragments/manageusers :: 'manageusers'"></div>
   <div th:replace="fragments/managepages :: 'managepages'"></div>
   <div th:replace="fragments/managereviews :: 'managereviews'"></div>
