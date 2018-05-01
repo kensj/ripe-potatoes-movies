@@ -1,6 +1,6 @@
 <div class="container rrContainer" th:fragment="rr">
 <div class="row">
-	<div class="jumbotron"><h4>R &amp; R</h4></div>
+	<div class="jumbotron"><h4>Reviews &amp; Ratings</h4></div>
 	<div class="pre-scrollable">
      <th:block th:if="${!reviewlist.isEmpty()}" th:each="i : ${#numbers.sequence(0,reviewlist.size()-1)}">
  		<div class="col-md-8 center-block">
