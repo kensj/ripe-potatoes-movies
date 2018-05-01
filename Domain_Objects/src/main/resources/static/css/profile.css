@@ -152,3 +152,7 @@ button.followButton.unfollow, button.blockButton.unblock{
     border-color: #C43C35 #C43C35 #882A25;
     border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
+
+.center-block {
+    float: none !important
+}

@@ -3,7 +3,7 @@
 	<div class="jumbotron"><h4>Following</h4></div>
   <div class="pre-scrollable">
     <th:block th:if="${!followlist.isEmpty()}" th:each="i : ${#numbers.sequence(0,followlist.size()-1)}">
- 		<div class="col-md-8">
+ 		<div class="col-md-8 center-block">
  			<h4><a th:href="'/users/' + ${followlist.get(i).getFollowed().getUserID()}" th:text="${followlist.get(i).getFollowed().getName()}"></a></h4>
  		</div>
     </th:block>

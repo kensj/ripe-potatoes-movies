@@ -3,7 +3,7 @@
 	<div class="jumbotron"><h4>Wishlist</h4></div>
   <div class="pre-scrollable">
     	<th:block th:if="${!wishlist.isEmpty()}" th:each="i : ${#numbers.sequence(0,wishlist.size()-1)}">
-    		<div class="col-md-8">
+    		<div class="col-md-8 center-block">
     			<h4><a th:href="'/content/' + ${wishlist.get(i).getContent().getContentID()}" th:text="${wishlist.get(i).getContent().getName()}"></a></h4>
     		</div>
        	</th:block>
