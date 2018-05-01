@@ -1,3 +1,11 @@
+jQuery.fn.extend({
+    live: function (event, callback) {
+       if (this.selector) {
+            jQuery(document).on(event, this.selector, callback);
+        }
+    }
+});
+
 $( document ).ready(function() {
 	var url = '/trailers/'+ $("meta[name='content_id']").get(0).content.toString() + '.mp4';
 	$.get(url).done(function() { 
@@ -43,3 +51,73 @@ $(document).on('click', function (e) {
 
     });
 });
+
+$('button.wishlistButton').live('click', function(e){
+    e.preventDefault();
+    $button = $(this);
+    if($button.hasClass('wishlisting')){       
+        unwishlist();     
+        $button.removeClass('wishlisting');
+        $button.removeClass('unwishlist');
+        $button.text('Wishlist');
+    } else {       
+        wishlist();
+        $button.addClass('wishlisting');
+        $button.text('Wishlisted');
+    }
+});
+
+$('button.wishlistButton').hover(function(){
+     $button = $(this);
+    if($button.hasClass('wishlisting')){
+        $button.addClass('unwishlist');
+        $button.text('Remove Wishlist');
+    }
+}, function(){
+    if($button.hasClass('wishlisting')){
+        $button.removeClass('unwishlist');
+        $button.text('Wishlisted');
+    }
+});
+
+function wishlist() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+    	headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: 'POST',
+        url: '/wishlist/' + $("#contentID").val(),
+        cache: false,
+        beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+        success: function (response) {},
+        error: function (jQXHR, textStatus, errorThrown) {
+            console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
+        }
+    });
+}
+
+function unwishlist() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+    	headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: 'POST',
+        url: '/unwishlist/' + $("#contentID").val(),
+        cache: false,
+        beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+        success: function (response) {},
+        error: function (jQXHR, textStatus, errorThrown) {
+            console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
+        }
+    });
+}

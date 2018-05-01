@@ -38,6 +38,7 @@ import potatoes.project.repository.MediaRepository;
 import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
+import potatoes.project.repository.WishlistRepository;
 
 /**
  *
@@ -63,6 +64,9 @@ public class ContentController {
     
     @Autowired 
     private MediaRepository medRepo;
+    
+    @Autowired
+    private WishlistRepository wishlistRepo;
     
     /*
     * @args: 
@@ -357,7 +361,13 @@ public class ContentController {
             mav.setViewName("celebrity");
             mav.addObject("content", (Celebrity) toGet);
         }
-    	
+        User u = (User) session.getAttribute("user");
+        if(u != null) {
+        	if(wishlistRepo.findByUserUserIDAndContentContentID(u.getUserID(), toGet.getContentID()) != null) {
+        		mav.addObject("wishlisting", true);
+        	}
+        	else mav.addObject("wishlisting", false);
+        }
         return mav;
     }
     

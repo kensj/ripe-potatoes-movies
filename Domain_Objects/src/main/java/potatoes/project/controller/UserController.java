@@ -23,7 +23,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import potatoes.project.domain_objects.Block;
 import potatoes.project.domain_objects.Follow;
-import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.NotInterested;
 import potatoes.project.domain_objects.User;
 import potatoes.project.domain_objects.Wishlist;
@@ -31,15 +30,11 @@ import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.FollowRepository;
 import potatoes.project.repository.NotInterestedRepository;
-import potatoes.project.repository.UserRepository;
 import potatoes.project.repository.WishlistRepository;
 import potatoes.project.service.UserService;
 
 @RestController
 public class UserController {
-	
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Autowired
 	private FollowRepository followRepository;
@@ -116,7 +111,8 @@ public class UserController {
         		else {
         			mav.addObject("blocking", false);
         		}
-        	}   		
+        	}
+    		
     	}
     	
     	return mav;
@@ -189,7 +185,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PostMapping("/content/{id}/add-to-wishlist")
+	@PostMapping("/wishlist/{contentID}")
 	public ResponseEntity<?> addToWishlist(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -205,7 +201,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@DeleteMapping("/content/{id}/remove-from-wishlist")
+	@PostMapping("/unwishlist/{contentID}")
 	public ResponseEntity<?> removeFromWishlist(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -221,7 +217,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PostMapping("/content/{id}/add-to-not-interested-list")
+	@PostMapping("/notinterested/{contentID}")
 	public ResponseEntity<?> addToNotInterestedList(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -237,7 +233,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@DeleteMapping("/content/{id}/remove-from--not-interested-list")
+	@DeleteMapping("/unnotinterested/{contentID}")
 	public ResponseEntity<?> removeFromNotInterestedList(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");

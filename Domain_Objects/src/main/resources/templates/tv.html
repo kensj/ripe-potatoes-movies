@@ -20,6 +20,7 @@
 </head>
 
 <body>
+<input type="hidden" id="contentID" th:value="${content.getContentID()}"/>
 
 <div th:replace="fragments/navbar :: navbar"></div>
 
@@ -28,7 +29,18 @@
 
 <div class="jumbotron">
   <div class="container">
-    <h1 class="headline text-left" th:text="${content.getName()}"></h1><br>
+  	<div class="row">
+	    <div class="col-md-2"> 
+	    	<h1 class="headline text-left" th:text="${content.getName()}"></h1> 
+	    </div>
+		<div class="col-md-3"> 
+		   	<div th:if="${session.user != null}">
+	     		<button th:if="${wishlisting}" class="wbtn wishlistButton wishlisting" rel="6" style="margin-top:40px;">Wishlisted</button>
+	     		<button th:if="${not wishlisting}" class="wbtn wishlistButton" rel="6" style="margin-top:40px;">Wishlist</button>
+	    	</div> 
+	   	</div>
+   	</div>
+    <br>
     <div class="row">
       <div class="col-md-7">
         <!-- <div class="embed-responsive embed-responsive-16by9">
