@@ -2,7 +2,20 @@
 <div class="row">
 	<div class="jumbotron"><h4>R &amp; R</h4></div>
 	<div class="pre-scrollable">
-     <div class="col-md-8">
+     <th:block th:if="${!reviewlist.isEmpty()}" th:each="i : ${#numbers.sequence(0,reviewlist.size()-1)}">
+ 		<div class="col-md-8">
+ 			<h4><a th:href="'/content/' + ${reviewlist.get(i).getContent().getContentID()}" th:text="${reviewlist.get(i).getContent().getName()}"></a></h4>
+ 			<!-- <p th:if="${#strings.length(reviewlist.get(i).getJustificationText().trim()) > 50}" th:text="${reviewlist.get(i).getJustificationText().trim().substring(0,50)} + '...'"></p>
+			<p th:if="${#strings.length(reviewlist.get(i).getJustificationText().trim()) <= 50}" th:text="${reviewlist.get(i).getJustificationText().trim()}"></p> -->
+			<p th:text="${reviewlist.get(i).getJustificationText().trim()}"></p>
+ 		</div>
+    </th:block>	
+	<th:block th:if="${!ratinglist.isEmpty()}" th:each="i : ${#numbers.sequence(0,ratinglist.size()-1)}">
+ 		<div class="col-md-8">
+ 			<h4><a th:href="'/content/' + ${ratinglist.get(i).getContent().getContentID()}" th:text="${ratinglist.get(i).getContent().getName()}"></a></h4>
+			<p th:text="'Rating: ' + ${ratinglist.get(i).getScore()}"></p>
+ 		</div>
+    </th:block>
    	</div>
   </div>
 </div>

@@ -1,0 +1,12 @@
+<div th:if="${session.user != null} and (${session.user.getUserID()} == ${user.getUserID()})" class="container blockedContainer" style="display:none;" th:fragment="blocked">
+<div class="row">
+	<div class="jumbotron"><h4>Blocked</h4></div>	
+  <div class="pre-scrollable">
+   	  <th:block th:if="${!blocklist.isEmpty()}" th:each="i : ${#numbers.sequence(0,blocklist.size()-1)}">
+ 		<div class="col-md-8">
+ 			<h4><a th:href="'/users/' + ${blocklist.get(i).getBlocked().getUserID()}" th:text="${blocklist.get(i).getBlocked().getName()}"></a></h4>
+ 		</div>
+    </th:block>
+  </div>
+</div>
+</div>

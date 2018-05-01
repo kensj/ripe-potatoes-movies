@@ -9,5 +9,7 @@ import potatoes.project.domain_objects.Review;
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	Review findByReviewID(int reviewID);
 	
+	List<Review> findByAuthorUserID(int AuthorUserID);
+	
 	List<Review> findFirst5ByOrderByReviewDateDesc();
 }

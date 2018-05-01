@@ -8,10 +8,8 @@ jQuery.fn.extend({
 
 $(document).ready(function() {
 	$("#deleteWarning").hide();
-	$(".rrContainer").show();
-	$(".wishlistContainer").hide();
-	$(".followingContainer").hide();
-	$(".followedContainer").hide();
+	hideAll();
+	showRR();
 });
 
 $('[rel="tooltip"]').tooltip({
@@ -26,6 +24,7 @@ $(function() {
 		html:true
 	});
 })
+
 function openM() {
 	$("#forgotFrame").hide();
   $("#registerFrame").hide();
@@ -42,32 +41,44 @@ $(".deleteAccount").click(function() {
 	}
 });
 
-function showRR() {
-	$(".rrContainer").show();
+function hideAll() {
+	$(".rrContainer").hide();
 	$(".wishlistContainer").hide();
+	$(".niContainer").hide();
 	$(".followingContainer").hide();
 	$(".followedContainer").hide();
+	$(".blockedContainer").hide();
+}
+
+
+function showRR() {
+	hideAll();
+	$(".rrContainer").show();
 }
 
 function showWishlist() {
-	$(".rrContainer").hide();
+	hideAll();
 	$(".wishlistContainer").show();
-	$(".followingContainer").hide();
-	$(".followedContainer").hide();
 }
 
 function showFollowing() {
-	$(".rrContainer").hide();
-	$(".wishlistContainer").hide();
+	hideAll();
 	$(".followingContainer").show();
-	$(".followedContainer").hide();
 }
 
 function showFollowed() {
-	$(".rrContainer").hide();
-	$(".wishlistContainer").hide();
-	$(".followingContainer").hide();
+	hideAll();
 	$(".followedContainer").show();
+}
+
+function showBlocked() {
+	hideAll();
+	$(".blockedContainer").show();
+}
+
+function showNI() {
+	hideAll();
+	$(".niContainer").show();
 }
 
 // ---------------------------- FOLLOW -------------------------------- //

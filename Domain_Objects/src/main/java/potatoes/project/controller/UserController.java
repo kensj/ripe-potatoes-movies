@@ -1,4 +1,4 @@
-package potatoes.project.controller;
+	package potatoes.project.controller;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,11 +29,19 @@ import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.FollowRepository;
 import potatoes.project.repository.NotInterestedRepository;
+import potatoes.project.repository.RatingRepository;
+import potatoes.project.repository.ReviewRepository;
 import potatoes.project.repository.WishlistRepository;
 import potatoes.project.service.UserService;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	private RatingRepository ratingRepository;
+	
+	@Autowired
+	private ReviewRepository reviewRepository;
 	
 	@Autowired
 	private FollowRepository followRepository;
@@ -94,6 +102,13 @@ public class UserController {
     	User toGet = userService.findByUserID(id);
     	mav.addObject("user", toGet);
     	
+    	mav.addObject("ratinglist", ratingRepository.findByRaterUserID(toGet.getUserID()));
+    	mav.addObject("reviewlist", reviewRepository.findByAuthorUserID(toGet.getUserID()));
+    	mav.addObject("wishlist", wishlistRepository.findByUserUserID(toGet.getUserID()));
+    	mav.addObject("followlist", followRepository.findByFollowerUserID(toGet.getUserID()));
+    	mav.addObject("followedlist", followRepository.findByFollowedUserID(toGet.getUserID()));
+    	mav.addObject("nilist", notInterestedRepository.findByUserUserID(toGet.getUserID()));
+    	
     	if(session.getAttribute("user") != null) {
     		User u = (User) session.getAttribute("user");
     		if(u.getUserID() != toGet.getUserID()) {
@@ -111,9 +126,10 @@ public class UserController {
         			mav.addObject("blocking", false);
         		}
         	}
-    		
+    		else {
+    			mav.addObject("blocklist", blockRepository.findByBlockerUserID(u.getUserID()));
+    		}    		
     	}
-    	
     	return mav;
     }
         

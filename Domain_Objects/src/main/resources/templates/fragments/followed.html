@@ -1,9 +1,12 @@
 <div class="container followedContainer" style="display:none;" th:fragment="followed">
 <div class="row">
-	<div class="jumbotron"><h4>Followed</h4></div>	
+	<div class="jumbotron"><h4>Followed By</h4></div>	
   <div class="pre-scrollable">
-   	  <div class="col-md-8">
-   	  </div>
+   	  <th:block th:if="${!followedlist.isEmpty()}" th:each="i : ${#numbers.sequence(0,followedlist.size()-1)}">
+ 		<div class="col-md-8">
+ 			<h4><a th:href="'/users/' + ${followedlist.get(i).getFollower().getUserID()}" th:text="${followedlist.get(i).getFollower().getName()}"></a></h4>
+ 		</div>
+    </th:block>
   </div>
 </div>
 </div>

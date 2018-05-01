@@ -2,8 +2,11 @@
 <div class="row">
 	<div class="jumbotron"><h4>Following</h4></div>
   <div class="pre-scrollable">
-    <div class="col-md-8">
-    </div>
+    <th:block th:if="${!followlist.isEmpty()}" th:each="i : ${#numbers.sequence(0,followlist.size()-1)}">
+ 		<div class="col-md-8">
+ 			<h4><a th:href="'/users/' + ${followlist.get(i).getFollowed().getUserID()}" th:text="${followlist.get(i).getFollowed().getName()}"></a></h4>
+ 		</div>
+    </th:block>
   </div>
 </div>
 </div>
