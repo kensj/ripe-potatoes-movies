@@ -23,7 +23,7 @@ import javax.persistence.TemporalType;
 public class Message {
 	
 	private boolean isReprimand;
-    private boolean messageRead;
+
     private String body;
     
     @OneToOne
@@ -33,29 +33,27 @@ public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int messageID;    
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date timeStamp;
     
-    public Message() {
-    	messageRead=false;
-    }
+    public Message() {}
     
     public Message(User sender, User receiver, String body, boolean isReprimand) {
     	this.sender=sender;
     	this.receiver=receiver;
     	this.body=body;
     	this.isReprimand=isReprimand;
-    	messageRead=false;
+    	//replyID=false;
     	timeStamp = new Date();
     }
     
-    public void markAsRead(){
-        messageRead=true;
+   /* public void markAsRead(){
+        replyID=true;
     }
     
     public void markAsUnread() {
-    	messageRead=false;
-    }
+    	replyID=false;
+    }*/
     
     public String getBody() {
     	return body;
@@ -73,15 +71,15 @@ public class Message {
     	return isReprimand;
     }
     
-    public boolean isRead() {
-    	return messageRead;
+   /* public boolean isRead() {
+    	return replyID;
     }
     
     public void setRead() {
-    	messageRead=true;
+    	replyID=true;
     }
     
     public void setUnread() {
-    	messageRead=false;
-    }
+    	replyID=false;
+    }*/ 
 }

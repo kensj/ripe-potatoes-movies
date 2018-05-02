@@ -229,3 +229,28 @@ function unblock() {
         }
     });
 }
+
+$(".mbtn").click(function() {
+    $("#messageModal").modal('show');
+});
+
+function messageUser() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+    	headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: 'POST',
+        url: '/message/' + $("#userID").val() + "?body="+$('.messageBody').val(),
+        cache: false,
+        beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+        success: function (response) {},
+        error: function (jQXHR, textStatus, errorThrown) {
+            console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
+        }
+    });
+}

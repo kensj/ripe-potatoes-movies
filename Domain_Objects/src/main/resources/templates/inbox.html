@@ -26,10 +26,12 @@
 
 <div class="jumbotron">
 	<h2 th:if="${session.user == null}">You must be logged in to see your messages.</h2>
-    <h2 th:if="${session.user != null}">Inbox</h2>
+    <h2 th:if="${session.user != null}" class="inboxHeader">Inbox</h2><a class="inboxLink"></a>
 </div>
 
-<div th:replace="fragments/messages :: messages"></div>
+<section th:if="${session.user != null}">
+	<div th:replace="fragments/messages :: messages"></div>
+</section>
 
 <br><br><br><br>
 
@@ -39,6 +41,7 @@
 <script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
 <script src="/js/jquery.autocomplete.js"></script>
 <script src="/js/navbar.js"></script>
+<script src="/js/inbox.js"></script>
 <script src="/js/authentication.js"></script>
 
 </body>

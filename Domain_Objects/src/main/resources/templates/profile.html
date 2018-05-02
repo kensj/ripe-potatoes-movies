@@ -19,10 +19,27 @@
 
 <body>
 
+<div id="messageModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Message</h4>
+			</div>
+			<div class="modal-body">
+				<textarea class="messageBody" maxlength="255" style="color:black;"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="messageUser()">Send</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div th:replace="fragments/login+register :: 'login+register'"></div>
-
 
 <div class="jumbotron">
   <div class="container">
@@ -37,6 +54,9 @@
       <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()}) and ${not blocking}" class="col-md-2">
       	<button th:if="${following}" class="fbtn followButton following" rel="6" style="margin-top:40px;">Following</button>
       	<button th:if="${not following}" class="fbtn followButton" rel="6" style="margin-top:40px;">Follow</button>
+     </div>
+     <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()}) and ${not blocking}" class="col-md-2">
+      	<button class="mbtn" rel="6" style="margin-top:40px;width:160px;">Message</button>
      </div>
      <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()})" class="col-md-2">
       	<button th:if="${blocking}" class="bbtn blockButton blocking" rel="6" style="margin-top:40px;">Blocking</button>

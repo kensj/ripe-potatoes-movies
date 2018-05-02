@@ -5,17 +5,11 @@
  */
 package potatoes.project.domain_objects;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
-import potatoes.project.repository.MessageRepository;
-
 /**
  *
  * @author kdill
  */
-public class Mail {
+/*public class Mail {
     
 	@Autowired
 	private static MessageRepository messageRepo;
@@ -28,3 +22,4 @@ public class Mail {
     	return messageRepo.findByReceiver(receiver);
     }
 }
+*/

@@ -1,6 +1,9 @@
 	package potatoes.project.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -22,12 +25,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import potatoes.project.domain_objects.Block;
 import potatoes.project.domain_objects.Follow;
+import potatoes.project.domain_objects.Message;
 import potatoes.project.domain_objects.NotInterested;
 import potatoes.project.domain_objects.User;
 import potatoes.project.domain_objects.Wishlist;
 import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.FollowRepository;
+import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReviewRepository;
@@ -36,6 +41,9 @@ import potatoes.project.service.UserService;
 
 @RestController
 public class UserController {
+	
+	@Autowired
+	private MessageRepository messageRepository;
 	
 	@Autowired
 	private RatingRepository ratingRepository;
@@ -325,7 +333,34 @@ public class UserController {
 	}
 	
 	@RequestMapping("/inbox")
-	public ModelAndView adminPage() {
-		return new ModelAndView("inbox");
+	public ModelAndView inboxPage() {
+		ModelAndView mav = new ModelAndView("inbox");
+		User u = (User) session.getAttribute("user");
+		if( u == null ) return mav;
+		
+		List<User> m = messageRepository.findUnique(u);
+		m.removeAll(Collections.singleton(u));
+		
+		List<List<Message>> convos = new ArrayList<List<Message>>();
+		
+		for(User s : m) {
+			convos.add(messageRepository.findConvo(u,s));
+		}
+		mav.addObject("messageList", convos);
+		return mav;
+	}
+	
+	@PostMapping("/message/{userID}")
+	public ResponseEntity<?> messageUser(@PathVariable int userID, @RequestParam String body){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		User r = (User) userService.findByUserID(userID);
+		if (u == null || r == null) response.put("success", "false");
+		else {
+			response.put("success", "true");
+			messageRepository.save(new Message(u,r, body, false));
+			System.out.println(body);
+		}
+		return ResponseEntity.ok(response);
 	}
 }

@@ -58,7 +58,7 @@ body {
     background: #fafafa;
 }
 
-.fbtn, .bbtn {
+.fbtn, .bbtn, .mbtn {
     cursor:pointer;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -155,4 +155,13 @@ button.followButton.unfollow, button.blockButton.unblock{
 
 .center-block {
     float: none !important
+}
+
+.modal-backdrop {
+    /* bug fix - no overlay */    
+    display: none;    
+}
+
+.modal {
+  text-align: center;
 }

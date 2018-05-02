@@ -79,6 +79,5 @@ public class Report {
 
     public int getId() {
         return reportID;
-    }
-    
+    }    
 }
