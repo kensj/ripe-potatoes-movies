@@ -226,11 +226,11 @@ public class ContentController {
         int fourStar = 0;
         int fiveStar = 0;
         if(total!=0) {
-	        oneStar = (int)(((double)rateRepo.findOneStar(id).size()/total)*100.0);
-	        twoStar = (int)(((double)rateRepo.findTwoStar(id).size()/total)*100.0);
-	        threeStar = (int)(((double)rateRepo.findThreeStar(id).size()/total)*100.0);
-	        fourStar = (int)(((double)rateRepo.findFourStar(id).size()/total)*100.0);
-	        fiveStar = (int)(((double)rateRepo.findFiveStar(id).size()/total)*100.0);
+	        oneStar = (int)(((double)rateRepo.findOneStar(toGet).size()/total)*100.0);
+	        twoStar = (int)(((double)rateRepo.findTwoStar(toGet).size()/total)*100.0);
+	        threeStar = (int)(((double)rateRepo.findThreeStar(toGet).size()/total)*100.0);
+	        fourStar = (int)(((double)rateRepo.findFourStar(toGet).size()/total)*100.0);
+	        fiveStar = (int)(((double)rateRepo.findFiveStar(toGet).size()/total)*100.0);
         }
         mav.addObject("oneStar",oneStar);
         mav.addObject("twoStar",twoStar);

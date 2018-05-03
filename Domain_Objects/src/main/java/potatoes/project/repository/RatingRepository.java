@@ -20,14 +20,14 @@ public interface RatingRepository extends JpaRepository<Rating, Integer>{
 	@Query("select sum(r.score) from Rating r where r.content=?1")
 	Double getSumScore(Content c);
 	
-	@Query("select r.score from Rating r where r.score>=1 and r.score<2")
-	List<Rating> findOneStar(int content);
-	@Query("select r.score from Rating r where r.score>=2 and r.score<3")
-	List<Rating> findTwoStar(int content);
-	@Query("select r.score from Rating r where r.score>=3 and r.score<4")
-	List<Rating> findThreeStar(int content);
-	@Query("select r.score from Rating r where r.score>=4 and r.score<5")
-	List<Rating> findFourStar(int content);
-	@Query("select r.score from Rating r where r.score>=5 and r.score<6")
-	List<Rating> findFiveStar(int content);
+	@Query("select r.score from Rating r where r.score>=1 and r.score<1.5 and r.content=?1")
+	List<Rating> findOneStar(Content c);
+	@Query("select r.score from Rating r where r.score>=1.5 and r.score<2.5 and r.content=?1")
+	List<Rating> findTwoStar(Content c);
+	@Query("select r.score from Rating r where r.score>=2.5 and r.score<3.5 and r.content=?1")
+	List<Rating> findThreeStar(Content c);
+	@Query("select r.score from Rating r where r.score>=3.5 and r.score<4.5 and r.content=?1")
+	List<Rating> findFourStar(Content c);
+	@Query("select r.score from Rating r where r.score>=4.5 and r.score<=5 and r.content=?1")
+	List<Rating> findFiveStar(Content c);
 }
