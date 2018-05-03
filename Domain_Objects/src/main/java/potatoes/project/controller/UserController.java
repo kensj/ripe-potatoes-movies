@@ -235,9 +235,9 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			//u.removeFromWishlist((Media) contentRepo.findByContentID(contentID));
-			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null)
-				wishlistRepository.delete(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()));
+			Wishlist w = wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()); 
+			if(w != null)
+				wishlistRepository.delete(w);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -266,8 +266,9 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			if(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null) 
-				notInterestedRepository.delete(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()));
+			NotInterested ni = notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID());
+			if(ni != null) 
+				notInterestedRepository.delete(ni);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -280,9 +281,9 @@ public class UserController {
 		User f = (User) userService.findByUserID(userID);
 		if (u == null || f == null) response.put("success", "false");
 		else {
-			response.put("success", "true");
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),f.getUserID()) == null) 
-				followRepository.save(new Follow(u,f));			
+				followRepository.save(new Follow(u,f));
+			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
 	}
@@ -294,9 +295,10 @@ public class UserController {
 		User uf = (User) userService.findByUserID(userID);
 		if (u == null || uf == null) response.put("success", "false");
 		else {
+			Follow f = followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
+			if(f != null) 
+				followRepository.delete(f);
 			response.put("success", "true");
-			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID()) != null) 
-				followRepository.delete(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID()));
 		}
 		return ResponseEntity.ok(response);
 	}
@@ -308,9 +310,9 @@ public class UserController {
 		User b = (User) userService.findByUserID(userID);
 		if (u == null || b == null) response.put("success", "false");
 		else {
-			response.put("success", "true");
 			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),b.getUserID()) == null) 
 				blockRepository.save(new Block(u,b));			
+			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
 	}
@@ -322,11 +324,13 @@ public class UserController {
 		User ub = (User) userService.findByUserID(userID);
 		if (u == null || ub == null) response.put("success", "false");
 		else {
+			Follow f = followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID());
+			Block b = blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID());
+			if(f != null) 
+				followRepository.delete(f);
+			if(b != null) 
+				blockRepository.delete(b);
 			response.put("success", "true");
-			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID()) != null) 
-				followRepository.delete(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID()));
-			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID()) != null) 
-				blockRepository.delete(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID()));
 		}
 		return ResponseEntity.ok(response);
 	}
