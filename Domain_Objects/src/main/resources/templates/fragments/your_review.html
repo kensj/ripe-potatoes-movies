@@ -7,7 +7,7 @@
         <form id="submitReview" class="" action="movie.html">
           <textarea maxlength="255" id="reviewSubmit" class="form-control reviewWidth" rows="3" placeholder="Add your review (optional)" required>
           	
-          		<span th:if="${session.user != null and content.getReviews().size() != 0 and content.getReviews().get(session.user.getUserID()) != null}" th:remove="tag" th:text="${content.getReviews().get(session.user.getUserID()).getJustificationText()}"></span>
+          		<span th:if="${session.user != null and ownreview != null}" th:remove="tag" th:text="${ownreview.getJustificationText()}"></span>
           	
           </textarea>
           <br><br>

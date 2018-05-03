@@ -29,6 +29,7 @@ public class Review {
     
     @OneToOne
     private User author;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int reviewID;

@@ -5,14 +5,11 @@
  */
 package potatoes.project.domain_objects;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
 /**
  *
  * @author kdill
  */
-@Entity
+/*@Entity
 public enum Genre {
     ACTION("Action"),
     ADVENTURE("Adventure"),
@@ -36,3 +33,4 @@ public enum Genre {
         return text;
     }
 }
+*/

@@ -86,156 +86,69 @@ public class ContentController {
         	return ResponseEntity.ok(response);
         }
         Content c = contentRepo.findByContentID(id);
-//        for (Review r : c.getReviews()) {
-//        	if (r.getAuthor().equals(u)) {
-//        		c.editReview(justificationText, u);
-//        		contentRepo.save(c);
-//        		response.put("success", "true");
-//        		return ResponseEntity.ok(response);
-//        	}
-//        }
-//        for (Map.Entry<Integer, Review> entry : c.getReviews().entrySet()) {
-//        	Review r = entry.getValue();
-//        	if (r.getAuthor().equals(u)) {
-//        		c.editReview(justificationText, u);
-//        		contentRepo.save(c);
-//        		response.put("success", "true");
-//        		return ResponseEntity.ok(response);
-//        	}
-//        }
-        Review r = c.getReviews().get(u.getUserID());
+        Review r = revRepo.findByAuthorUserIDAndContentContentID(u.getUserID(),c.getContentID());
+        
         if (r != null) {
-        	c.editReview(justificationText, u);
-        	contentRepo.save(c);
-        	response.put("success", "true");
-        	return ResponseEntity.ok(response);
+        	r.setJustificationText(justificationText);
+        	revRepo.save(r);
         }
-        c.review(justificationText, u);
-        contentRepo.save(c);
+        else revRepo.save(new Review(justificationText,c,u));
+        
+        c.setTotalReviews(revRepo.findByContentContentID(id).size());
+    	contentRepo.save(c);
         response.put("success", "true");
         return ResponseEntity.ok(response);
     }
     
-    @PostMapping("/content/{id}/edit-review")
-    public void editReview(@PathVariable int id, @RequestParam String justificationText){
-        User u = (User) session.getAttribute("user");
-        Content c = contentRepo.findByContentID(id);
-        
-//        for (Review r : c.getReviews()){
-//            if (r.getAuthor().equals(u)){
-//                r.setJustificationText(justificationText);
-//                contentRepo.save(c);
-//                return;
-//            }
-//        }
-        //write a new review in the case that there apparently wasn't an existing one
-        c.review(justificationText, u);
-        contentRepo.save(c);
-    }
-    
     @DeleteMapping("/content/{id}/delete-review")
     public ResponseEntity<?> deleteReview(@PathVariable int id){
+    	Map<String, String> response = new HashMap<>();
         User u = (User) session.getAttribute("user");
-        Content c = contentRepo.findByContentID(id);
-        System.out.println(c.getReviews().size());
-        Map<String, String> resp = new HashMap<>();
-        
-//        for (Review r : c.getReviews()){
-//            if (r.getAuthor().equals(u)){
-//                resp.put("success", c.getReviews().remove(r));
-//                contentRepo.save(c);
-//                revRepo.delete(r);
-//                return ResponseEntity.ok(resp);
-//            }
-//        }
-//        for (Map.Entry<Integer, Review> entry : c.getReviews().entrySet()) {
-//        	Review r = entry.getValue();
-//        	if (r.getAuthor().equals(u)) {
-//        		resp.put("success", "true");
-//        		c.getReviews().remove(r.getAuthor().getUserID());
-//        		revRepo.delete(r);
-//        		contentRepo.save(c);
-//        		return ResponseEntity.ok(resp);
-//        	}
-//        }
-        Review r = c.getReviews().get(u.getUserID());
+        Content c = contentRepo.findByContentID(id);   
+        Review r = revRepo.findByAuthorUserIDAndContentContentID(u.getUserID(),c.getContentID());
         if (r != null) {
-        	c.getReviews().remove(r.getAuthor().getUserID());
         	revRepo.delete(r);
+        	c.setTotalReviews(revRepo.findByContentContentID(id).size());
         	contentRepo.save(c);
-        	resp.put("success", "true");
-        	return ResponseEntity.ok(resp);
+        	response.put("success", "true");
+        	return ResponseEntity.ok(response);
         }
-        resp.put("success", "false");
-        return ResponseEntity.ok(resp);
+        response.put("success", "false");
+        return ResponseEntity.ok(response);
     }
     
     @PostMapping("/content/{id}/add-rating")
     public ResponseEntity<?> addRating(@PathVariable int id, @RequestParam int rating){
+    	
+    	Map<String, String> response = new HashMap<>();
         User u = (User) session.getAttribute("user");
-        Map<String, String> resp = new HashMap<>();
         
         if (u == null) {
-        	resp.put("success", "false");
-        	resp.put("reason", "login");
-        	return ResponseEntity.ok(resp);
+        	response.put("success", "false");
+        	response.put("reason", "login");
+        	return ResponseEntity.ok(response);
         }
         
         if (rating < 1 || rating > 5){
-            resp.put("success", "false");
-            resp.put("reason", "invalid");
-            return ResponseEntity.ok(resp);
+            response.put("success", "false");
+            response.put("reason", "invalid");
+            return ResponseEntity.ok(response);
         }
         
         Content c = contentRepo.findByContentID(id);
-//        for (Rating r : c.getRatings()) {
-//        	if (r.getRater().equals(u)) {
-//        		c.changeRating(rating, u);
-//        		contentRepo.save(c);
-//        		resp.put("success", "true");
-//        		return ResponseEntity.ok(resp);
-//        	}
-//        }
-//        for (Map.Entry<Integer, Rating> entry : c.getRatings().entrySet()) {
-//        	Rating r = entry.getValue();
-//        	if (r.getRater().equals(u)) {
-//        		c.changeRating(rating, u);
-//        		contentRepo.save(c);
-//        		resp.put("success", "true");
-//        		return ResponseEntity.ok(resp);
-//        	}
-//        }
-        Rating r = c.getRatings().get(u.getUserID());
+        Rating r = rateRepo.findByRaterUserIDAndContentContentID(u.getUserID(), c.getContentID());
         if (r != null) {
-        	c.changeRating(rating, u);
-        	contentRepo.save(c);
-        	resp.put("success", "true");
-        	return ResponseEntity.ok(resp);
+        	r.setScore(rating);
+        	rateRepo.save(r);
         }
-        
-        c.addRating(rating, u);
-        contentRepo.save(c);
-        resp.put("success", "true");
-        
-        return ResponseEntity.ok(resp);
-    }
-    
-    @PostMapping("/content/{id}/change-rating")
-    public ResponseEntity<?> changeRating(@PathVariable int id, @RequestParam int rating){
-        User u = (User) session.getAttribute("user");
-        Content c = contentRepo.findByContentID(id);
-        Map<String, String> resp = new HashMap<>();
-        
-        if (rating < 1 || rating > 5){
-            resp.put("success", "false");
-            return ResponseEntity.ok(resp);
-        }
-        
-        c.changeRating(rating, u);
-        resp.put("success", "true");
+        else rateRepo.save(new Rating(rating,c,u));
+
+        c.setTotalRatings(rateRepo.findByContentContentID(id).size());
+        c.setRating(rateRepo.getSumScore(c)/c.getTotalRatings());  
         contentRepo.save(c);
         
-        return ResponseEntity.ok(resp);
+        response.put("success", "true");  
+        return ResponseEntity.ok(response);
     }
     
     @DeleteMapping("/content/{id}/delete-rating")
@@ -250,114 +163,53 @@ public class ContentController {
         }
         
         Content c = contentRepo.findByContentID(id);
-//        for (Rating r : c.getRatings()) {
-//        	if (r.getRater().equals(u)) {
-//        		if (c.removeRating(u)) {
-//        			resp.put("success", "true");
-//        			contentRepo.save(c);
-//        			rateRepo.delete(r);
-//        			return ResponseEntity.ok(resp);
-//        		}
-//        		else {
-//        			resp.put("success", "false");
-//        			return ResponseEntity.ok(resp);
-//        		}
-//        	}
-//        }
-//        for(Map.Entry<Integer, Rating> entry : c.getRatings().entrySet()) {
-//        	Rating r = entry.getValue();
-//        	if (r.getRater().equals(u)) {
-//        		if (c.removeRating(u)) {
-//        			resp.put("success", "true");
-//        			contentRepo.save(c);
-//        			rateRepo.delete(r);
-//        			return ResponseEntity.ok(resp);
-//        		}
-//        		else {
-//        			resp.put("success", "false");
-//        			return ResponseEntity.ok(resp);
-//        		}
-//        	}
-//        }
-        Rating r = c.getRatings().get(u.getUserID());
+        Rating r = rateRepo.findByRaterUserIDAndContentContentID(u.getUserID(), c.getContentID());
+        
         if (r != null) {
-        	if (c.removeRating(u)) {
-        		resp.put("success", "true");
-        		contentRepo.save(c);
-        		rateRepo.delete(r);
-        		return ResponseEntity.ok(resp);
-        	}
-        	else {
-        		resp.put("success", "false");
-        		return ResponseEntity.ok(resp);
-        	}
-        }
+        	rateRepo.delete(r);
+        	
+        	c.setTotalRatings(rateRepo.findByContentContentID(id).size());
+            c.setRating(rateRepo.getSumScore(c)/c.getTotalRatings());  
+            contentRepo.save(c);
+        	
+        	resp.put("success", "true");
+        	return ResponseEntity.ok(resp);
+    	}
         
         resp.put("success", "false");
         return ResponseEntity.ok(resp);
     }
     
     @PostMapping("/content/{id}/report")
-    public ResponseEntity<?> reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description){
-        User reporter = (User) session.getAttribute("user");
-        Map<String, String> response = new HashMap<String, String>();
-        if (reporter == null) {
+    public ResponseEntity<?> reportReview(@PathVariable int id, @RequestParam int reviewID, @RequestParam String description) {
+    	Map<String, String> response = new HashMap<String, String>();
+        User u = (User) session.getAttribute("user");
+        
+        if (u == null) {
         	response.put("success", "false");
         	response.put("reason", "login");
         	return ResponseEntity.ok(response);
         }
         
-//        for(Review r : contentRepo.findByContentID(id).getReviews()) {
-//            for (Report s : reportRepo.findByReporter(reporter)) {
-//            	if (s.getReported().equals(r.getAuthor())) {
-//            		response.put("success", "false");
-//            		response.put("reason", "repeat");
-//            		return ResponseEntity.ok(response);
-//            	}
-//            }        	
-//        	if (r.getReviewID() == reviewID) {
-//        		reportRepo.save(new Report(description, reporter, r));
-//        		response.put("success", "true");
-//        		return ResponseEntity.ok(response);
-//        	}
-//        }
-//        for(Map.Entry<Integer, Review> entry : contentRepo.findByContentID(id).getReviews().entrySet()) {
-//        	Review r = entry.getValue();
-//        	for (Report s : reportRepo.findByReporter(reporter)) {
-//        		if (s.getReported().equals(r.getAuthor())) {
-//        			response.put("success", "false");
-//        			response.put("reason","repeat");
-//        			return ResponseEntity.ok(response);
-//        		}
-//        	}
-//        	if (r.getReviewID() == reviewID) {
-//        		reportRepo.save(new Report(description, reporter, r));
-//        		response.put("success", "true");
-//        		return ResponseEntity.ok(response);
-//        	}
-//        }
-        Review r = revRepo.findByReviewID(reviewID);
-        for (Report s : reportRepo.findByReporter(reporter)) {
-        	if (s.getReported().equals(r.getAuthor())) {
-        		response.put("success","false");
-        		response.put("reason", "repeat");
-        		return ResponseEntity.ok(response);
-        	}
+        Report report = reportRepo.findByReporterUserIDAndContextReviewID(u.getUserID(),reviewID);
+        if(report!=null) {
+        	response.put("success","false");
+    		response.put("reason", "repeat");
+    		return ResponseEntity.ok(response);
         }
-        System.out.println("report is" + description);
-        reportRepo.save(new Report(description, reporter, r));
+        reportRepo.save(new Report(description, u, revRepo.findByReviewID(reviewID)));
         response.put("success", "true");
         return ResponseEntity.ok(response);
     }
     
     @GetMapping("/content/{id}")
-    public ModelAndView getContent(@PathVariable int id, Model model){
+    public ModelAndView getContent(@PathVariable int id){
         ModelAndView mav = new ModelAndView();
     	Content toGet = contentRepo.findByContentID(id);
+    	
         if (toGet instanceof Film){
             mav.setViewName("movie");
             mav.addObject("content", (Film) toGet);
-            System.out.println(toGet.getReviews().size());
         } else if (toGet instanceof TVSeries){
             mav.setViewName("tv");
             mav.addObject("content", (TVSeries) toGet);
@@ -365,8 +217,51 @@ public class ContentController {
             mav.setViewName("celebrity");
             mav.addObject("content", (Celebrity) toGet);
         }
+        
+        //--THIS IS TERRIBLY INEFFICIENT
+        int total = rateRepo.findByContentContentID(id).size();
+        int oneStar = 0;
+        int twoStar = 0;
+        int threeStar = 0;
+        int fourStar = 0;
+        int fiveStar = 0;
+        if(total!=0) {
+	        oneStar = (int)(((double)rateRepo.findOneStar(id).size()/total)*100.0);
+	        twoStar = (int)(((double)rateRepo.findTwoStar(id).size()/total)*100.0);
+	        threeStar = (int)(((double)rateRepo.findThreeStar(id).size()/total)*100.0);
+	        fourStar = (int)(((double)rateRepo.findFourStar(id).size()/total)*100.0);
+	        fiveStar = (int)(((double)rateRepo.findFiveStar(id).size()/total)*100.0);
+        }
+        System.out.println(oneStar);
+        System.out.println(twoStar);
+        System.out.println(threeStar);
+        System.out.println(fourStar);
+        System.out.println(fiveStar);
+        mav.addObject("oneStar",oneStar);
+        mav.addObject("twoStar",twoStar);
+        mav.addObject("threeStar",threeStar);
+        mav.addObject("fourStar",fourStar);
+        mav.addObject("fiveStar",fiveStar);
+        
+        //------------------------------
+        
         User u = (User) session.getAttribute("user");
         if(u != null) {
+        	Review review = revRepo.findByAuthorUserIDAndContentContentID(u.getUserID(), id);
+        	Rating rating = rateRepo.findByRaterUserIDAndContentContentID(u.getUserID(), id);
+        	List<Review> allReviews = revRepo.findByContentContentID(id);
+        	mav.addObject("allReviews",allReviews);
+        	
+        	if(review != null) {
+        		mav.addObject("ownreview", review);
+        	}
+        	else mav.addObject("ownreview", null);
+        	
+        	if(rating != null) {
+        		mav.addObject("ownrating", rating);
+        	}
+        	else mav.addObject("ownrating", null);
+        	
         	if(wishlistRepo.findByUserUserIDAndContentContentID(u.getUserID(), toGet.getContentID()) != null) {
         		mav.addObject("wishlisting", true);
         	}

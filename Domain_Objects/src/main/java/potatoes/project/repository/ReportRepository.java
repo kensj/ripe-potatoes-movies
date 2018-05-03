@@ -13,6 +13,8 @@ public interface ReportRepository extends JpaRepository<Report, Integer>{
 	
 	List<Report> findByReporter(User reporter);
 	
+	Report findByReporterUserIDAndContextReviewID(int u, int r);
+	
 	@Query(value="select * from report r where r.resolved = false order by r.report_date asc", nativeQuery = true)
 	Report getUnresolved();
 }

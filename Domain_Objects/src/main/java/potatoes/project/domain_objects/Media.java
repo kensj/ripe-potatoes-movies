@@ -12,7 +12,6 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.OneToMany;
 
 /**
  *
@@ -28,12 +27,10 @@ public abstract class Media extends Content{
     protected String synopsis;
     //protected double criticRating;
     
-    //@ElementCollection
-    //protected List<File> trailers;
     protected Date releaseDate;
     
-    @OneToMany
-    protected List<Genre> genres;
+   // @OneToMany
+    //protected List<Genre> genres;
     
     protected Media() {
     	

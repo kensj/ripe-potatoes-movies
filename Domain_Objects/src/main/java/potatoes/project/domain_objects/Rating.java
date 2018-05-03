@@ -25,6 +25,7 @@ public class Rating {
     
     @OneToOne
     private User rater;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int ratingID;

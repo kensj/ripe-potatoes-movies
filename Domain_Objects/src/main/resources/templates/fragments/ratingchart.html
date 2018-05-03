@@ -1,0 +1,47 @@
+<div th:fragment="ratingchart">		
+		<tr>
+            <td class="rating"><span class="text-nowrap"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></span></td>
+            <td class="percentage">
+              <div class="progress">
+                <div th:if="${fiveStar} != 0" class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%" th:text="${fiveStar}+'%'">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+            <td class="percentage">
+              <div class="progress">
+                <div th:if="${fourStar} != 0" class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%" th:text="${fourStar}+'%'">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+            <td class="percentage">
+              <div class="progress">
+                <div th:if="${threeStar} != 0" class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%" th:text="${threeStar}+'%'">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+            <td class="percentage">
+              <div class="progress">
+                <div th:if="${twoStar} != 0" class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%" th:text="${twoStar}+'%'">
+                </div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
+            <td class="percentage">
+              <div class="progress">
+                <div th:if="${oneStar} != 0" class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%" th:text="${oneStar}+'%'">
+                </div>
+              </div>
+            </td>
+          </tr>
+</div>

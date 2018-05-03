@@ -58,56 +58,7 @@
               <input type="hidden" class="rating" data-fractions="100" disabled="disabled" value="3.4"/>
             </td>
           </tr>
-          <tr>
-            <td class="rating"><span class="text-nowrap"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></span></td>
-            <td class="percentage">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%">
-                  28%
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-            <td class="percentage">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%">
-                  10%
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-            <td class="percentage">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%">
-                  22%
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-            <td class="percentage">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0%">
-                  19%
-                </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td class="rating"><span class="glyphicon glyphicon-star" aria-hidden="true"></span></td>
-            <td class="percentage">
-              <div class="progress">
-                <div class="progress-bar" role="progressbar" aria-valuenow="0" style="width:0 %">
-                  21%
-                </div>
-              </div>
-            </td>
-          </tr>
+          <div th:replace="fragments/ratingchart :: ratingchart"></div>
         </table>
       </div>
     </div>

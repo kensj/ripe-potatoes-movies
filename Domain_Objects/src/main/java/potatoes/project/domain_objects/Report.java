@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 
 /**
  *
@@ -29,7 +28,7 @@ public class Report {
     private User reporter;
     @OneToOne
     private User reported;
-    @Transient
+    @OneToOne
     private Review context;
     
     @Temporal(TemporalType.DATE)
