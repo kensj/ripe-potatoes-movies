@@ -2,9 +2,11 @@
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -338,8 +340,17 @@ public class UserController {
 		User u = (User) session.getAttribute("user");
 		if( u == null ) return mav;
 		
-		List<User> m = messageRepository.findUnique(u);
+		List<User> m = messageRepository.findUnique1(u);
+		m.addAll(messageRepository.findUnique2(u));
 		m.removeAll(Collections.singleton(u));
+		m = m.stream().distinct().collect(Collectors.toList());
+		
+		Collections.sort(m, new Comparator<User>() {
+		    @Override
+		    public int compare(User u1, User u2) {
+		        return u1.getName().compareToIgnoreCase(u2.getName());
+		    }
+		});
 		
 		List<List<Message>> convos = new ArrayList<List<Message>>();
 		

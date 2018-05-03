@@ -10,8 +10,11 @@ import potatoes.project.domain_objects.User;
 
 public interface MessageRepository extends JpaRepository<Message, Integer> {
 	
-	@Query("select COALESCE(receiver, sender) as User from Message where receiver=?1 or sender=?1 group by sender,receiver order by timeStamp asc")
-	List<User> findUnique(User r);
+	@Query("select distinct m.sender as User from Message m where m.receiver=?1 or m.sender=?1")
+	List<User> findUnique1(User r);
+	
+	@Query("select distinct m.receiver as User from Message m where m.sender=?1 or m.receiver=?1")
+	List<User> findUnique2(User r);
 	
 	@Query("select m from Message m where (m.sender=?1 or m.receiver=?1) and (m.sender=?2 or m.receiver=?2) order by timeStamp asc")
 	List<Message> findConvo(User s, User r);
