@@ -232,11 +232,6 @@ public class ContentController {
 	        fourStar = (int)(((double)rateRepo.findFourStar(id).size()/total)*100.0);
 	        fiveStar = (int)(((double)rateRepo.findFiveStar(id).size()/total)*100.0);
         }
-        System.out.println(oneStar);
-        System.out.println(twoStar);
-        System.out.println(threeStar);
-        System.out.println(fourStar);
-        System.out.println(fiveStar);
         mav.addObject("oneStar",oneStar);
         mav.addObject("twoStar",twoStar);
         mav.addObject("threeStar",threeStar);
