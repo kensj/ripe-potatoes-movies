@@ -14,7 +14,4 @@ public interface BlockRepository extends JpaRepository<Block, Integer>{
 	
 	List<Block> findByBlockerUserID(int blockerUserid);
 	
-	@Transactional
-	void deleteByBlockerUserIDAndBlockedUserID(int blockerUserid, int blockedUserid);
-	
 }

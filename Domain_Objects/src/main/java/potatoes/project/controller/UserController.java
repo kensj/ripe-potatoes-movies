@@ -14,6 +14,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -226,7 +227,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PostMapping("/unwishlist/{contentID}")
+	@DeleteMapping("/unwishlist/{contentID}")
 	public ResponseEntity<?> removeFromWishlist(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -235,8 +236,8 @@ public class UserController {
 			response.put("success", "false");
 		} else {
 			//u.removeFromWishlist((Media) contentRepo.findByContentID(contentID));
-			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null) 
-				wishlistRepository.deleteByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID());
+			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null)
+				wishlistRepository.delete(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()));
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -250,9 +251,6 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			//u.addToNotInterestedList((Media) contentRepo.findByContentID(contentID));
-			if(wishlistRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentID) != null) 
-				wishlistRepository.deleteByUserUserIDAndContentContentID(u.getUserID(),contentID);
 			if(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) == null) 
 				notInterestedRepository.save(new NotInterested(u,contentRepo.findByContentID(contentID)));	
 			response.put("success", "true");
@@ -260,7 +258,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PostMapping("/unnotinterested/{contentID}")
+	@DeleteMapping("/unnotinterested/{contentID}")
 	public ResponseEntity<?> removeFromNotInterestedList(@PathVariable int contentID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -268,9 +266,8 @@ public class UserController {
 		if (u == null) {
 			response.put("success", "false");
 		} else {
-			//u.removeFromNotInterestedList((Media) contentRepo.findByContentID(contentID));
 			if(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()) != null) 
-				notInterestedRepository.deleteByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID());
+				notInterestedRepository.delete(notInterestedRepository.findByUserUserIDAndContentContentID(u.getUserID(),contentRepo.findByContentID(contentID).getContentID()));
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -290,7 +287,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PostMapping("/unfollow/{userID}")
+	@DeleteMapping("/unfollow/{userID}")
 	public ResponseEntity<?> unfollowUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -299,7 +296,7 @@ public class UserController {
 		else {
 			response.put("success", "true");
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID()) != null) 
-				followRepository.deleteByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
+				followRepository.delete(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID()));
 		}
 		return ResponseEntity.ok(response);
 	}
@@ -318,7 +315,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@PostMapping("/unblock/{userID}")
+	@DeleteMapping("/unblock/{userID}")
 	public ResponseEntity<?> unblockUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
@@ -327,9 +324,9 @@ public class UserController {
 		else {
 			response.put("success", "true");
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID()) != null) 
-				followRepository.deleteByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID());
+				followRepository.delete(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID()));
 			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID()) != null) 
-				blockRepository.deleteByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID());
+				blockRepository.delete(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),ub.getUserID()));
 		}
 		return ResponseEntity.ok(response);
 	}

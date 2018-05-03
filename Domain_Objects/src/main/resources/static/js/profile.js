@@ -140,7 +140,7 @@ function unfollow() {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		type: 'POST',
+		type: 'DELETE',
         url: '/unfollow/' + $("#userID").val(),
         cache: false,
         beforeSend: function(xhr) {
@@ -215,7 +215,7 @@ function unblock() {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		type: 'POST',
+		type: 'DELETE',
         url: '/unblock/' + $("#userID").val(),
         cache: false,
         beforeSend: function(xhr) {

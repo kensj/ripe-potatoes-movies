@@ -117,7 +117,7 @@ function unwishlist() {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		type: 'POST',
+		type: 'DELETE',
         url: '/unwishlist/' + $("#contentID").val(),
         cache: false,
         beforeSend: function(xhr) {
@@ -195,7 +195,7 @@ function unnotinterested() {
 			'Accept': 'application/json',
 			'Content-Type': 'application/json',
 		},
-		type: 'POST',
+		type: 'DELETE',
         url: '/unnotinterested/' + $("#contentID").val(),
         cache: false,
         beforeSend: function(xhr) {

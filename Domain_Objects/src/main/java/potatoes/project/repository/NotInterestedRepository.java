@@ -14,7 +14,4 @@ public interface NotInterestedRepository extends JpaRepository<NotInterested, In
 	
 	List<NotInterested> findByUserUserID(int UserUserid);
 	
-	@Transactional
-	void deleteByUserUserIDAndContentContentID(int UserUserid, int ContentContentid);
-	
 }
