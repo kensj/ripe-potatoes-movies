@@ -30,9 +30,9 @@ public class UserIconStorageService implements StorageService {
     @Override
     public void store(BufferedImage file, String name) {
         try {
+        	System.out.println(name);
         	File out = new File(this.rootLocation.resolve(name).toString());
         	ImageIO.write(file, "png", out);
-            
         } catch (IOException e) {
             throw new StorageException("Failed to store file " + name, e);
         }
@@ -76,13 +76,19 @@ public class UserIconStorageService implements StorageService {
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
     }
-
+    
     @Override
-    public void init() {
-        try {
-            Files.createDirectory(rootLocation);
-        } catch (IOException e) {
-            throw new StorageException("Could not initialize storage", e);
-        }
+    public void init() throws StorageException {
+        if(!Files.exists(rootLocation)) throw new StorageException("Could not initialize storage");
     }
+    
+    public Path getRootLocation() {
+    	return this.rootLocation;
+    }
+    
+    public void delete(String name) {
+    	File icon = new File(this.rootLocation.resolve(name).toString());
+        icon.delete();
+    }
+    
 }

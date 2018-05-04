@@ -8,7 +8,7 @@ import org.springframework.core.io.Resource;
 
 public interface StorageService {
 
-    void init();
+    void init(); 
 
     void store(BufferedImage file, String name);
 

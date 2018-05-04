@@ -5,7 +5,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @ConfigurationProperties("storage")
 public class StorageProperties {
 
-    private String location = "/icons";
+    private String location = "src//main//webapp//icons//";
 
     public String getLocation() {
         return location;

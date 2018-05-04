@@ -4,16 +4,14 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
@@ -26,11 +24,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import potatoes.project.domain_objects.User;
 import potatoes.project.storage.UserIconStorageService;
 
 @Controller
 public class FileUploadController {
+	
+	@Autowired
+    private HttpSession session;
 
 	private final UserIconStorageService storageService;
 	
@@ -48,19 +51,18 @@ public class FileUploadController {
                 "attachment; filename=\"" + file.getFilename() + "\"").body(file);
     }
 	
-	@RequestMapping(value = "/users/{id}/upload", method = RequestMethod.POST, consumes = "multipart/form-data")
-	public ResponseEntity<?> handleFormUpload(@RequestPart("file") MultipartFile f) throws IOException {
-		Map<String, String> response = new HashMap<String, String>();
-		String extension = FilenameUtils.getExtension(f.getOriginalFilename());
+	@RequestMapping(value = "/uploadicon", method = RequestMethod.POST, consumes = "multipart/form-data")
+	public String handleFormUpload(@RequestPart("file") MultipartFile f, RedirectAttributes redirectAttributes) throws IOException {
+		//Map<String, String> response = new HashMap<String, String>();
+		User u = (User) session.getAttribute("user");
 		
 		InputStream is =  new BufferedInputStream(f.getInputStream());
 		BufferedImage image = ImageIO.read(is);
 		is.close();
-		// Convert multipartfile to image
 		
 		if(image == null) {
-			response.put("success", "false");
-			response.put("reason", "notimage");
+			//response.put("success", "false");
+			//response.put("reason", "notimage");
 		}		
 		else {
 			
@@ -69,13 +71,21 @@ public class FileUploadController {
 			Graphics2D g2d = bufferedScale.createGraphics();
 		    g2d.drawImage(scaled, 0, 0, null);
 		    g2d.dispose();
-		    // Convert to 512x512
 
-			storageService.store(bufferedScale,f.getOriginalFilename().replace(extension, "png"));
-			response.put("success", "true");
+			storageService.store(bufferedScale,Integer.toString(u.getUserID())+".png");
+			//response.put("success", "true");
 		}
-		
-		return ResponseEntity.ok(response);
+		return "redirect:/users/"+u.getUserID();
+		//return ResponseEntity.ok(response);
     }
 	
+	@RequestMapping(value = "/deleteicon", method = RequestMethod.POST)
+	public ResponseEntity<?> iconDelete() throws IOException {
+		Map<String, String> response = new HashMap<String, String>();
+		User u = (User) session.getAttribute("user");
+		storageService.delete(Integer.toString(u.getUserID())+".png");
+		response.put("success", "true");
+		return ResponseEntity.ok(response);
+    }
+
 }

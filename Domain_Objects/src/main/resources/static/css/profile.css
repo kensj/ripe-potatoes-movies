@@ -58,7 +58,7 @@ body {
     background: #fafafa;
 }
 
-.fbtn, .bbtn, .mbtn {
+.fbtn, .bbtn, .mbtn, .cibtn {
     cursor:pointer;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;

@@ -37,18 +37,39 @@
 	</div>
 </div>
 
+<div id="changeIconModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Profile Icon</h4>
+			</div>
+			<form method="POST" enctype="multipart/form-data" th:action="@{/uploadicon} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}">
+			<div class="modal-body">
+				<p><input type="file" name="file" /></p>
+			</div>
+			<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal" onclick="deleteIcon()">Delete</button>
+			<button type="submit" class="btn btn-primary" value="Upload">Submit</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 <div th:replace="fragments/navbar :: navbar"></div>
 
 <div th:replace="fragments/login+register :: 'login+register'"></div>
 
 <div class="jumbotron">
 
-<form method="POST" enctype="multipart/form-data" th:action="@{/users/} + ${user.getUserID()} + @{/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}">
+
 
   <div class="container">
     <div class="row">
       <div class="col-md-2">
-        <img class="profileIcon" src="/icons/default.png">
+      	<img class="profileIcon" th:if="${iconexists}" th:src="'/icons/' + __${user.getUserID()}__ + '.png'"/>
+      	<img class="profileIcon" th:if="${not iconexists}" src="/icons/default.png"/>
       </div>
       <div class="col-md-2">
         <h1 class="headline text-left" th:text="${user.getName()}">Username</h1>
@@ -60,6 +81,9 @@
      </div>
      <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()}) and ${not blocking}" class="col-md-2">
       	<button class="mbtn" rel="6" style="margin-top:40px;width:160px;">Message</button>
+     </div>
+     <div th:if="${session.user != null} and ${session.user.getUserID()} == ${user.getUserID()}" class="col-md-2">
+      	<button class="cibtn" rel="6" style="margin-top:40px;width:160px;">Change Icon</button>
      </div>
      <div th:if="${session.user != null} and (${session.user.getUserID()} != ${user.getUserID()})" class="col-md-2">
       	<button th:if="${blocking}" class="bbtn blockButton blocking" rel="6" style="margin-top:40px;">Blocking</button>

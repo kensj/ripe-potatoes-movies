@@ -1,5 +1,6 @@
 	package potatoes.project.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,6 +42,7 @@ import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReviewRepository;
 import potatoes.project.repository.WishlistRepository;
 import potatoes.project.service.UserService;
+import potatoes.project.storage.UserIconStorageService;
 
 @RestController
 public class UserController {
@@ -71,6 +73,9 @@ public class UserController {
 	
 	@Autowired
 	private ContentRepository contentRepo;
+	
+	@Autowired
+	private UserIconStorageService iconService;
         
     @Autowired
     private HttpSession session;
@@ -119,6 +124,10 @@ public class UserController {
     	mav.addObject("followlist", followRepository.findByFollowerUserID(toGet.getUserID()));
     	mav.addObject("followedlist", followRepository.findByFollowedUserID(toGet.getUserID()));
     	mav.addObject("nilist", notInterestedRepository.findByUserUserID(toGet.getUserID()));
+    	
+    	File icon = new File(iconService.getRootLocation().resolve(toGet.getUserID()+".png").toString());
+    	if(icon.exists()) mav.addObject("iconexists",true);
+    	else mav.addObject("iconexists",false);
     	
     	if(session.getAttribute("user") != null) {
     		User u = (User) session.getAttribute("user");
