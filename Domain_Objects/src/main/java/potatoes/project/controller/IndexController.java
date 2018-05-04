@@ -19,7 +19,7 @@ public class IndexController {
 	private ReviewRepository revRepo;
 	
 	@RequestMapping("/")
-	public ModelAndView index(Model model) {
+	public ModelAndView index() {
 		System.out.println("in controller");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("index");
@@ -42,7 +42,7 @@ public class IndexController {
 	}
 	
 	@RequestMapping("/movie")
-	public String index() {
+	public String movie() {
 		return "movie";
 	}
 	
@@ -50,15 +50,5 @@ public class IndexController {
 	public String aboutPage() {
 		return "about";
 	}
-	
-	/*@RequestMapping("/profile")
-	public ModelAndView profile(Model model, HttpSession session) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("profile");
-		System.out.println(((User)session.getAttribute("user")).getName());
-		if (session.getAttribute("user") != null) {
-			mav.addObject("user",(User) session.getAttribute("user"));
-		}
-		return mav;
-	}*/
+
 }

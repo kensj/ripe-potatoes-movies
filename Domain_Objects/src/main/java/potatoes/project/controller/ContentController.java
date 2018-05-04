@@ -273,8 +273,7 @@ public class ContentController {
     }
     
     @GetMapping("/releaseCalendar")
-    public ResponseEntity<?> getReleaseCalendar(Model model) {
-//    	ModelAndView mav = new ModelAndView();
+    public ResponseEntity<?> getReleaseCalendar() {
     	Calendar c = Calendar.getInstance();
     	int days = c.getActualMaximum(Calendar.DAY_OF_MONTH);
     	int month = c.get(Calendar.MONTH) + 1;
@@ -289,6 +288,5 @@ public class ContentController {
     		response.put(m.getName(), temp);
     	}
     	return new ResponseEntity<>(response, HttpStatus.OK);
-//    	return mav;
     }
 }

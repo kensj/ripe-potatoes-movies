@@ -29,9 +29,6 @@ public abstract class Media extends Content{
     
     protected Date releaseDate;
     
-   // @OneToMany
-    //protected List<Genre> genres;
-    
     protected Media() {
     	
     }
