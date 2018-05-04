@@ -60,12 +60,12 @@ public class FileUploadController {
 		BufferedImage image = ImageIO.read(is);
 		is.close();
 		
-		if(image == null) {
+		//if(image == null) {
 			//response.put("success", "false");
 			//response.put("reason", "notimage");
-		}		
-		else {
-			
+		//}		
+		//else {
+		if(image != null) {
 			Image scaled = image.getScaledInstance(512, 512, Image.SCALE_SMOOTH);
 			BufferedImage bufferedScale = new BufferedImage(512, 512, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g2d = bufferedScale.createGraphics();
