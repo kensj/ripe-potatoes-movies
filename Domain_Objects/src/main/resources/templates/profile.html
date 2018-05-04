@@ -42,10 +42,13 @@
 <div th:replace="fragments/login+register :: 'login+register'"></div>
 
 <div class="jumbotron">
+
+<form method="POST" enctype="multipart/form-data" th:action="@{/users/} + ${user.getUserID()} + @{/upload} + '?' + ${_csrf.parameterName} + '=' + ${_csrf.token}">
+
   <div class="container">
     <div class="row">
       <div class="col-md-2">
-        <img class="profileIcon" src="../images/default-icon.png">
+        <img class="profileIcon" src="/icons/default.png">
       </div>
       <div class="col-md-2">
         <h1 class="headline text-left" th:text="${user.getName()}">Username</h1>
