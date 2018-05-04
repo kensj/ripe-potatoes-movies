@@ -244,8 +244,6 @@ public class ContentController {
         if(u != null) {
         	Review review = revRepo.findByAuthorUserIDAndContentContentID(u.getUserID(), id);
         	Rating rating = rateRepo.findByRaterUserIDAndContentContentID(u.getUserID(), id);
-        	List<Review> allReviews = revRepo.findByContentContentID(id);
-        	mav.addObject("allReviews",allReviews);
         	
         	if(review != null) {
         		mav.addObject("ownreview", review);
@@ -267,6 +265,10 @@ public class ContentController {
         	}
         	else mav.addObject("notinteresteding", false);
         }
+        
+        List<Review> allReviews = revRepo.findByContentContentID(id);
+    	mav.addObject("allReviews",allReviews);
+    	
         return mav;
     }
     
