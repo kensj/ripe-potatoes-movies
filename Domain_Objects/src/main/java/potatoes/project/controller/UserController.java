@@ -1,4 +1,4 @@
-	package potatoes.project.controller;
+package potatoes.project.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -32,6 +32,7 @@ import potatoes.project.domain_objects.Follow;
 import potatoes.project.domain_objects.Message;
 import potatoes.project.domain_objects.NotInterested;
 import potatoes.project.domain_objects.User;
+import potatoes.project.domain_objects.VerificationToken;
 import potatoes.project.domain_objects.Wishlist;
 import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
@@ -40,7 +41,10 @@ import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
 import potatoes.project.repository.ReviewRepository;
+import potatoes.project.repository.UserRepository;
+import potatoes.project.repository.VerificationTokenRepository;
 import potatoes.project.repository.WishlistRepository;
+import potatoes.project.service.EmailService;
 import potatoes.project.service.UserService;
 import potatoes.project.storage.UserIconStorageService;
 
@@ -67,9 +71,18 @@ public class UserController {
 	
 	@Autowired
 	private NotInterestedRepository notInterestedRepository;
+	
+	@Autowired
+	private VerificationTokenRepository verificationTokenRepository;
     
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@Autowired
 	private ContentRepository contentRepo;
@@ -105,6 +118,9 @@ public class UserController {
 		else {
 			response.put("success", "true");
 			userService.save(user);
+			VerificationToken vt = new VerificationToken(user);
+			verificationTokenRepository.save(vt);
+			emailService.sendMail(user.getEmail(), user.getName(), vt.getToken());
 			session.setAttribute("user", user);
 		}
 
@@ -115,7 +131,7 @@ public class UserController {
     @RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
     public ModelAndView getUser(@PathVariable int id){
     	ModelAndView mav = new ModelAndView("profile");
-    	User toGet = userService.findByUserID(id);
+    	User toGet = userRepository.findByUserID(id);
     	mav.addObject("user", toGet);
     	
     	mav.addObject("ratinglist", ratingRepository.findByRaterUserID(toGet.getUserID()));
@@ -287,7 +303,7 @@ public class UserController {
 	public ResponseEntity<?> followUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User f = (User) userService.findByUserID(userID);
+		User f = (User) userRepository.findByUserID(userID);
 		if (u == null || f == null) response.put("success", "false");
 		else {
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),f.getUserID()) == null) 
@@ -301,7 +317,7 @@ public class UserController {
 	public ResponseEntity<?> unfollowUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User uf = (User) userService.findByUserID(userID);
+		User uf = (User) userRepository.findByUserID(userID);
 		if (u == null || uf == null) response.put("success", "false");
 		else {
 			Follow f = followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
@@ -316,7 +332,7 @@ public class UserController {
 	public ResponseEntity<?> blockUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User b = (User) userService.findByUserID(userID);
+		User b = (User) userRepository.findByUserID(userID);
 		if (u == null || b == null) response.put("success", "false");
 		else {
 			if(blockRepository.findByBlockerUserIDAndBlockedUserID(u.getUserID(),b.getUserID()) == null) 
@@ -330,7 +346,7 @@ public class UserController {
 	public ResponseEntity<?> unblockUser(@PathVariable int userID){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User ub = (User) userService.findByUserID(userID);
+		User ub = (User) userRepository.findByUserID(userID);
 		if (u == null || ub == null) response.put("success", "false");
 		else {
 			Follow f = followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),ub.getUserID());
@@ -375,12 +391,78 @@ public class UserController {
 	public ResponseEntity<?> messageUser(@PathVariable int userID, @RequestParam String body){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
-		User r = (User) userService.findByUserID(userID);
+		User r = (User) userRepository.findByUserID(userID);
 		if (u == null || r == null) response.put("success", "false");
 		else {
 			response.put("success", "true");
 			messageRepository.save(new Message(u,r, body, false));
 			System.out.println(body);
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@ResponseBody
+    @RequestMapping(value = "/verify", method = RequestMethod.GET)
+    public ModelAndView verifyUser(@RequestParam(required = false) String token){
+    	ModelAndView mav = new ModelAndView("verify");
+    	VerificationToken vt = verificationTokenRepository.findByToken(token);
+    	
+    	if(token==null || token.isEmpty() || vt==null) {
+    		mav.addObject("valid", false);
+    		mav.addObject("reason","empty");
+    		return mav;
+    	}
+    	
+    	User u = vt.getUser();
+    	if(u.isVerified()) mav.addObject("userverified", true);
+    	else mav.addObject("userverified", false);
+    	
+    	if(vt.isUsed()) {
+    		mav.addObject("valid", false);
+    		mav.addObject("reason","used");
+    		return mav;
+    	}
+    	else if(vt.isExpired()) {			
+    		mav.addObject("valid", false);
+    		mav.addObject("reason","expired");
+    		return mav;
+    	}
+    	else {
+    		u.setVerified();
+    		userRepository.save(u);
+    		mav.addObject("userverified", true);
+    
+    		vt.setUsed(true);
+    		verificationTokenRepository.save(vt);
+    		
+    		mav.addObject("valid", true);
+    		mav.addObject("reason","valid");
+    	}
+    	return mav;
+    }
+	
+	@PostMapping("/reverify")
+	public ResponseEntity<?> resendEmail(@RequestParam String email){
+		Map<String,String> response = new HashMap<>();
+		User r = (User) userRepository.findByEmail(email);
+		if (r == null) {
+			response.put("success", "false");
+			response.put("reason", "User with email does not exist");
+		}
+		else if(r.isVerified()) {
+			response.put("success", "false");
+			response.put("reason", "User already verified");
+		}
+		else {
+			List<VerificationToken> oldvt = verificationTokenRepository.findByUserList(r);
+			for(VerificationToken vt: oldvt) {
+				vt.setExpired();
+				verificationTokenRepository.save(vt);
+			}
+			VerificationToken vt = new VerificationToken(r);  
+			verificationTokenRepository.save(vt);
+			emailService.sendMail(r.getEmail(), r.getName(), vt.getToken());
+			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
 	}

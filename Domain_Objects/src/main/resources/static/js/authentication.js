@@ -119,3 +119,33 @@ function sendLogoutRequest() {
 	});
 }
 
+$( ".reverifySubmit" ).click(function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+    $.ajax({
+    	headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: 'POST',
+        url: '/reverify?email=' + $("#emailInput").val().trim(),
+        cache: false,
+        beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+        success: function (data) {
+        	if(data.success == "true") {
+        		alert("Email sent")
+        	}
+        	else {
+        		alert("Email failed to send\nReason: " + data.reason);
+        	}
+        	
+        },
+        error: function (response) {
+        	alert("Email failed to send");
+        }
+    });
+});
+
+

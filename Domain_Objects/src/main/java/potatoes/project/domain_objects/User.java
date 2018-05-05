@@ -37,6 +37,8 @@ public class User {
     
     private int reprimands;
     
+    private boolean verified;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int userID;
@@ -48,6 +50,7 @@ public class User {
         this.name=name;
         this.email=email;
         this.password=password;
+        this.verified=false;
     }
     
     @Override
@@ -61,23 +64,7 @@ public class User {
     public int hashCode(){
         return (int)userID;
     }
-    
-    /*public void addToWishlist(Media media) {
-    	wishlist.put(media.getContentID(), media);
-    }
-    
-    public boolean removeFromWishlist(Media media) {
-    	return wishlist.remove(media.getContentID()) != null;
-    }
-    
-    public void addToNotInterestedList(Media media) {
-    	notInterestedList.put(media.getContentID(), media);
-    }
-    
-    public boolean removeFromNotInterestedList(Media media) {
-    	return notInterestedList.remove(media.getContentID(), media);
-    }*/
-    
+
     public String getName() {
     	return name;
     }
@@ -132,6 +119,14 @@ public class User {
     
     public Rank getRank() {
     	return userRank;
+    }
+    
+    public boolean isVerified() {
+    	return this.verified;
+    }
+    
+    public void setVerified() {
+    	this.verified = true;
     }
     
 }

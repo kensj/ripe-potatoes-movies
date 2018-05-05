@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>Ripe Potatoes</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.ico'/>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div th:replace="fragments/login+register :: 'login+register'"></div>
+	
+	<div class="jumbotron">
+		<h2 th:if="${valid}" class="headline text-left">Verification Success</h2>
+		<h2 th:if="${not valid}" class="headline text-left">Verification Failed</h2>	
+		
+		<h2 th:if="${reason == 'empty'}" class="headline text-left">Token Not Found</h2>
+		<h2 th:if="${reason == 'used'}" class="headline text-left">Link Used</h2>
+		<h2 th:if="${reason == 'expired'}" class="headline text-left">Token Expired</h2>
+		
+		<h2 th:if="${session.user != null} and ${userverified}" class="headline text-left">You are already verified</h2>
+		<h2 th:if="${session.user != null} and ${not userverified}" class="headline text-left">You are not verified</h2>
+	</div>
+	
+	<section class="call-to-action">
+		<div class="container">
+			<form th:if="${session.user == null} or (${session.user != null} and ${not userverified})">
+				<input type="text" class="form-control" id="emailInput" placeholder="Email"/>
+				<button class="btn btn-primary reverifySubmit">Resend</button>
+			</form>
+		</div>
+	</section>
+	
+	<br><br><br><br>
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+	<script src="/js/home.js"></script>
+	<script src="/js/jquery.autocomplete.js"></script>
+	<script src="/js/navbar.js"></script>
+	<script src="/js/authentication.js"></script>
+
+</body>
+</html>
