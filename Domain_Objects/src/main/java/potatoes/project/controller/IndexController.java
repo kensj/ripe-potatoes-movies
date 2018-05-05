@@ -58,7 +58,11 @@ public class IndexController {
 	@RequestMapping("/faq")
 	public String faqPage() {
 		return "faq";
-		
+	}
+	
+	@RequestMapping("/privacy")
+	public String ppPage() {
+		return "privacy";
 	}
 
 }
