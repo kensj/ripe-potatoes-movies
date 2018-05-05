@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>Ripe Potatoes</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/calendar.css">
+    <link rel="stylesheet" type="text/css" href="/css/about.css">
+    <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.ico'/>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div th:replace="fragments/login+register :: 'login+register'"></div>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="headline text-left">
+				Privacy Policy
+			</h1>
+			<h3>
+				Ripe Potatoes Promises to only do the Following with your Data: 
+			</h3>
+		</div>
+	</div>
+
+	<section class="call-to-action">
+		<div class="container">
+			<blockquote class="blockquote-normal">
+				<h4>
+					Transparency
+					<br><br>
+					Ripe Potatoes endeavors to be transparent about how we use and store
+					the information we get from our users. Listed in this policy are why and how
+					we collect your information. Additionally, we may update this policy from time
+					to time. 
+				</h4>
+			</blockquote>
+	
+			<legend><br><br></legend>
+	
+			<blockquote class="blockquote-normal">
+				<h4>
+					What do we collect?
+					<br><br>
+					Ripe Potatoes collects and stores any information that you provide to us
+					during registration as well as any of the preferences you indicate while using
+					the site (ex: Want to See, Not Interested lists). Page history may also be
+					collected, in addition to any content you produce on Ripe Potatoes. We do not 
+					collect information about your devices or location.
+				</h4>
+			</blockquote>
+			
+			<legend><br><br></legend>
+	
+			<blockquote class="blockquote-normal">
+				<h4>
+					What do we use this for?
+					<br><br>
+					We use this information in order to further personalize your Ripe Potatoes 
+					experience. The aforementioned preferences are used to serve you content that
+					you may find more enjoyable than if you were just served random titles. 
+					Additionally, we may use these preferences to serve you ads that are more catered
+					to you. Finally, we may use said information internally in aggregations to
+					determine what users like and do not like.
+				</h4>
+			</blockquote>
+			
+			<legend><br><br></legend>
+			
+			<blockquote class="blockquote-normal">
+				<h4>
+					Do we share this information?
+					<br><br>
+					For the most part, no. The only information shared are the preference lists. We
+					are an opt-in service, which means that you must opt in if you want your information
+					to be shared with third parties. In special cases like legal cases or transfer
+					of ownership, it is up to us to access, preserve, or disclose such information.
+				</h4>			
+			</blockquote>
+			
+		</div>
+	</section>
+	
+	<br><br><br><br>
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+	<script src="/js/home.js"></script>
+	<script src="/js/jquery.autocomplete.js"></script>
+	<script src="/js/navbar.js"></script>
+	<script src="/js/authentication.js"></script>
+
+</body>
+
+</html>
