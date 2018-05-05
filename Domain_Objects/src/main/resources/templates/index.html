@@ -130,6 +130,7 @@
   		<div class="col-sm-9">
 			<th:block th:if="${currentWeek.size() != 0}" th:each="i : ${#numbers.sequence(0,currentWeek.size() - 1)}">
 				<a th:href="${'/content/' + currentWeek.get(i).getContentID()}" th:text=${currentWeek.get(i).getName()}></a>
+				<br>
 			</th:block>
 			<h4 th:if="${currentWeek.size() == 0}">No openings this week.</h4>
   		</div>

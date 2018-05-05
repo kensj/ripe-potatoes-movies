@@ -65,7 +65,7 @@ function populateCalendar() {
 	}
 	
 	for (var i = 0; i < numDays; i++) {
-		$(".days").append("<li><span data-toggle='tooltip' title='' id='" + (i+1) + "'>" + (i+1) + "</span></li>");
+		$(".days").append("<li><span data-toggle='tooltip' data-html='true' title='' id='" + (i+1) + "'>" + (i+1) + "</span></li>");
 		if (i == (currentDay - 1)) {
 			$("#" + (i+1)).addClass('currentDay');
 		} 
@@ -97,7 +97,7 @@ function fillCalendar(callback) {
 //				console.log(p);
 //				console.log($("#"+data[p][1]));
 				var movie = $("#" + data[p][1]).attr('title');
-				$("#" + data[p][1]).attr('title', movie + p);
+				$("#" + data[p][1]).attr('title', movie + '<br>' + p);
 				$("#" + data[p][1]).addClass('active');
 			}
 			callback();
