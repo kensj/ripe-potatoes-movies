@@ -49,5 +49,16 @@ public class IndexController {
 	public String aboutPage() {
 		return "about";
 	}
+	
+	@RequestMapping("/tos")
+	public String tosPage() {
+		return "tos";
+	}
+	
+	@RequestMapping("/faq")
+	public String faqPage() {
+		return "faq";
+		
+	}
 
 }

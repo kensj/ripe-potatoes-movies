@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+
+<head lang="en">
+  <meta charset="UTF-8">
+  <meta name="_csrf" th:content="${_csrf.token}"/>
+  <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+  <title>Ripe Potatoes</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://fonts.googleapis.com/css?family=Montserrat:400,700'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/calendar.css">
+    <link rel="stylesheet" type="text/css" href="/css/about.css">
+    <link rel='shortcut icon' type='image/x-icon' href='/images/favicon.ico'/>
+
+</head>
+
+<body>
+
+	<div th:replace="fragments/navbar :: navbar"></div>
+
+	<div th:replace="fragments/login+register :: 'login+register'"></div>
+
+	<div class="jumbotron">
+		<div class="container">
+			<h1 class="headline text-left">
+				Terms and Conditions
+			</h1>
+			<h3>
+				By using our site you agree to the following: 
+			</h3>
+		</div>
+	</div>
+
+	<section class="call-to-action">
+		<div class="container">
+			<div>
+				<h3>1) Limited Liability</h3>
+				<blockquote class="blockquote-normal">
+					<h4>While we strive to maintain the most up to date content information, we will not be able to
+						maintain 100% accuracy. Thus, we cannot be held accountable for any errors in what we supply.
+						Furthermore, we cannot be held liable for any indirect, incidental, or special damages that arise 
+						from or are related to your use of our services.
+						<br><br>
+						Our services involve content that is not strictly Ripe Potatoes' (ex: ads, user reviews). 
+						Ripe Potatoes assumes no responsibility of such content and it is the owner of said content's
+						responsibility. Furthermore, we may remove and refuse to display content that violates our
+						Terms of Service or is reported by users. By using Ripe Potatoes you agree that you may be exposed
+						to objectionable content. However, if there is enough outcry, some content may be removed.
+						<br><br>
+						Ownership and intellectual property rights of content produced by users of Ripe Potatoes remains entirely in the hands of the
+						producer of said content. By using Ripe Potatoes you grant Ripe Potatoes a worldwide, royalty-free, irrevocable, indefinite license
+						to display and/or use your content.
+					</h4>
+				</blockquote>
+			</div>
+			<div>
+				<h3>2) Copyright</h3>
+				<blockquote class="blockquote-normal">
+					<h4>
+						Ripe Potatoes may, at any point in time, take steps to remove content that is copyright infringement.
+						If you believe your copyright or intellectual property rights have been infringed, please contact us.
+					</h4>
+				</blockquote>
+			</div>
+			<div>
+				<h3>3) Privacy Policy</h3>
+				<blockquote class="blockquote-normal">
+					<h4>
+						Our privacy policy clarifies how we use your personal data. By using Ripe Potatoes,
+						you agree that Ripe Potatoes may use your person data in accordance with our privacy
+						policy.
+					</h4>
+				</blockquote>
+			</div>
+			<div>
+				<h3>4) Feedback</h3>
+				<blockquote class="blockquote-normal">
+					<h4>
+						You agree that any feedback (suggestions, ideas, recommendations) you submit to Ripe Potatoes
+						may be used by Ripe Potatoes without any notice, obligation, or compensation and you waive any 
+						and all rights that may now or in the future exist in any feedback.
+					</h4>
+				</blockquote>
+			</div>
+			<div>
+				<h3>5) Your Account</h3>
+				<blockquote class="blockquote-normal">
+					<h4>
+						An account is needed for some of the services that Ripe Potatoes provides. All accounts
+						are not transferable. 
+						<br><br>
+						You are responsible for any and all activity that happens through your account. Please 
+						use a strong password to protect your account. You acknowledge that if you cannot validate 
+						your account to Ripe Potatoes, then your account and any data associated with said account
+						will not be retrievable.
+						<br><br>
+						You acknowledge that your account and all data associated with it may be terminated if 
+						it is in violation of our Terms of Service or any presiding laws. Your account may also be
+						reported by other users and if enough reports are submitted, your account may be suspended
+						or deleted. Similarly, any content that you produce on Ripe Potatoes may be deleted if it is
+						found to not be in accordance with our policies. Finally, you may stop using Ripe Potatoes at
+						any time as well as delete your account.
+					</h4>
+				</blockquote>		
+			</div>
+			<div>
+				<h3>6) About these Terms</h3>
+				<blockquote class="blockquote-normal">
+					<h4>
+						These terms control only the relationship between Ripe Potatoes and you. They do not control
+						or create any third party rights.
+						<br><br>
+						These terms may be changed from time to time, unless specified by your country of residence.
+						Unless stated otherwise, modifications to these terms are effective on the date they are posted.
+						<br><br>
+						The continued use of Ripe Potatoes after the effective date of any modifications to the terms means
+						that you agree to the new terms.
+						<br><br>
+						The lack of action or enforcement on any provisions of the terms is not a waiver of such provisions.
+					</h4>
+				</blockquote>
+			</div>
+		</div>
+	</section>
+	
+	<br><br><br><br>
+
+	<div th:replace="fragments/footer :: footer"></div>
+
+	<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+	<script src='http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js'></script>
+	<script src="/js/home.js"></script>
+	<script src="/js/jquery.autocomplete.js"></script>
+	<script src="/js/navbar.js"></script>
+	<script src="/js/authentication.js"></script>
+
+</body>
+
+</html>
