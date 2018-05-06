@@ -197,6 +197,8 @@ public class ContentController {
     		return ResponseEntity.ok(response);
         }
         reportRepo.save(new Report(description, u, revRepo.findByReviewID(reviewID)));
+        System.out.println(revRepo.findByReviewID(reviewID).getJustificationText());
+        System.out.println("REPORT HERE!!!!!!! " + reviewID);
         response.put("success", "true");
         return ResponseEntity.ok(response);
     }

@@ -50,6 +50,7 @@ public class Report {
         this.reported=context.getAuthor();
         this.resolved = false;
         this.reportDate = new Date();
+        this.context = context;
     }
 
     public boolean getResolved() {
@@ -79,4 +80,7 @@ public class Report {
     public int getId() {
         return reportID;
     }    
+    public Date getDate() {
+    	return reportDate;
+    }
 }
