@@ -1,9 +1,15 @@
 $(document).ready(function() {
 	hideAll();
-	showReportQueue();	
+	showReportQueue();
+	$('.reportDescription').hide();
+	$('option').click(function() {
+		var clicked = $(this).attr('id');
+//		console.log(clicked);
+		$('.reportDescription').hide();
+//		console.log($('div#' + clicked).text());
+		$('div#' + clicked).show();
+	});
 });
-
-
 
 function hideAll() {
 	$(".reportQueueContainer").hide();

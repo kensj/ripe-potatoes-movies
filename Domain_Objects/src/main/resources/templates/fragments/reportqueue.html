@@ -4,7 +4,7 @@
 			<div class="form-group">
 				<select class="form-control reportqueue" size="20">
 					<th:block th:if="${reports != null and reports.size() != 0}" th:each="i : ${reports}">
-						<option th:text="${i.getReporter().getName() + ' -> ' + i.getReported().getName()}"></option>
+						<option th:id="${'report' + i.getId()}" th:text="${i.getReporter().getName() + ' -> ' + i.getReported().getName()}"></option>
 					</th:block>
 					<option th:if="${reports.size() == 0 or reports == null}">No reports</option>
 				</select> 
@@ -12,7 +12,7 @@
 		</div>
   		<div class="col-md-6">
 			<th:block th:if="${reports != null and reports.size() != 0}" th:each="j : ${reports}">
-				<div>
+				<div class="reportDescription" th:id="${'report' + j.getId()}">
 					<h3 th:text="${j.getReporter().getName() + ' -> ' + j.getReported().getName()}"></h3>
 					<span th:text="${'Report Date: ' + j.getDate().toString()}"></span>
 					<h4 th:text="${'Details: ' + j.getDescription()}"></h4>
