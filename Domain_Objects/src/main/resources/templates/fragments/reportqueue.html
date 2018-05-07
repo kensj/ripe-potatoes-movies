@@ -14,9 +14,12 @@
 			<th:block th:if="${reports != null and reports.size() != 0}" th:each="j : ${reports}">
 				<div class="reportDescription" th:id="${'report' + j.getId()}">
 					<h3 th:text="${j.getReporter().getName() + ' -> ' + j.getReported().getName()}"></h3>
+					<h3 th:text="${j.getReporter().getUserID() + ' -> ' + j.getReported().getUserID()}"></h3>
 					<span th:text="${'Report Date: ' + j.getDate().toString()}"></span>
 					<h4 th:text="${'Details: ' + j.getDescription()}"></h4>
 					<h4 th:text="${'Reported review: ' + j.getContext().getJustificationText()}"></h4>
+					<div class="text-right"><a class="btn btnInfo btn-primary" role="button" th:id="${j.getId()}"><span class="glyphicon glyphicon-ok"></span></a></div>
+					<h4 th:id="${'report' + j.getId()}"></h4>
 				</div>
 			</th:block>
 		</div>
