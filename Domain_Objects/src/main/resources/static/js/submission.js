@@ -109,6 +109,38 @@ $(document).on('click', "[name='adminDeleteReview']", function() {
 	var movieId = $("meta[name='content_id']").attr("content");
 	var toDelete = $(this).val();
 	console.log(toDelete);
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "DELETE",
+		url: "/delete/review?reviewID=" + toDelete,
+		cache: true,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				$('#review' + toDelete).remove();
+			}
+			else {
+				if (data["reason"] === "login") {
+					$("#adminMessage" + toDelete).text("You are not logged in. Please login to report a review.");
+				}
+				else if (data["reason"] === "repeat") {
+					$("#adminMessage" + toDelete).text("This review has already been deleted");
+				}
+				else if (data["reason"] === "unknown") {
+					$("#adminMessage" + toDelete).text("An unknown error occurred.");
+				}
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
 });
 
 $("#removeRating").click(function() {

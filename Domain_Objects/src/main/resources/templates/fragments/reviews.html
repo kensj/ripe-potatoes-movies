@@ -5,12 +5,13 @@
     
 	    <div class="row">
 	      <th:block th:if="${allReviews.size() != 0}" th:each="i : ${allReviews}">
-			<div class="col-md-4">
+			<div class="col-md-4" th:id="${'review' + i.getReviewID()}">
 		     	<h4>by <a th:href="${'/users/' + i.getAuthor().getUserID()}" th:text="${i.getAuthor().getName()}"></a></h4>
 		        <span class="reviewText" th:text="${i.getJustificationText()}"></span>
 		        <div class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Report this review' th:attr="data-content='<form><h5 id=report' + ${i.getReviewID()} +'></h5><textarea class=&quot;form-control reportReview&quot; rows=&quot;3&quot; required></textarea><button class=&quot;btn-info reportReview&quot; type=&quot;button&quot; name=&quot;submitRButton&quot; value=' + ${i.getReviewID()} + '><span class=&quot;glyphicon glyphicon-pencil&quot;></span></button></form>'">Report</a></div>
 		        <div th:if="${session.user != null and allReviews.size() != 0 and i.getAuthor().getUserID() == session.user.getUserID()}" class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Delete review' data-content='<h3>Are you sure?</h3><button class="btn-info reportReview" onclick="deleteReview()" type="submit"><span class="glyphicon glyphicon-remove"></span></button>'>Delete</a></div>
 		        <div th:if="${session.user != null and allReviews.size() != 0 and session.user.isSuperUser()}" class="text-right"><a role="button" rel="popover" toggle="popover" trigger="hover" placement="top" html="true" title='Delete review' th:attr="data-content='<h3>Are you sure?</h3><button class=&quot;btn-info reportReview&quot; type=&quot;submit&quot; name=&quot;adminDeleteReview&quot; value=' + ${i.getReviewID()} + '><span class=&quot;glyphicon glyphicon-remove&quot;></span></button>'">Delete</a></div>
+		        <div th:if="${session.user != null and session.user.isSuperUser()}" th:id="${'adminMessage' + i.getReviewID()}"></div>
 	      	</div>      
 	      </th:block>
 	    </div>
