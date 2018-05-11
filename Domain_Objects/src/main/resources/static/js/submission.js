@@ -103,6 +103,14 @@ $(document).on('click', "[name='submitRButton']", function() {
 	});
 });
 
+$(document).on('click', "[name='adminDeleteReview']", function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	var movieId = $("meta[name='content_id']").attr("content");
+	var toDelete = $(this).val();
+	console.log(toDelete);
+});
+
 $("#removeRating").click(function() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
