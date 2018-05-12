@@ -159,4 +159,33 @@ public class AdminController {
 			}
 		}
 	}
+	
+	@DeleteMapping("/deletePage")
+	public ResponseEntity<?> adminDeletePage(@RequestParam int id) {
+		Map<String, String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		if (u == null) {
+			response.put("success", "false");
+			response.put("reason", "login");
+			return ResponseEntity.ok(response);
+		}
+		else if (!u.isSuperUser()) {
+			response.put("success", "false");
+			response.put("reason", "permission");
+			return ResponseEntity.ok(response);
+		}
+		else {
+			if (contentRepo.existsByContentID(id)) {
+				List<Content> deletedPage = contentRepo.removeByContentID(id);
+				response.put("success", "true");
+				response.put("title", deletedPage.get(0).getName());
+				return ResponseEntity.ok(response);
+			}
+			else {
+				response.put("success", "false");
+				response.put("reason", "exist");
+				return ResponseEntity.ok(response);
+			}
+		}
+	}
 }

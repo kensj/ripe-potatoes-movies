@@ -7,6 +7,8 @@ package potatoes.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import potatoes.project.domain_objects.Content;
@@ -22,4 +24,7 @@ public interface ContentRepository extends JpaRepository<Content, Integer>{
     Content findByContentID(int userID);
     
     boolean existsByContentID(int contentID);
+    
+    @Transactional
+    List<Content> removeByContentID(int contentID);
 }

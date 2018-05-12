@@ -66,6 +66,46 @@ $(document).on('click', "[name='createPageButton']", function() {
 	});
 });
 
+$(document).on('click', "[name='deletePageButton']", function() {
+	var pageToDelete = $('.adminDeleteForm').val();
+	console.log(pageToDelete);
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "DELETE",
+		url: "/deletePage?id=" + pageToDelete,
+		cache: true,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				//if server returns true, then remove the option and div
+				$('#adminDeleteMessage').text("Successfully deleted page " + data["title"]);
+			}
+			else {
+				if (data["reason"] === "login") {
+					$('#adminDeleteMessage').text("You are not logged in. Please login first.");
+				}
+				else if (data["reason"] === "permission") {
+					$('#adminDeleteMessage').text("You do not have permission to do that.");
+				}
+				else if (data["reason"] === "exist") {
+					$('#adminDeleteMessage').text("There is no page with that ID");
+				}
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+});
+
 $(document).on('click', "div.reportDescription > div > a", function() {
 	var toResolve = $(this).attr('id');
 	console.log(toResolve);
