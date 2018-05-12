@@ -2,8 +2,11 @@ package potatoes.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Review;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
@@ -16,4 +19,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	List<Review> findByContentContentID(int id);
 	
 	List<Review> findFirst5ByOrderByReviewDateDesc();
+	
+	@Transactional
+	List<Review> removeByContent(Content c);
 }

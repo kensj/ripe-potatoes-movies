@@ -2,8 +2,11 @@ package potatoes.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Wishlist;
 
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer>{
@@ -12,4 +15,6 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Integer>{
 	
 	List<Wishlist> findByUserUserID(int UserUserid);
 	
+	@Transactional
+	List<Wishlist> removeByContent(Content c);
 }

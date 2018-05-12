@@ -18,13 +18,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
+import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
 import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
+import potatoes.project.repository.WishlistRepository;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.NotInterestedRepository;
+import potatoes.project.repository.RatingRepository;
 
 @RestController
 public class AdminController {
@@ -39,6 +43,15 @@ public class AdminController {
 	
 	@Autowired
 	private ContentRepository contentRepo;
+	
+	@Autowired
+	private RatingRepository ratingRepo;
+	
+	@Autowired
+	private WishlistRepository wishlistRepo;
+	
+	@Autowired
+	private NotInterestedRepository notInterestedRepo;
 	
 	@RequestMapping("/admin")
 	public ModelAndView adminPage() {
@@ -176,7 +189,13 @@ public class AdminController {
 		}
 		else {
 			if (contentRepo.existsByContentID(id)) {
+				Content toDelete = contentRepo.findByContentID(id);
+				ratingRepo.removeByContent(toDelete);
+				revRepo.removeByContent(toDelete);
+				wishlistRepo.removeByContent(toDelete);
+				notInterestedRepo.removeByContent(toDelete);
 				List<Content> deletedPage = contentRepo.removeByContentID(id);
+				
 				response.put("success", "true");
 				response.put("title", deletedPage.get(0).getName());
 				return ResponseEntity.ok(response);
