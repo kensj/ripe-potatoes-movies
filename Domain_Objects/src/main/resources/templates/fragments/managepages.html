@@ -1,10 +1,34 @@
 <div th:fragment="managepages" class="container managePagesContainer">
 	<div class="row">
   		<div class="col-md-3">
-			<div class="form-group"><select class="form-control managepages" size="20"></select> </div>
+			<div class="form-group">
+				<select class="form-control managepages" size="20">
+					<option id="adminCreatePage">Create</option>
+					<option id="adminEditPage">Edit</option>
+					<option id="adminDeletePage">Delete</option>
+				</select> 
+			</div>
 		</div>
   		<div class="col-md-6">
+			<div class="adminCreatePage">
+				<div id="adminCreateMessage"></div>
+				<form id="adminCreatePane">
+					<input class="adminCreateForm" placeholder="Enter name of page" required>
+					<br><br>
+					<button class="btn-info loginButton" type="button" name="createPageButton"><span class="glyphicon glyphicon-plus"></span></button>
+				</form>
+			</div>
+			<div class="adminEditPage">
 			
+			</div>
+			<div class="adminDeletePage">
+				<div id="adminDeleteMessage"></div>
+				<form id="adminDeletePane">
+					<input class="adminDeleteForm" placeholder="Enter ID of page to delete" required>
+					<br><br>
+					<button class="btn-info loginButton" type="button" name="deletePageButton"><span class="glyphicon glyphicon-remove"></span></button>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

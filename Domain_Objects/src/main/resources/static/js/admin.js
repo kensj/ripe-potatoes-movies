@@ -4,10 +4,19 @@ $(document).ready(function() {
 	$('.reportDescription').hide();
 	$('option').click(function() {
 		var clicked = $(this).attr('id');
-//		console.log(clicked);
-		$('.reportDescription').hide();
+		console.log(clicked);
+		if (clicked.indexOf("Page") >= 0) {
+			$('.adminCreatePage').hide();
+			$('.adminDeletePage').hide();
+			$('.adminEditPage').hide();
+			$('div.' + clicked).show();
+		}
+		else if (clicked.indexOf("report") >= 0) {
+			$('.reportDescription').hide();
+			$('div#' + clicked).show();
+		}
 //		console.log($('div#' + clicked).text());
-		$('div#' + clicked).show();
+		
 	});
 });
 
@@ -60,6 +69,8 @@ function hideAll() {
 	$(".managePagesContainer").hide();
 	$(".manageRatingsContainer").hide();
 	$(".manageReviewsContainer").hide();
+	$('.adminDeletePage').hide();
+	$('.adminEditPage').hide();
 }
 
 
