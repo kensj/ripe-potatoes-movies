@@ -20,6 +20,11 @@ $(document).ready(function() {
 	});
 });
 
+$(document).on('click', "[name='createPageButton']", function() {
+	console.log($('.adminCreateForm').val());
+	console.log($("input[name='createType']:checked").val());
+});
+
 $(document).on('click', "div.reportDescription > div > a", function() {
 	var toResolve = $(this).attr('id');
 	console.log(toResolve);
