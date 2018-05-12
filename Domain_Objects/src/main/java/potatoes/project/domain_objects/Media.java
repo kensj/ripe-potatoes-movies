@@ -25,16 +25,17 @@ public abstract class Media extends Content{
 	@ElementCollection
     protected List<String> cast;
     protected String synopsis;
-    //protected double criticRating;
+    protected double criticRating;
     
     protected Date releaseDate;
     
     protected Media() {
-    	
+    	releaseDate = new Date(System.currentTimeMillis());
     }
     
     protected Media(String name){
         super(name);
+        releaseDate = new Date(System.currentTimeMillis());
     }
     
     public String getSynopsis() {

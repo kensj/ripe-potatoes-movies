@@ -21,4 +21,5 @@ public interface ContentRepository extends JpaRepository<Content, Integer>{
     
     Content findByContentID(int userID);
     
+    boolean existsByContentID(int contentID);
 }

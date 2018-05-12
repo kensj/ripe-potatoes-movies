@@ -152,8 +152,8 @@
 						<tbody>
 							<th:block th:each="i : ${#numbers.sequence(0,topBox.size()-1)}">
 								<tr>
-									<td th:utext="${'<a href=' + '/content/' + topBox.get(i)[4] + '>' + topBox.get(i)[6] + '</a>'}"></td>
-									<td th:text="${'$' + topBox.get(i)[5]}"></td>
+									<td th:utext="${'<a href=' + '/content/' + topBox.get(i)[3] + '>' + topBox.get(i)[5] + '</a>'}"></td>
+									<td th:text="${'$' + topBox.get(i)[4]}"></td>
 								</tr>
 							</th:block>
 						</tbody>

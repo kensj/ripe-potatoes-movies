@@ -21,8 +21,49 @@ $(document).ready(function() {
 });
 
 $(document).on('click', "[name='createPageButton']", function() {
-	console.log($('.adminCreateForm').val());
-	console.log($("input[name='createType']:checked").val());
+	var typeToMake = $("input[name='createType']:checked").val();
+	var titleToGive = $('.adminCreateForm').val();
+	var idToGive = $('.adminCreateForm2').val();
+	console.log(titleToGive);
+	console.log(typeToMake);
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "POST",
+		url: "/createPage?type=" + typeToMake + "&title=" + titleToGive + "&id=" + idToGive,
+		cache: true,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				//if server returns true, then remove the option and div
+				$('#adminCreateMessage').text("Success!");
+			}
+			else {
+				if (data["reason"] === "login") {
+					$('#adminCreateMessage').text("You are not logged in. Please login first.");
+				}
+				else if (data["reason"] === "permission") {
+					$('#adminCreateMessage').text("You do not have permission to do that.");
+				}
+				else if (data["reason"] === "exist") {
+					$('#adminCreateMessage').text("A page with that ID already exists.");
+				}
+				else if (data["reason"] === "type") {
+					$('#adminCreateMessage').text("The type of content was not selected.");
+				}
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
 });
 
 $(document).on('click', "div.reportDescription > div > a", function() {
