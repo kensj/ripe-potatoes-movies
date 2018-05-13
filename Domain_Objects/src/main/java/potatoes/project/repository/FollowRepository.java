@@ -13,8 +13,8 @@ public interface FollowRepository extends JpaRepository<Follow, Integer>{
 	
 	Follow findByFollowerUserIDAndFollowedUserID(int followerUserid, int followedUserid);
 	
-	List<Follow> findByFollowerUserID(int followerUserid);
-	List<Follow> findByFollowedUserID(int followedUserid);
+	List<Follow> findByFollowerUserID(int followerUserid); //following
+	List<Follow> findByFollowedUserID(int followedUserid); //followers
 	
 	@Transactional
 	List<Follow> removeByFollower(User u);

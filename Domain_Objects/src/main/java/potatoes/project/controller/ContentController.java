@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
+import potatoes.project.domain_objects.Filmography;
 import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
@@ -33,6 +34,7 @@ import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.FilmographyRepository;
 import potatoes.project.repository.MediaRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
@@ -61,6 +63,9 @@ public class ContentController {
     
     @Autowired
     private ReportRepository reportRepo;
+    
+    @Autowired
+    private FilmographyRepository filmographyRepository;
     
     @Autowired 
     private MediaRepository medRepo;
@@ -207,16 +212,21 @@ public class ContentController {
     public ModelAndView getContent(@PathVariable int id){
         ModelAndView mav = new ModelAndView();
     	Content toGet = contentRepo.findByContentID(id);
-    	
         if (toGet instanceof Film){
             mav.setViewName("movie");
             mav.addObject("content", (Film) toGet);
+            mav.addObject("filmographylist",filmographyRepository.findByMediaContentID(id));
+            
         } else if (toGet instanceof TVSeries){
             mav.setViewName("tv");
             mav.addObject("content", (TVSeries) toGet);
+            mav.addObject("filmographylist",filmographyRepository.findByMediaContentID(id));
+            
         } else if (toGet instanceof Celebrity){
             mav.setViewName("celebrity");
             mav.addObject("content", (Celebrity) toGet);
+            mav.addObject("filmographylist",filmographyRepository.findByCelebrityContentID(id));
+            
         }
         
         //--THIS IS TERRIBLY INEFFICIENT

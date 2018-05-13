@@ -51,6 +51,7 @@ public class User {
         this.email=email;
         this.password=password;
         this.verified=false;
+        this.userRank = Rank.LEVEL0;
     }
     
     @Override
@@ -115,6 +116,44 @@ public class User {
 	
     public String getConfirmPassword() {
     	return confirmPassword;
+    }
+    
+    public void updateRank(int numfollowers) {
+    	if (numfollowers >= Rank.LEVEL8.getValue()) {
+    		userRank = Rank.LEVEL8;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL7.getValue()) {
+    		userRank = Rank.LEVEL7;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL6.getValue()) {
+    		userRank = Rank.LEVEL6;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL5.getValue()) {
+    		userRank = Rank.LEVEL5;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL4.getValue()) {
+    		userRank = Rank.LEVEL4;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL3.getValue()) {
+    		userRank = Rank.LEVEL3;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL2.getValue()) {
+    		userRank = Rank.LEVEL2;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL1.getValue()) {
+    		userRank = Rank.LEVEL1;
+    		return;
+    	}
+    	if (numfollowers >= Rank.LEVEL0.getValue()) {
+    		userRank = Rank.LEVEL0;
+    	}
     }
     
     public Rank getRank() {

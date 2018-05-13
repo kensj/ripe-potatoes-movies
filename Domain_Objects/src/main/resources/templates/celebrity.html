@@ -110,9 +110,11 @@
       <div class="col-md-4">
         <span class="glyphicon glyphicon-bullhorn glyphicon-large" aria-hidden="true"></span>
         <h3>Filmography</h3>
-        <th:block th:if="${!content.getFilmography().isEmpty()}" th:each="i : ${#numbers.sequence(0,content.getFilmography().size()-1)}">
-        	<h4 th:text="${content.getFilmography().get(i).getName()}"></h4>
-        </th:block>
+        <div th:if="${!filmographylist.isEmpty()}">
+	        <th:block th:if="${!filmographylist.isEmpty()}" th:each="i : ${#numbers.sequence(0,filmographylist.size()-1)}">
+    			<h4><a th:href="'/content/' + ${filmographylist.get(i).getMedia().getContentID()}" th:text="${filmographylist.get(i).getMedia().getName()}"></a></h4>
+    		</th:block>
+        </div>
       </div>
       <div th:replace="fragments/rating :: rating"></div>
     </div>
