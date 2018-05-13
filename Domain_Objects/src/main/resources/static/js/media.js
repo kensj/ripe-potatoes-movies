@@ -1,3 +1,6 @@
+var base_trailer = '/trailers/'+ $("meta[name='content_id']").get(0).content.toString();
+var totalTrailers = 0;
+
 jQuery.fn.extend({
     live: function (event, callback) {
        if (this.selector) {
@@ -7,14 +10,92 @@ jQuery.fn.extend({
 });
 
 $( document ).ready(function() {
-	var url = '/trailers/'+ $("meta[name='content_id']").get(0).content.toString() + '.mp4';
-	$.get(url).done(function() { 
-		$('#trailerElement').get(0).style.display = "block";
-		$('#loadingTrailer').get(0).style.display = "none";
-    }).fail(function() { 
-    	$('#trailerNotFoundElement').get(0).style.display = "block";
-    	$('#loadingTrailer').get(0).style.display = "none";
-    })
+	getTotalTrailers(1);
+	var src = base_trailer + '/1.webm';
+	var poster = base_trailer + '/1.jpg';
+	$.ajax({
+	   type: 'HEAD',
+	   url: src,
+	   success: function(){
+		   $('#trailerElement').get(0).style.display = "block";
+		   $('#loadingTrailer').get(0).style.display = "none";
+		   $('.vidPoster').attr('poster', poster);
+		   $('.vidPoster').html('<source src="'+src+'" type="video/webm"></source>');
+		   $('.vidPoster').load();
+	   },
+	   error: function(){
+		   $('#trailerNotFoundElement').get(0).style.display = "block";
+		   $('#trailerButtons').get(0).style.display = "none";
+		   $('#loadingTrailer').get(0).style.display = "none";
+	   }
+	});
+});
+
+function getTotalTrailers(num) {
+	$.ajax({
+	   type: 'HEAD',
+	   url: base_trailer + '/'+num+'.webm',
+	   success: function(){
+		   getTotalTrailers(num+1);
+	   },
+	   error: function(){
+		   totalTrailers = num-1;
+	    	if(totalTrailers > 0) {
+	    		$('#trailerButtons').get(0).style.display = "block";
+	    		$('#trailerNum').text("1");
+	    	}
+	   }
+	});
+}
+
+$(".nextTrailer").click(function() {
+	
+	var oldNum = Number($('.vidPoster').attr('poster').replace(base_trailer+'/',"").replace(".jpg",""));
+	oldNum++;
+	var src = base_trailer + '/'+oldNum+'.webm';
+	var poster = base_trailer + '/'+oldNum+'.jpg';
+	
+	$.ajax({
+	   type: 'HEAD',
+	   url: src,
+	   success: function(){
+		   $('.vidPoster').attr('poster', poster);
+		   $('.vidPoster').html('<source src="'+src+'" type="video/webm"></source>');
+		   $('.vidPoster').load();
+		   $('#trailerNum').text(oldNum);
+	   },
+	   error: function(){	
+		   $('.vidPoster').attr('poster', base_trailer + '/1.jpg');
+		   $('.vidPoster').html('<source src="'+base_trailer + '/1.webm'+'" type="video/webm"></source>');
+		   $('.vidPoster').load();
+		   $('#trailerNum').text("1");
+	   }
+	});
+});
+
+$(".prevTrailer").click(function() {
+	
+	var oldNum = Number($('.vidPoster').attr('poster').replace(base_trailer+'/',"").replace(".jpg",""));
+	oldNum--;
+	var src = base_trailer + '/'+oldNum+'.webm';
+	var poster = base_trailer + '/'+oldNum+'.jpg';
+	
+	$.ajax({
+	   type: 'HEAD',
+	   url: src,
+	   success: function(){
+		   $('.vidPoster').attr('poster', poster);
+		   $('.vidPoster').html('<source src="'+src+'" type="video/webm"></source>');
+		   $('.vidPoster').load();
+		   $('#trailerNum').text(oldNum);
+	   },
+	   error: function(){
+		   $('.vidPoster').attr('poster', base_trailer + '/'+totalTrailers+'.jpg');
+		   $('.vidPoster').html('<source src="'+base_trailer + '/'+totalTrailers+'.webm'+'" type="video/webm"></source>');
+		   $('.vidPoster').load();
+		   $('#trailerNum').text(totalTrailers);
+	   }
+	});
 });
 
 $('.progress-bar').each(function() {
@@ -207,3 +288,4 @@ function unnotinterested() {
         }
     });
 }
+
