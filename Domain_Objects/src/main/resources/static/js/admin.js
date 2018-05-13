@@ -15,10 +15,19 @@ $(document).ready(function() {
 			$('.reportDescription').hide();
 			$('div#' + clicked).show();
 		}
+		else if (clicked.indexOf("User") >= 0) {
+			$('.adminDeleteUser').hide();
+			$('div.' + clicked).show();
+		}
 //		console.log($('div#' + clicked).text());
 		
 	});
 });
+
+$(document).on('click', "[name='deleteUserButton']", function() {
+	var idToDelete = $('.adminDeleteUserForm').val()
+	console.log(idToDelete);
+})
 
 $(document).on('click', "[name='createPageButton']", function() {
 	var typeToMake = $("input[name='createType']:checked").val();
@@ -67,7 +76,7 @@ $(document).on('click', "[name='createPageButton']", function() {
 });
 
 $(document).on('click', "[name='deletePageButton']", function() {
-	var pageToDelete = $('.adminDeleteForm').val();
+	var pageToDelete = $('.adminDeletePageForm').val();
 	console.log(pageToDelete);
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");

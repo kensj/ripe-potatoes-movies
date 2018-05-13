@@ -10,7 +10,10 @@
 .adminCreateForm2 {
 	color: #d8315b;
 }
-.adminDeleteForm {
+.adminDeleteUserForm {
+	color: #d8315b;
+}
+.adminDeletePageForm {
 	color: #d8315b;
 }
 #adminCreateMessage {
