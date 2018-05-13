@@ -15,15 +15,10 @@ import potatoes.project.storage.StorageService;
 @EnableAsync
 public class Application {
 	
-	public static void main(String[] args) {
-		SpringApplication.run(Application.class, args);
-	}
+	public static void main(String[] args) { SpringApplication.run(Application.class, args); }
 	
 	@Bean
     CommandLineRunner init(StorageService storageService) {
-        return (args) -> {
-            //storageService.deleteAll();
-            storageService.init();
-        };
+        return (args) -> { storageService.init(); };
     }
 }
