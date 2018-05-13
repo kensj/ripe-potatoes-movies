@@ -28,29 +28,23 @@ public class Celebrity extends Content {
     private Date birthday;
 	
     private String bio;
-    private byte[] picture;
+    private String picture;
     
     private boolean isActor;
     private boolean isDirector;
     private boolean isWriter;
     private boolean isMisc;
     
-    @ElementCollection
-    @OneToMany
-    private Map<Integer,Media> filmography;
+   
     
     public Celebrity() {
-    	filmography = new HashMap<Integer,Media>();
+    	
     }
     
     public Celebrity(String name){
         super(name);
-        filmography = new HashMap<Integer,Media>();
     }
     
-    public Map<Integer,Media> getFilmography(){
-    	return filmography;
-    }
     
     public String getBio() {
     	return bio;
