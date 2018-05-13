@@ -77,10 +77,10 @@
       <div class="col-md-4">
         <span class="glyphicon glyphicon-bullhorn glyphicon-large" aria-hidden="true"></span>
         <h3>Cast</h3>
-        <div th:if="${!content.getCast().empty}">
-	        <th:block th:each="i : ${#numbers.sequence(0,content.getCast().size()-1)}" th:if="${content.getCast().size() != 0}">
-	        	<h4 th:text="${content.getCast().get(i)}"></h4>
-	        </th:block>
+        <div th:if="${!filmographylist.isEmpty()}">
+	        <th:block th:if="${!filmographylist.isEmpty()}" th:each="i : ${#numbers.sequence(0,filmographylist.size()-1)}">
+    			<h4><a th:href="'/content/' + ${filmographylist.get(i).getCelebrity().getContentID()}" th:text="${filmographylist.get(i).getCelebrity().getName()}"></a></h4>
+    		</th:block>
         </div>
         <div th:if="${content.getCast().empty}">
         	<p> There is no cast for this content. </p>
