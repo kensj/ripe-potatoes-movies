@@ -17,7 +17,7 @@ public class Film extends Media{
     
     private int boxOfficeRevenue;
     private int budget;
-    
+    private String photo;
     protected Film() {
     	
     }
@@ -34,5 +34,8 @@ public class Film extends Media{
     
 	public int getRevenue() {
 		return boxOfficeRevenue;
+	}
+	public String getPhoto() {
+		return photo;
 	}
 }

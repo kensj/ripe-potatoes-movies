@@ -22,7 +22,7 @@ public class TVSeries extends Media{
     private String network;
     @OneToMany
     private List<Season> seasons;
-    
+    private String photo;
     public TVSeries() {
     	
     }
@@ -33,5 +33,8 @@ public class TVSeries extends Media{
     
     public List<Season> getSeasons(){
     	return seasons;
+    }
+    public String getPhoto() {
+    	return photo;
     }
 }
