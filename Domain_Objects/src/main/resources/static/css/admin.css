@@ -25,3 +25,22 @@
 #adminDeleteUserMessage {
 	color: #d8315b;
 }
+#editingMedia > div > label {
+	color: #d8315b;
+}
+#adminEditGetId {
+	color: #d8315b;
+}
+textarea {
+	resize: none;
+	color: #d8315b;
+	float:right;
+}
+#mediaCast {
+	float:right;
+	width: 78%;
+}
+#mediaCast > li > input{
+	width:75%;
+	color: #d8315b;
+}

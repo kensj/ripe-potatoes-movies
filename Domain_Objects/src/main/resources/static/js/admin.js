@@ -150,6 +150,14 @@ $(document).on('click', "[name='deletePageButton']", function() {
 	});
 });
 
+$(document).on('click', "[name='addCastButton']", function() {
+	$("#mediaCast").append('<li class="list-group-item"><input><button class="btn-info loginButton" type="button" name="deleteCastButton"><span class="glyphicon glyphicon-remove"></span></button></li>');
+});
+
+$(document).on('click', "[name='deleteCastButton']", function() {
+	$(this).parent().remove();
+});
+
 $(document).on('click', "div.reportDescription > div > a", function() {
 	var toResolve = $(this).attr('id');
 	console.log(toResolve);
