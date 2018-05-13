@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.NotInterested;
+import potatoes.project.domain_objects.User;
 
 public interface NotInterestedRepository extends JpaRepository<NotInterested, Integer>{
 	
@@ -17,5 +18,7 @@ public interface NotInterestedRepository extends JpaRepository<NotInterested, In
 	
 	@Transactional
 	List<NotInterested> removeByContent(Content c);
-	
+
+	@Transactional
+	List<NotInterested> removeByUser(User u);
 }

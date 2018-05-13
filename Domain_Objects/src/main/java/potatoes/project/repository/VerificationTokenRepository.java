@@ -2,6 +2,8 @@ package potatoes.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -16,5 +18,8 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
   
   @Query("select vt from VerificationToken vt where vt.user=?1")
   List<VerificationToken> findByUserList(User user);
+  
+  @Transactional
+  List<VerificationToken> removeByUser(User u);
   
 }

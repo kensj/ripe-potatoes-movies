@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Rating;
+import potatoes.project.domain_objects.User;
 
 public interface RatingRepository extends JpaRepository<Rating, Integer>{
 	Rating findByRatingID(int ratingID);
@@ -35,4 +36,7 @@ public interface RatingRepository extends JpaRepository<Rating, Integer>{
 	
 	@Transactional
 	List<Rating> removeByContent(Content c);
+	
+	@Transactional
+	List<Rating> removeByRater(User u);
 }

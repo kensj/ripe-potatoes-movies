@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Review;
+import potatoes.project.domain_objects.User;
 
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	Review findByReviewID(int reviewID);
@@ -22,4 +23,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	
 	@Transactional
 	List<Review> removeByContent(Content c);
+	
+	@Transactional
+	List<Review> removeByAuthor(User u);
 }

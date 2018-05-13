@@ -2,6 +2,8 @@ package potatoes.project.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,4 +21,9 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where (m.sender=?1 or m.receiver=?1) and (m.sender=?2 or m.receiver=?2) order by timeStamp asc")
 	List<Message> findConvo(User s, User r);
 
+	@Transactional
+	List<Message> removeBySender(User u);
+	
+	@Transactional
+	List<Message> removeByReceiver(User u);
 }

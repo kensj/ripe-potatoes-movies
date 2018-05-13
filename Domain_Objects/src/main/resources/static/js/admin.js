@@ -27,6 +27,41 @@ $(document).ready(function() {
 $(document).on('click', "[name='deleteUserButton']", function() {
 	var idToDelete = $('.adminDeleteUserForm').val()
 	console.log(idToDelete);
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+		},
+		type: "DELETE",
+		url: "/deleteUser?id=" + idToDelete,
+		cache: true,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				//if server returns true, then remove the option and div
+				$('#adminDeleteUserMessage').text("Successfully deleted user " + data["name"]);
+			}
+			else {
+				if (data["reason"] === "login") {
+					$('#adminDeleteUserMessage').text("You are not logged in. Please login first.");
+				}
+				else if (data["reason"] === "permission") {
+					$('#adminDeleteUserMessage').text("You do not have permission to do that.");
+				}
+				else if (data["reason"] === "exist") {
+					$('#adminDeleteUserMessage').text("There is no user with that ID");
+				}
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
 })
 
 $(document).on('click', "[name='createPageButton']", function() {

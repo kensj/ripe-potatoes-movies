@@ -25,8 +25,13 @@ import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
+import potatoes.project.repository.UserRepository;
+import potatoes.project.repository.VerificationTokenRepository;
 import potatoes.project.repository.WishlistRepository;
+import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
+import potatoes.project.repository.FollowRepository;
+import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
 
@@ -52,6 +57,21 @@ public class AdminController {
 	
 	@Autowired
 	private NotInterestedRepository notInterestedRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private MessageRepository messageRepo;
+	
+	@Autowired
+	private BlockRepository blockRepo;
+	
+	@Autowired
+	private VerificationTokenRepository verRepo;
+	
+	@Autowired
+	private FollowRepository followRepo;
 	
 	@RequestMapping("/admin")
 	public ModelAndView adminPage() {
@@ -198,6 +218,50 @@ public class AdminController {
 				
 				response.put("success", "true");
 				response.put("title", deletedPage.get(0).getName());
+				return ResponseEntity.ok(response);
+			}
+			else {
+				response.put("success", "false");
+				response.put("reason", "exist");
+				return ResponseEntity.ok(response);
+			}
+		}
+	}
+	
+	@DeleteMapping("/deleteUser")
+	public ResponseEntity<?> adminDeleteUser(@RequestParam int id) {
+		Map<String, String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		if (u == null) {
+			response.put("success", "false");
+			response.put("reason", "login");
+			return ResponseEntity.ok(response);
+		}
+		else if (!u.isSuperUser()) {
+			response.put("success", "false");
+			response.put("reason", "permission");
+			return ResponseEntity.ok(response);
+		}
+		else {
+			if (userRepo.existsByUserID(id)) {
+				User toDelete = userRepo.findByUserID(id);
+				ratingRepo.removeByRater(toDelete);
+				revRepo.removeByAuthor(toDelete);
+				wishlistRepo.removeByUser(toDelete);
+				notInterestedRepo.removeByUser(toDelete);
+				messageRepo.removeByReceiver(toDelete);
+				messageRepo.removeBySender(toDelete);
+				followRepo.removeByFollowed(toDelete);
+				followRepo.removeByFollower(toDelete);
+				blockRepo.removeByBlocked(toDelete);
+				blockRepo.removeByBlocker(toDelete);
+				verRepo.removeByUser(toDelete);
+				repRepo.removeByReported(toDelete);
+				repRepo.removeByReporter(toDelete);
+				userRepo.removeByUserID(id);
+				
+				response.put("success", "true");
+				response.put("name", toDelete.getName());
 				return ResponseEntity.ok(response);
 			}
 			else {
