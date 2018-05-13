@@ -120,7 +120,7 @@ public class UserController {
 			userService.save(user);
 			VerificationToken vt = new VerificationToken(user);
 			verificationTokenRepository.save(vt);
-			emailService.sendMail(user.getEmail(), user.getName(), vt.getToken());
+			emailService.sendVerificationMail(user.getEmail(), user.getName(), vt.getToken());
 			session.setAttribute("user", user);
 		}
 
@@ -463,7 +463,7 @@ public class UserController {
 			}
 			VerificationToken vt = new VerificationToken(r);  
 			verificationTokenRepository.save(vt);
-			emailService.sendMail(r.getEmail(), r.getName(), vt.getToken());
+			emailService.sendVerificationMail(r.getEmail(), r.getName(), vt.getToken());
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
