@@ -24,7 +24,7 @@ public enum Rank {
     private final int threshold;
     Rank(int threshold){this.threshold=threshold;}
     
-    public int getRankValue() {
+    public int getValue() {
         return this.threshold;
     }
 }
