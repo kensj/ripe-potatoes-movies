@@ -31,13 +31,13 @@
 		<h2 th:if="${reason == 'used'}" class="headline text-left">Link Used</h2>
 		<h2 th:if="${reason == 'expired'}" class="headline text-left">Token Expired</h2>
 		
-		<h2 th:if="${session.user != null} and ${userverified}" class="headline text-left">You are already verified</h2>
-		<h2 th:if="${session.user != null} and ${not userverified}" class="headline text-left">You are not verified</h2>
+		<h2 th:if="${session.user != null} and ${session.user.isVerified()}" class="headline text-left">You are already verified</h2>
+		<h2 th:if="${session.user != null} and ${not session.user.isVerified()}" class="headline text-left">You are not verified</h2>
 	</div>
 	
 	<section class="call-to-action">
 		<div class="container">
-			<form th:if="${session.user == null} or (${session.user != null} and ${not userverified})">
+			<form th:if="${session.user == null} or (${session.user != null} and ${not session.user.isVerified()})">
 				<input type="text" class="form-control" id="emailInput" placeholder="Email"/>
 				<button class="btn btn-primary reverifySubmit">Resend</button>
 			</form>
