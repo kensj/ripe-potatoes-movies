@@ -14,15 +14,11 @@ public interface ReportRepository extends JpaRepository<Report, Integer>{
 	Report findByReportID(int reportID);
 	
 	List<Report> findByReporter(User reporter);
+	List<Report> findByReported(User reporter);
 	
 	Report findByReporterUserIDAndContextReviewID(int u, int r);
 	
 //	@Query(value="select * from report r where r.resolved = false order by r.report_date asc", nativeQuery = true)
 	List<Report> findByResolvedOrderByReportDateAsc(boolean resolved);
 	
-	@Transactional
-	List<Report> removeByReporter(User u);
-	
-	@Transactional
-	List<Report> removeByReported(User u);
 }

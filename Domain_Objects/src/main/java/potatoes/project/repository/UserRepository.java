@@ -20,6 +20,4 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 
     boolean existsByUserID(int userID);
     
-    @Transactional
-    List<User> removeByUserID(int userID);
 }

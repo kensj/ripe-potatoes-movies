@@ -18,7 +18,5 @@ public interface NotInterestedRepository extends JpaRepository<NotInterested, In
 	
 	@Transactional
 	List<NotInterested> removeByContent(Content c);
-
-	@Transactional
-	List<NotInterested> removeByUser(User u);
+	
 }
