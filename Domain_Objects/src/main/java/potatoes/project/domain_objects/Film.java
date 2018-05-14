@@ -38,4 +38,10 @@ public class Film extends Media{
 	public String getPhoto() {
 		return photo;
 	}
+	public void setBudget(int newBudget) {
+		budget = newBudget;
+	}
+	public void setRevenue(int newRevenue) {
+		boxOfficeRevenue = newRevenue;
+	}
 }

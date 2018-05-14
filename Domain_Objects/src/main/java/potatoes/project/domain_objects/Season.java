@@ -8,6 +8,8 @@ package potatoes.project.domain_objects;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -19,7 +21,9 @@ import javax.persistence.OneToMany;
 public class Season {
     @OneToMany
     private List<Episode> episodes;
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int seasonID;
     private int contentID;
     private String synopsis;
@@ -28,8 +32,16 @@ public class Season {
     	
     }
     
+    public Season(String synopsis) {
+    	this.synopsis = synopsis;
+    }
+    
     public String getSynopsis() {
     	return synopsis;
+    }
+    
+    public void setSynopsis(String newSynopsis) {
+    	synopsis = newSynopsis;
     }
     
     public int getContentID() {

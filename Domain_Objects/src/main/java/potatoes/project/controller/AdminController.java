@@ -1,5 +1,8 @@
 package potatoes.project.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +25,7 @@ import potatoes.project.domain_objects.Film;
 import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
 import potatoes.project.domain_objects.Review;
+import potatoes.project.domain_objects.Season;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ReportRepository;
@@ -294,6 +298,107 @@ public class AdminController {
 				response.put("reason", "exist");
 				return ResponseEntity.ok(response);
 			}
+		}
+	}
+	
+	@PostMapping("/changePage")
+	public ResponseEntity<?> changePageInfo(@RequestParam("id") int id, @RequestParam("name") String name, @RequestParam(value="synopsis",required=false) String synopsis, @RequestParam(value="cast[]",required=false) List<String> cast, @RequestParam("releaseDate") String releaseDate, @RequestParam(value="revenue",required=false) String revenue, @RequestParam(value="budget",required=false) String budget, @RequestParam(value="network",required=false) String network, @RequestParam(value="seasons[]",required=false) List<String> seasons) {
+		Map<String, String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		if (u == null) {
+			response.put("success", "false");
+			response.put("reason", "login");
+			return ResponseEntity.ok(response);
+		}
+		else if (!u.isSuperUser()) {
+			response.put("success", "false");
+			response.put("reason", "permission");
+			return ResponseEntity.ok(response);
+		}
+		else {
+			java.sql.Date newDate = parseDate(releaseDate);
+			if (newDate != null) {
+				if (contentRepo.existsByContentID(id)) {
+					Content toChange = contentRepo.findByContentID(id);
+					if (toChange instanceof Film) {
+						Film filmToChange = (Film) toChange;
+						filmToChange.setName(name);
+						filmToChange.setSynopsis(synopsis);
+						filmToChange.setCast(cast);
+						try {
+							filmToChange.setBudget(Integer.parseInt(budget));
+							filmToChange.setRevenue(Integer.parseInt(revenue));
+						}
+						catch (Exception e) {
+							response.put("success", "false");
+							response.put("reason", "number");
+							return ResponseEntity.ok(response);
+						}
+						filmToChange.setReleaseDate(newDate);
+						
+						contentRepo.save(filmToChange);
+						response.put("success", "true");
+						return ResponseEntity.ok(response);
+					}
+					else if (toChange instanceof TVSeries) {
+						TVSeries tvToChange = (TVSeries) toChange;
+						tvToChange.setName(name);
+						tvToChange.setSynopsis(synopsis);
+						tvToChange.setCast(cast);
+						tvToChange.setReleaseDate(newDate);
+						tvToChange.setNetwork(network);
+						List<Season> oldSeasons = tvToChange.getSeasons();
+						if (oldSeasons.size() <= seasons.size()) {
+							for(int i = 0; i < oldSeasons.size(); i++) {
+								oldSeasons.get(i).setSynopsis(seasons.get(i));
+							}
+							int b = oldSeasons.size();
+							for(int i = seasons.size() - b; i > 0; i--) {
+								oldSeasons.add(new Season(seasons.get(seasons.size() - i)));
+							}
+						}
+						else {
+							int i = 0;
+							for(;i < seasons.size(); i++) {
+								oldSeasons.get(i).setSynopsis(seasons.get(i));
+							}
+							int j = oldSeasons.size();
+							for(; i < j; i++) {
+								oldSeasons.remove(oldSeasons.size() - 1);
+							}
+						}
+						
+						contentRepo.save(tvToChange);
+						response.put("success","true");
+						return ResponseEntity.ok(response);
+					}
+					else {
+						response.put("success", "false");
+						return ResponseEntity.ok(response);
+					}
+				}
+				else {
+					response.put("success", "false");
+					response.put("reason", "exist");
+					return ResponseEntity.ok(response);
+				}
+			}
+			else {
+				response.put("success", "false");
+				response.put("reason", "date");
+				return ResponseEntity.ok(response);
+			}
+		}
+	}
+	
+	public java.sql.Date parseDate(String toParse) {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		try {
+			java.util.Date date = format.parse(toParse);
+			return new java.sql.Date(date.getTime());
+		}
+		catch(Exception e) {
+			return null;
 		}
 	}
 	
