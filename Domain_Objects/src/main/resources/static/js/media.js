@@ -11,7 +11,7 @@ jQuery.fn.extend({
 
 $( document ).ready(function() {
 	getTotalTrailers(1);
-	var src = base_trailer + '/1.webm';
+	var src = base_trailer + '/1.mp4';
 	var poster = base_trailer + '/1.jpg';
 	$.ajax({
 	   type: 'HEAD',
@@ -20,7 +20,7 @@ $( document ).ready(function() {
 		   $('#trailerElement').get(0).style.display = "block";
 		   $('#loadingTrailer').get(0).style.display = "none";
 		   $('.vidPoster').attr('poster', poster);
-		   $('.vidPoster').html('<source src="'+src+'" type="video/webm"></source>');
+		   $('.vidPoster').html('<source src="'+src+'" type="video/mp4"></source>');
 		   $('.vidPoster').load();
 	   },
 	   error: function(){
@@ -34,7 +34,7 @@ $( document ).ready(function() {
 function getTotalTrailers(num) {
 	$.ajax({
 	   type: 'HEAD',
-	   url: base_trailer + '/'+num+'.webm',
+	   url: base_trailer + '/'+num+'.mp4',
 	   success: function(){
 		   getTotalTrailers(num+1);
 	   },
@@ -52,7 +52,7 @@ $(".nextTrailer").click(function() {
 	
 	var oldNum = Number($('.vidPoster').attr('poster').replace(base_trailer+'/',"").replace(".jpg",""));
 	oldNum++;
-	var src = base_trailer + '/'+oldNum+'.webm';
+	var src = base_trailer + '/'+oldNum+'.mp4';
 	var poster = base_trailer + '/'+oldNum+'.jpg';
 	
 	$.ajax({
@@ -60,13 +60,13 @@ $(".nextTrailer").click(function() {
 	   url: src,
 	   success: function(){
 		   $('.vidPoster').attr('poster', poster);
-		   $('.vidPoster').html('<source src="'+src+'" type="video/webm"></source>');
+		   $('.vidPoster').html('<source src="'+src+'" type="video/mp4"></source>');
 		   $('.vidPoster').load();
 		   $('#trailerNum').text(oldNum);
 	   },
 	   error: function(){	
 		   $('.vidPoster').attr('poster', base_trailer + '/1.jpg');
-		   $('.vidPoster').html('<source src="'+base_trailer + '/1.webm'+'" type="video/webm"></source>');
+		   $('.vidPoster').html('<source src="'+base_trailer + '/1.mp4'+'" type="video/mp4"></source>');
 		   $('.vidPoster').load();
 		   $('#trailerNum').text("1");
 	   }
@@ -77,7 +77,7 @@ $(".prevTrailer").click(function() {
 	
 	var oldNum = Number($('.vidPoster').attr('poster').replace(base_trailer+'/',"").replace(".jpg",""));
 	oldNum--;
-	var src = base_trailer + '/'+oldNum+'.webm';
+	var src = base_trailer + '/'+oldNum+'.mp4';
 	var poster = base_trailer + '/'+oldNum+'.jpg';
 	
 	$.ajax({
@@ -85,13 +85,13 @@ $(".prevTrailer").click(function() {
 	   url: src,
 	   success: function(){
 		   $('.vidPoster').attr('poster', poster);
-		   $('.vidPoster').html('<source src="'+src+'" type="video/webm"></source>');
+		   $('.vidPoster').html('<source src="'+src+'" type="video/mp4"></source>');
 		   $('.vidPoster').load();
 		   $('#trailerNum').text(oldNum);
 	   },
 	   error: function(){
 		   $('.vidPoster').attr('poster', base_trailer + '/'+totalTrailers+'.jpg');
-		   $('.vidPoster').html('<source src="'+base_trailer + '/'+totalTrailers+'.webm'+'" type="video/webm"></source>');
+		   $('.vidPoster').html('<source src="'+base_trailer + '/'+totalTrailers+'.mp4'+'" type="video/mp4"></source>');
 		   $('.vidPoster').load();
 		   $('#trailerNum').text(totalTrailers);
 	   }
