@@ -49,6 +49,9 @@
           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/LKFuXETZUsI"></iframe>
         </div> 
        -->
+       <div class="item">
+        	<img class="poster" th:src="@{../images/Content%20Photos/Film%20Photos/} +${content.getPhoto()}"/>
+        </div>
       <div th:replace="fragments/trailer :: trailer"></div>
       </div>
       <div class="col-md-4 col-md-offset-1">
