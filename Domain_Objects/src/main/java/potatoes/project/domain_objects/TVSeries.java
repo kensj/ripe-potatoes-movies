@@ -37,4 +37,7 @@ public class TVSeries extends Media{
     public String getPhoto() {
     	return photo;
     }
+    public String getNetwork() {
+    	return network;
+    }
 }
