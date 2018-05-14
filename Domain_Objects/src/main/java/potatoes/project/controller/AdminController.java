@@ -210,14 +210,10 @@ public class AdminController {
 		else {
 			if (contentRepo.existsByContentID(id)) {
 				Content toDelete = contentRepo.findByContentID(id);
-				ratingRepo.removeByContent(toDelete);
-				revRepo.removeByContent(toDelete);
-				wishlistRepo.removeByContent(toDelete);
-				notInterestedRepo.removeByContent(toDelete);
-				List<Content> deletedPage = contentRepo.removeByContentID(id);
-				
 				response.put("success", "true");
-				response.put("title", deletedPage.get(0).getName());
+				response.put("title", toDelete.getName());
+				
+				deleteContentExistence(toDelete);
 				return ResponseEntity.ok(response);
 			}
 			else {
@@ -246,7 +242,7 @@ public class AdminController {
 			if (userRepo.existsByUserID(id)) {
 				User toDelete = userRepo.findByUserID(id);
 				
-				deleteExistence(toDelete);
+				deleteUserExistence(toDelete);
 				
 				response.put("success", "true");
 				response.put("name", toDelete.getName());
@@ -259,7 +255,7 @@ public class AdminController {
 			}
 		}
 	}
-	public void deleteExistence(User toDelete) {
+	public void deleteUserExistence(User toDelete) {
 		
 		int id = toDelete.getUserID();
 		
@@ -286,5 +282,14 @@ public class AdminController {
 		repRepo.deleteAll(repRepo.findByReported(toDelete));
 		
 		userRepo.delete(toDelete);
+	}
+	
+	public void deleteContentExistence(Content toDelete) {
+		ratingRepo.deleteAll(ratingRepo.findByContent(toDelete));
+		revRepo.deleteAll(revRepo.findByContent(toDelete));
+		wishlistRepo.deleteAll(wishlistRepo.findByContent(toDelete));
+		notInterestedRepo.deleteAll(notInterestedRepo.findByContent(toDelete));
+		
+		contentRepo.delete(toDelete);
 	}
 }

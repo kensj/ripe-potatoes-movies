@@ -34,7 +34,6 @@ public interface RatingRepository extends JpaRepository<Rating, Integer>{
 	@Query("select r.score from Rating r where r.score=5 and r.content=?1")
 	List<Rating> findFiveStar(Content c);
 	
-	@Transactional
-	List<Rating> removeByContent(Content c);
+	List<Rating> findByContent(Content c);
 	
 }
