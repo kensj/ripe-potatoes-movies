@@ -41,6 +41,7 @@ import potatoes.project.repository.FollowRepository;
 import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
+import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
 import potatoes.project.repository.UserRepository;
 import potatoes.project.repository.VerificationTokenRepository;
@@ -60,6 +61,9 @@ public class UserController {
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
+	
+	@Autowired
+	private ReportRepository reportRepository;
 	
 	@Autowired
 	private FollowRepository followRepository;
@@ -250,11 +254,38 @@ public class UserController {
 		if (u == null || !userService.authenticate(u.getName(), password)) {
 			response.put("success", "false");
 		} else {
-			userRepository.delete(u);
+			deleteUserExistence(u);
 			try{session.invalidate();} catch(Exception e) {}
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
+	}
+	
+	public void deleteUserExistence(User toDelete) {
+		
+		blockRepository.deleteAll(blockRepository.findByBlockerUserID(toDelete.getUserID()));
+		blockRepository.deleteAll(blockRepository.findByBlockedUserID(toDelete.getUserID()));
+		
+		followRepository.deleteAll(followRepository.findByFollowerUserID(toDelete.getUserID()));
+		followRepository.deleteAll(followRepository.findByFollowedUserID(toDelete.getUserID()));
+		
+		messageRepository.deleteAll(messageRepository.findBySenderUserID(toDelete.getUserID()));
+		messageRepository.deleteAll(messageRepository.findByReceiverUserID(toDelete.getUserID()));
+		
+		ratingRepository.deleteAll(ratingRepository.findByRaterUserID(toDelete.getUserID()));
+		
+		reviewRepository.deleteAll(reviewRepository.findByAuthorUserID(toDelete.getUserID()));
+		
+		wishlistRepository.deleteAll(wishlistRepository.findByUserUserID(toDelete.getUserID()));
+		
+		notInterestedRepository.deleteAll(notInterestedRepository.findByUserUserID(toDelete.getUserID()));
+		
+		verificationTokenRepository.deleteAll(verificationTokenRepository.findByUserList(toDelete));
+		
+		reportRepository.deleteAll(reportRepository.findByReporter(toDelete));
+		reportRepository.deleteAll(reportRepository.findByReported(toDelete));
+		
+		userRepository.delete(toDelete);
 	}
 	
 	@PostMapping("/wishlist/{contentID}")
