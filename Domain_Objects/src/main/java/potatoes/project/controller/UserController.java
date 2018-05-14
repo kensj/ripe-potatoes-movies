@@ -31,6 +31,7 @@ import potatoes.project.domain_objects.Block;
 import potatoes.project.domain_objects.Follow;
 import potatoes.project.domain_objects.Message;
 import potatoes.project.domain_objects.NotInterested;
+import potatoes.project.domain_objects.PasswordAuthentication;
 import potatoes.project.domain_objects.User;
 import potatoes.project.domain_objects.VerificationToken;
 import potatoes.project.domain_objects.Wishlist;
@@ -89,6 +90,9 @@ public class UserController {
 	
 	@Autowired
 	private UserIconStorageService iconService;
+	
+	@Autowired
+	private PasswordAuthentication passwordAuthentication;
         
     @Autowired
     private HttpSession session;
@@ -207,7 +211,7 @@ public class UserController {
 		response.put("success", "true");
 		return ResponseEntity.ok(response);
 	}
-	/*
+	
 	@PostMapping("/update-password")
 	public ResponseEntity<?> updatePassword(@RequestParam String oldPass, @RequestParam String newPass){
 		Map<String,String> response = new HashMap<>();
@@ -216,14 +220,15 @@ public class UserController {
 		if (u == null || !userService.authenticate(u.getName(), oldPass)) {
 			response.put("success", "false");
 		} else {
-			u.changePassword(newPass);
+			u.setPassword(passwordAuthentication.hash(newPass.toCharArray()));
+			userRepository.save(u);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
-	}*/
+	}
 	
 	@PostMapping("/update-email")
-	public ResponseEntity<?> updatePassword(@RequestParam String password, @RequestParam String newEmail){
+	public ResponseEntity<?> updateEmail(@RequestParam String password, @RequestParam String newEmail){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
 		
@@ -232,6 +237,21 @@ public class UserController {
 		} else {
 			u.setEmail(newEmail);
 			userRepository.save(u);
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("/delete-acount")
+	public ResponseEntity<?> deleteAccount(@RequestParam String password){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null || !userService.authenticate(u.getName(), password)) {
+			response.put("success", "false");
+		} else {
+			userRepository.delete(u);
+			try{session.invalidate();} catch(Exception e) {}
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
