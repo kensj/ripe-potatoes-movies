@@ -20,7 +20,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
+import potatoes.project.domain_objects.Film;
+import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.UserRepository;
@@ -72,7 +75,19 @@ public class SearchController {
 	public ModelAndView getSearchQuery(@RequestParam("searchBar") String searchBar) {
 		ModelAndView mav = new ModelAndView("search");
 		mav.addObject("searchBar", searchBar);
-		mav.addObject("resultList", contentRepo.findByNameIgnoreCaseContaining(searchBar));
+		List<Content> content = contentRepo.findByNameIgnoreCaseContaining(searchBar);
+		/*content.removeAll(null);
+		for(Content c : content) {
+			if(c instanceof Film) System.out.println("film");
+			else if(c instanceof TVSeries) System.out.println("tv");
+			else if(c instanceof Celebrity) System.out.println("celeb");
+			//else if(c instanceof Media) System.out.println("media");
+			else {
+				System.out.println("Deleting content ID: "+c.getContentID());
+				contentRepo.delete(c);
+			}
+		}*/
+		mav.addObject("resultList", content);
 		return mav;
 	}
     

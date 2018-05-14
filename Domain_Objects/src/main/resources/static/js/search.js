@@ -502,7 +502,7 @@ $(".sortRatingUnr").click(function() {
 	var resultChildren = parent.children("div").children("h5")
 	var resultContent = parent.children("div").children("p")
 	sortRatingState = 'Unr'
-		$(".ratingB").get(0).firstChild.nodeValue = 'Rating - Unrated'
+	$(".ratingB").get(0).firstChild.nodeValue = 'Rating - Unrated'
 	for(var i = 0; i < resultChildren.length; i++) {
 		if(!resultChildren.get(i).innerText.startsWith("Not")) {
 			resultChildren.parent("div").get(i).style.display = "none";
