@@ -98,7 +98,11 @@
         <blockquote class="blockquote-reverse">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis tincidunt magna eros, ut vulputate lacus tempor sed. Suspendisse faucibus lorem sed dui pulvinar maximus. Cras semper finibus gravida. Donec justo nulla, semper id massa ac, euismod mattis neque. Duis gravida ex dui, id iaculis metus lobortis non. Donec cursus ligula feugiat orci faucibus tincidunt. Nulla varius diam ut ex sollicitudin, sed posuere diam condimentum. Aenean in eleifend nisl. Vestibulum fringilla velit eros, in faucibus erat placerat ut. Nam consequat lorem vitae tincidunt aliquet.</blockquote>
         <span th:if="${session.user != null} and (${session.user.getUserID()} == ${user.getUserID()})" onclick="openM()" class="manageAccount">Manage Account</span>
         <p hidden style="color:green;" class="emailChangedText">Email Changed</p>
-        <p hidden style="color:red;"class="passwordChangedText">Password Changed</p>        
+        <p hidden style="color:red;"class="passwordChangedText">Password Changed</p>
+        <div th:if="${not verified}">
+        <p style="color:red;" ><b>You Are Not Verified</b></p>
+        <a href="/verify">Verify Now</a>
+        </div>        
       </div>
     </div>
   </div>

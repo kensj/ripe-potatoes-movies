@@ -160,6 +160,7 @@ public class UserController {
     	
     	if(session.getAttribute("user") != null) {
     		User u = (User) session.getAttribute("user");
+    		mav.addObject("verified", toGet.isVerified());
     		if(u.getUserID() != toGet.getUserID()) {
         		if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),toGet.getUserID()) != null) {
         			mav.addObject("following", true);
