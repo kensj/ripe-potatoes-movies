@@ -154,8 +154,24 @@ $(document).on('click', "[name='addCastButton']", function() {
 	$("#mediaCast").append('<li class="list-group-item"><input><button class="btn-info loginButton" type="button" name="deleteCastButton"><span class="glyphicon glyphicon-remove"></span></button></li>');
 });
 
+$(document).on('click', "[name='addEpisodeButton']", function() {
+	$("#tvEpisodes").append('<li class="list-group-item"><input placeholder="Episode #"><br><input placeholder="Season #"><br><textarea maxlength="255" rows="3" cols="35">Episode Synopsis</textarea><br><button class="btn-info loginButton" type="button" name="deleteEpisodeButton"><span class="glyphicon glyphicon-remove"></span></button></li>');
+});
+
+$(document).on('click', "[name='addSeasonButton']", function() {
+	$("#tvSeasons").append('<li class="list-group-item"><div class="form-group"><input placeholder="Season Number"><textarea maxlength="255" rows="3" cols="40">Synopsis</textarea><button class="btn-info loginButton" type="button" name="deleteSeasonButton"><span class="glyphicon glyphicon-remove"></span></button></div></li>');
+});
+
 $(document).on('click', "[name='deleteCastButton']", function() {
 	$(this).parent().remove();
+});
+
+$(document).on('click', "[name='deleteEpisodeButton']", function() {
+	$(this).parent().remove();
+});
+
+$(document).on('click', "[name='deleteSeasonButton']", function() {
+	$(this).parent().parent().remove();
 });
 
 $(document).on('click', "div.reportDescription > div > a", function() {
