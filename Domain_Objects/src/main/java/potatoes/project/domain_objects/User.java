@@ -12,8 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import javax.swing.ImageIcon;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import potatoes.project.repository.FollowRepoWrapper;
+import potatoes.project.repository.FollowRepository;
 
 /**
  *
@@ -51,7 +56,7 @@ public class User {
         this.email=email;
         this.password=password;
         this.verified=false;
-        this.userRank = Rank.LEVEL0;
+        updateRank();
     }
     
     @Override
@@ -118,7 +123,12 @@ public class User {
     	return confirmPassword;
     }
     
-    public void updateRank(int numfollowers) {
+    public Rank updateRank() {
+    	updateRank(FollowRepoWrapper.getNumFollowers(userID));
+    	return userRank;
+    }
+    
+    private void updateRank(int numfollowers) {
     	if (numfollowers >= Rank.LEVEL8.getValue()) {
     		userRank = Rank.LEVEL8;
     		return;

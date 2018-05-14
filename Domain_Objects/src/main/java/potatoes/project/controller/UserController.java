@@ -308,7 +308,7 @@ public class UserController {
 		else {
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),f.getUserID()) == null) 
 				followRepository.save(new Follow(u,f));
-			f.updateRank(followRepository.findByFollowedUserID(f.getUserID()).size());
+			f.updateRank();
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -324,7 +324,7 @@ public class UserController {
 			Follow f = followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
 			if(f != null) 
 				followRepository.delete(f);
-			uf.updateRank(followRepository.findByFollowedUserID(uf.getUserID()).size());
+			uf.updateRank();
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
