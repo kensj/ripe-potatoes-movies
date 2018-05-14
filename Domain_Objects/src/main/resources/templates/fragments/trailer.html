@@ -5,7 +5,9 @@
 			Loading...
 		</button>
 		<video hidden controls class="embed-responsive-item vidPoster" id="trailerElement"></video>
-		<p hidden id="trailerNotFoundElement"> No Media Content exists </p>
+		<div class="item" id="trailerNotFoundElement">
+        	<img class="poster" th:src="'/images/Film%20Photos/' + ${content.getPhoto()}"/>
+        </div>
 	</div>
 	<div hidden id="trailerButtons">
 		<span id="trailerNum" style="color:red;"></span>
