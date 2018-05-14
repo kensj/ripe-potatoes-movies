@@ -99,7 +99,7 @@
         <span th:if="${session.user != null} and (${session.user.getUserID()} == ${user.getUserID()})" onclick="openM()" class="manageAccount">Manage Account</span>
         <p hidden style="color:green;" class="emailChangedText">Email Changed</p>
         <p hidden style="color:red;"class="passwordChangedText">Password Changed</p>
-        <div th:if="${not verified}">
+        <div th:if="(${session.user != null} and (${session.user.getUserID()} == ${user.getUserID()})) and ${not verified}">
         <p style="color:red;" ><b>You Are Not Verified</b></p>
         <a href="/verify">Verify Now</a>
         </div>        
