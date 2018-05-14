@@ -53,7 +53,9 @@ public class Celebrity extends Content {
     public Date getBirthday() {
     	return birthday;
     }
-    
+    public String getPicture() {
+    	return picture;
+    }
     public boolean isActor() {return isActor;}
     public boolean isDirector() {return isDirector;}
     public boolean isWriter() {return isWriter;}
