@@ -36,8 +36,8 @@
 				<br><br>
 				<legend></legend>
 				<br>
-				<div id="adminEditMediaPane">
-					<form id="editingMedia" class="form-horizontal">
+				<form id="editingMedia" class="form-horizontal">
+					<div id="adminEditMediaPane">
 						<div class="form-group">
 							<label for="mediaName" class="col-sm-2 control-label">Name</label>
 							<textarea maxlength="255" rows="1" cols="50" id="mediaName"></textarea>						
@@ -56,17 +56,48 @@
 								<br>
 								<button class="btn-info loginButton" type="button" name="addCastButton"><span class="glyphicon glyphicon-plus"></span></button>
 							</label>
-							<ul class="list-group" id="mediaCast">
-							</ul>
+							<ul class="list-group" id="mediaCast"></ul>
 						</div>
-					</form>
-				</div>
-				<div id="adminEditFilmPane">
-					
-				</div>
-				<div id="adminEditTVPane">
-					
-				</div>
+					</div>
+					<br><br>
+					<legend></legend>
+					<br>
+					<div id="adminEditFilmPane">
+						<div class="form-group">
+							<label for="filmRevenue" class="col-sm-2 control-label">Revenue</label>
+							<textarea maxlength="255" rows="1" cols="50" id="filmRevenue"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="filmBudget" class="col-sm-2 control-label">Budget</label>
+							<textarea maxlength="255" rows="1" cols="50" id="filmBudget"></textarea>
+						</div>
+					</div>
+					<br><br>
+					<legend></legend>
+					<br>
+					<div id="adminEditTVPane">
+						<div class="form-group">
+							<label for="tvNetwork" class="col-sm-2 contrl-label">Network</label>					
+							<textarea maxlength="255" rows="1" cols="50" id="tvNetwork"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="tvSeasons" class="col-sm-2 control-label">
+								Seasons
+								<br>
+								<button class="btn-info loginButton" type="button" name="addSeasonButton"><span class="glyphicon glyphicon-plus"></span></button>
+							</label>
+							<ul class="list-group" id="tvSeasons"></ul>
+						</div>
+						<div class="form-group">
+							<label for="tvEpisodes" class="col-sm-2 control-label">
+								Episodes
+								<br>
+								<button class="btn-info loginButton" type="button" name="addEpisodeButton"><span class="glyphicon glyphicon-plus"></span></button>
+							</label>
+							<ul class="list-group" id="tvEpisodes"></ul>
+						</div>
+					</div>
+				</form>
 			</div>
 			<div class="adminDeletePage">
 				<div id="adminDeleteMessage"></div>

@@ -25,7 +25,7 @@
 #adminDeleteUserMessage {
 	color: #d8315b;
 }
-#editingMedia > div > label {
+#editingMedia > div > div > label {
 	color: #d8315b;
 }
 #adminEditGetId {
@@ -43,4 +43,14 @@ textarea {
 #mediaCast > li > input{
 	width:75%;
 	color: #d8315b;
+}
+#tvSeasons {
+	float:right;
+	width: 75%;
+}
+#tvSeasons > li > div > input {
+	color:#d8315b;
+}
+#tvEpisodes {
+	float:right;
 }
