@@ -38,7 +38,33 @@ function openM() {
 }
 $(".deleteAccount").click(function() {
 	if ($("#deleteWarning").is(":visible")) {
-		alert("delete here");
+		var token = $("meta[name='_csrf']").attr("content");
+		var header = $("meta[name='_csrf_header']").attr("content");
+		$.ajax({
+	    	headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json',
+			},
+			type: 'DELETE',
+	        url: '/delete-account?password=' + $('#manageCPW').val(),
+	        cache: false,
+	        beforeSend: function(xhr) {
+				xhr.setRequestHeader(header, token);
+			},
+	        success: function (response) {
+	        	console.log("Here")
+	        	if(response.success == "true") {
+	        		document.location.href="/";
+	        	}
+	        	else {
+	        		alert("Error deleting account")
+	        	}
+	        },
+	        error: function (jQXHR, textStatus, errorThrown) {
+	        	console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
+	        	alert("Error deleting account")
+	        }
+	    });
 	}
 	else {
 		$("#deleteWarning").show();
@@ -292,9 +318,9 @@ function manageAccount() {
 	var header = $("meta[name='_csrf_header']").attr("content");
 	
 	var email = $('#manageEmail').val().trim();
-	var cpw = $('#manageCPW').val().trim();
-	var pw1 = $('#managePW1').val().trim();
-	var pw2 = $('#managePW2').val().trim();
+	var cpw = $('#manageCPW').val();
+	var pw1 = $('#managePW1').val();
+	var pw2 = $('#managePW2').val();
 	
 	if(!!email){
 		$.ajax({
@@ -308,7 +334,7 @@ function manageAccount() {
 	        beforeSend: function(xhr) {
 				xhr.setRequestHeader(header, token);
 			},
-	        success: function (response, succ, value) {	        	
+	        success: function (response) {	        	
 	        	if(response.success == "true") {
 		        	$("#manageAccount").hide();
 		        	document.getElementById('id01').style.display='none';
@@ -337,7 +363,7 @@ function manageAccount() {
 	        beforeSend: function(xhr) {
 				xhr.setRequestHeader(header, token);
 			},
-	        success: function (response, succ, value) {
+	        success: function (response) {
 	        	if(response.success == "true") {
 		        	$("#manageAccount").hide();
 		        	document.getElementById('id01').style.display='none';
