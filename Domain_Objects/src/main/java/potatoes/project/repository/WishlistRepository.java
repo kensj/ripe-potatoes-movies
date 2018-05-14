@@ -18,7 +18,5 @@ public interface WishlistRepository extends JpaRepository<Wishlist, Integer>{
 	
 	@Transactional
 	List<Wishlist> removeByContent(Content c);
-	
-	@Transactional
-	List<Wishlist> removeByUser(User u);
+
 }

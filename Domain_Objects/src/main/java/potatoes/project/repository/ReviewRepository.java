@@ -24,6 +24,4 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	@Transactional
 	List<Review> removeByContent(Content c);
 	
-	@Transactional
-	List<Review> removeByAuthor(User u);
 }
