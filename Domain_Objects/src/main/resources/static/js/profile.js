@@ -27,8 +27,8 @@ $(function() {
 
 function openM() {
 	$("#forgotFrame").hide();
-  $("#registerFrame").hide();
-  $("#loginFrame").hide();
+	$("#registerFrame").hide();
+	$("#loginFrame").hide();
 	$("#manageAccount").show();
 	document.getElementById('id01').style.display='block';
 }
