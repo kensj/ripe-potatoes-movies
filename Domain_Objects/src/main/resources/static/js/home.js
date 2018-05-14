@@ -108,30 +108,3 @@ function fillCalendar(callback) {
 	});
 }
 
-function requestNewPass() {
-	var token = $("meta[name='_csrf']").attr("content");
-	var header = $("meta[name='_csrf_header']").attr("content");
-	$.ajax({
-    	headers: {
-			'Accept': 'application/json',
-			'Content-Type': 'application/json',
-		},
-		type: 'POST',
-        url: '/requestnewpass?email=' + $('#forgotPasswordInput').val(),
-        cache: false,
-        beforeSend: function(xhr) {
-			xhr.setRequestHeader(header, token);
-		},
-        success: function (response) {
-        	if(response.success == "true") {
-        		alert("Password Requested");
-        	}
-        	else {
-        		alert("Error")
-        	}
-        },
-        error: function (jQXHR, textStatus, errorThrown) {
-        	console.log("An error occurred whilst trying to contact the server: " + jQXHR.status + " " + textStatus + " " + errorThrown);
-        }
-    });
-}
