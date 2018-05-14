@@ -82,7 +82,7 @@
     			<h4><a th:href="'/content/' + ${filmographylist.get(i).getCelebrity().getContentID()}" th:text="${filmographylist.get(i).getCelebrity().getName()}"></a></h4>
     		</th:block>
         </div>
-        <div th:if="${content.getCast().empty}">
+        <div th:if="${filmographylist.isEmpty()}">
         	<p> There is no cast for this content. </p>
         </div>
       </div>
