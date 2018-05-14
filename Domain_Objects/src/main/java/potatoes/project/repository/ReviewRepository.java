@@ -16,12 +16,12 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	Review findByAuthorUserIDAndContentContentID(int author, int content);
 	
 	List<Review> findByAuthorUserID(int AuthorUserID);
+	List<Review> findByAuthor(User u);
 	
 	List<Review> findByContentContentID(int id);
 	
 	List<Review> findFirst5ByOrderByReviewDateDesc();
 	
-	@Transactional
-	List<Review> removeByContent(Content c);
+	List<Review> findByContent(Content c);
 	
 }

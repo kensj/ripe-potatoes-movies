@@ -31,6 +31,7 @@ import potatoes.project.domain_objects.Block;
 import potatoes.project.domain_objects.Follow;
 import potatoes.project.domain_objects.Message;
 import potatoes.project.domain_objects.NotInterested;
+import potatoes.project.domain_objects.PasswordAuthentication;
 import potatoes.project.domain_objects.User;
 import potatoes.project.domain_objects.VerificationToken;
 import potatoes.project.domain_objects.Wishlist;
@@ -40,6 +41,7 @@ import potatoes.project.repository.FollowRepository;
 import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
+import potatoes.project.repository.ReportRepository;
 import potatoes.project.repository.ReviewRepository;
 import potatoes.project.repository.UserRepository;
 import potatoes.project.repository.VerificationTokenRepository;
@@ -59,6 +61,9 @@ public class UserController {
 	
 	@Autowired
 	private ReviewRepository reviewRepository;
+	
+	@Autowired
+	private ReportRepository reportRepository;
 	
 	@Autowired
 	private FollowRepository followRepository;
@@ -89,6 +94,9 @@ public class UserController {
 	
 	@Autowired
 	private UserIconStorageService iconService;
+	
+	@Autowired
+	private PasswordAuthentication passwordAuthentication;
         
     @Autowired
     private HttpSession session;
@@ -207,7 +215,7 @@ public class UserController {
 		response.put("success", "true");
 		return ResponseEntity.ok(response);
 	}
-	/*
+	
 	@PostMapping("/update-password")
 	public ResponseEntity<?> updatePassword(@RequestParam String oldPass, @RequestParam String newPass){
 		Map<String,String> response = new HashMap<>();
@@ -216,14 +224,15 @@ public class UserController {
 		if (u == null || !userService.authenticate(u.getName(), oldPass)) {
 			response.put("success", "false");
 		} else {
-			u.changePassword(newPass);
+			u.setPassword(passwordAuthentication.hash(newPass.toCharArray()));
+			userRepository.save(u);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
-	}*/
+	}
 	
 	@PostMapping("/update-email")
-	public ResponseEntity<?> updatePassword(@RequestParam String password, @RequestParam String newEmail){
+	public ResponseEntity<?> updateEmail(@RequestParam String password, @RequestParam String newEmail){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");
 		
@@ -235,6 +244,48 @@ public class UserController {
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
+	}
+	
+	@DeleteMapping("/delete-acount")
+	public ResponseEntity<?> deleteAccount(@RequestParam String password){
+		Map<String,String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		
+		if (u == null || !userService.authenticate(u.getName(), password)) {
+			response.put("success", "false");
+		} else {
+			deleteUserExistence(u);
+			try{session.invalidate();} catch(Exception e) {}
+			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	public void deleteUserExistence(User toDelete) {
+		
+		blockRepository.deleteAll(blockRepository.findByBlockerUserID(toDelete.getUserID()));
+		blockRepository.deleteAll(blockRepository.findByBlockedUserID(toDelete.getUserID()));
+		
+		followRepository.deleteAll(followRepository.findByFollowerUserID(toDelete.getUserID()));
+		followRepository.deleteAll(followRepository.findByFollowedUserID(toDelete.getUserID()));
+		
+		messageRepository.deleteAll(messageRepository.findBySenderUserID(toDelete.getUserID()));
+		messageRepository.deleteAll(messageRepository.findByReceiverUserID(toDelete.getUserID()));
+		
+		ratingRepository.deleteAll(ratingRepository.findByRaterUserID(toDelete.getUserID()));
+		
+		reviewRepository.deleteAll(reviewRepository.findByAuthorUserID(toDelete.getUserID()));
+		
+		wishlistRepository.deleteAll(wishlistRepository.findByUserUserID(toDelete.getUserID()));
+		
+		notInterestedRepository.deleteAll(notInterestedRepository.findByUserUserID(toDelete.getUserID()));
+		
+		verificationTokenRepository.deleteAll(verificationTokenRepository.findByUserList(toDelete));
+		
+		reportRepository.deleteAll(reportRepository.findByReporter(toDelete));
+		reportRepository.deleteAll(reportRepository.findByReported(toDelete));
+		
+		userRepository.delete(toDelete);
 	}
 	
 	@PostMapping("/wishlist/{contentID}")
@@ -419,8 +470,6 @@ public class UserController {
     	}
     	
     	User u = vt.getUser();
-    	if(u.isVerified()) mav.addObject("userverified", true);
-    	else mav.addObject("userverified", false);
     	
     	if(vt.isUsed()) {
     		mav.addObject("valid", false);
@@ -435,7 +484,6 @@ public class UserController {
     	else {
     		u.setVerified();
     		userRepository.save(u);
-    		mav.addObject("userverified", true);
     
     		vt.setUsed(true);
     		verificationTokenRepository.save(vt);

@@ -15,8 +15,8 @@ public interface NotInterestedRepository extends JpaRepository<NotInterested, In
 	NotInterested findByUserUserIDAndContentContentID(int UserUserid, int ContentContentid);
 	
 	List<NotInterested> findByUserUserID(int UserUserid);
-	
-	@Transactional
-	List<NotInterested> removeByContent(Content c);
+	List<NotInterested> findByUser(User u);
+		
+	List<NotInterested> findByContent(Content c);
 	
 }

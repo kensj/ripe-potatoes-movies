@@ -37,7 +37,4 @@ public class UserService {
 		return userRepository.findByUserID(id);
 	}
 	
-	//public List<Integer> findFollowedUsers(int userID) {
-		//return userRepository.findFollowedUsers(userID);
-	//}
 }
