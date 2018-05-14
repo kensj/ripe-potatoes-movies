@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import potatoes.project.domain_objects.Block;
 import potatoes.project.domain_objects.Follow;
+import potatoes.project.domain_objects.ForgotPasswordToken;
 import potatoes.project.domain_objects.Message;
 import potatoes.project.domain_objects.NotInterested;
 import potatoes.project.domain_objects.PasswordAuthentication;
@@ -38,6 +39,7 @@ import potatoes.project.domain_objects.Wishlist;
 import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.FollowRepository;
+import potatoes.project.repository.ForgotPasswordTokenRepository;
 import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
@@ -79,6 +81,9 @@ public class UserController {
 	
 	@Autowired
 	private VerificationTokenRepository verificationTokenRepository;
+	
+	@Autowired
+	private ForgotPasswordTokenRepository forgotPassRepo;
     
 	@Autowired
 	private UserService userService;
@@ -516,6 +521,58 @@ public class UserController {
 			verificationTokenRepository.save(vt);
 			emailService.sendVerificationMail(r.getEmail(), r.getName(), vt.getToken());
 			response.put("success", "true");
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@ResponseBody
+    @RequestMapping(value = "/forgotpassword", method = RequestMethod.GET)
+    public ModelAndView forgotPassword(@RequestParam(required = false) String token) {
+    	ModelAndView mav = new ModelAndView("forgotpassword");
+    	ForgotPasswordToken fp = forgotPassRepo.findByToken(token);
+    	
+    	if(token==null || token.isEmpty() || fp==null || fp.isUsed() || fp.isExpired()) {
+    		mav.addObject("valid", false);
+    		return mav;
+    	}
+	
+    	User u = fp.getUser();
+		mav.addObject("valid", true);
+		mav.addObject("userID", u.getUserID());
+		mav.addObject("token", fp.getToken());
+    	return mav;
+    }
+	
+	@PostMapping("/requestnewpass")
+	public ResponseEntity<?> requestNewPass(@RequestParam String email) {
+		Map<String, String> response = new HashMap<String, String>();
+		User u = userService.findByEmail(email);
+		if (u == null) {
+			response.put("success", "false");
+			response.put("reason", "exists");
+		} 
+		else {
+			response.put("success", "true");
+			ForgotPasswordToken fp = new ForgotPasswordToken(u);
+			forgotPassRepo.save(fp);
+			emailService.sendForgotPassMail(u.getEmail(), u.getName(), fp.getToken());
+		}
+		return ResponseEntity.ok(response);
+	}
+	
+	@PostMapping("/changepass")
+	public ResponseEntity<?> changePass(@RequestParam int userID, @RequestParam String password, @RequestParam String token) {
+		Map<String, String> response = new HashMap<String, String>();
+		User u = userService.findByUserID(userID);
+		if (u == null) {
+			response.put("success", "false");
+		} 
+		else {
+			response.put("success", "true");
+			ForgotPasswordToken fp = forgotPassRepo.findByToken(token);
+			fp.setUsed(true);
+			forgotPassRepo.save(fp);
+			userService.changePassword(u, password);
 		}
 		return ResponseEntity.ok(response);
 	}

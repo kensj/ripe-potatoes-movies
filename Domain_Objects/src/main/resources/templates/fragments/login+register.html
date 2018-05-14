@@ -35,9 +35,9 @@
 
     <div class="loginCContainer">
       <div><b>Forgot password?</b></div>
-      <input class="loginC" type="text" placeholder="Enter Email" name="forgotPW" required>
+      <input class="loginC" type="text" placeholder="Enter Email" id="forgotPasswordInput" name="forgotPW" required>
       <div class="help-block"></div>
-      <button class="btn-info loginButton" type="submit" name="forgotButton"><span class="glyphicon glyphicon-refresh"></span> <span class="glyphicon glyphicon-lock"></span></button>
+      <button class="btn-info loginButton" type="button" name="forgotButton" onclick="requestNewPass()"><span class="glyphicon glyphicon-refresh"></span> <span class="glyphicon glyphicon-lock"></span></button>
       <br><br>
       <div><span onclick="openL()" class="modalOption"><span>Login</span></span></div>
       <div><span onclick="openR()" class="modalOption "><span>Register</span></span></div>

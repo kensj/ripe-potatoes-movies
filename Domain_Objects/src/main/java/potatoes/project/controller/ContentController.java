@@ -26,7 +26,6 @@ import org.springframework.web.servlet.ModelAndView;
 import potatoes.project.domain_objects.Celebrity;
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
-import potatoes.project.domain_objects.Filmography;
 import potatoes.project.domain_objects.Media;
 import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;

@@ -2,7 +2,6 @@ package potatoes.project.controller;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,23 +21,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import potatoes.project.domain_objects.Content;
 import potatoes.project.domain_objects.Film;
-import potatoes.project.domain_objects.Rating;
 import potatoes.project.domain_objects.Report;
 import potatoes.project.domain_objects.Review;
 import potatoes.project.domain_objects.Season;
 import potatoes.project.domain_objects.TVSeries;
 import potatoes.project.domain_objects.User;
-import potatoes.project.repository.ReportRepository;
-import potatoes.project.repository.ReviewRepository;
-import potatoes.project.repository.UserRepository;
-import potatoes.project.repository.VerificationTokenRepository;
-import potatoes.project.repository.WishlistRepository;
 import potatoes.project.repository.BlockRepository;
 import potatoes.project.repository.ContentRepository;
 import potatoes.project.repository.FollowRepository;
 import potatoes.project.repository.MessageRepository;
 import potatoes.project.repository.NotInterestedRepository;
 import potatoes.project.repository.RatingRepository;
+import potatoes.project.repository.ReportRepository;
+import potatoes.project.repository.ReviewRepository;
+import potatoes.project.repository.UserRepository;
+import potatoes.project.repository.VerificationTokenRepository;
+import potatoes.project.repository.WishlistRepository;
 
 @RestController
 public class AdminController {

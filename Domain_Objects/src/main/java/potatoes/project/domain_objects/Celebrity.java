@@ -6,12 +6,8 @@
 package potatoes.project.domain_objects;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 

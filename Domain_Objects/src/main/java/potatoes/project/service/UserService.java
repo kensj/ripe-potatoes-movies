@@ -19,6 +19,11 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
+	public void changePassword(User user, String pass) {
+		user.setPassword(passwordAuthentication.hash(pass.toCharArray()));
+		userRepository.save(user);
+	}
+	
 	public boolean authenticate(String username, String password) {
 //		System.out.println(username);
 //		System.out.println(password);
