@@ -246,20 +246,8 @@ public class AdminController {
 		else {
 			if (userRepo.existsByUserID(id)) {
 				User toDelete = userRepo.findByUserID(id);
-				ratingRepo.removeByRater(toDelete);
-				revRepo.removeByAuthor(toDelete);
-				wishlistRepo.removeByUser(toDelete);
-				notInterestedRepo.removeByUser(toDelete);
-				messageRepo.removeByReceiver(toDelete);
-				messageRepo.removeBySender(toDelete);
-				followRepo.removeByFollowed(toDelete);
-				followRepo.removeByFollower(toDelete);
-				blockRepo.removeByBlocked(toDelete);
-				blockRepo.removeByBlocker(toDelete);
-				verRepo.removeByUser(toDelete);
-				repRepo.removeByReported(toDelete);
-				repRepo.removeByReporter(toDelete);
-				userRepo.removeByUserID(id);
+				
+				deleteExistence(toDelete);
 				
 				response.put("success", "true");
 				response.put("name", toDelete.getName());
@@ -307,5 +295,34 @@ public class AdminController {
 				return ResponseEntity.ok(response);
 			}
 		}
+	}
+	
+	public void deleteExistence(User toDelete) {
+		
+		int id = toDelete.getUserID();
+		
+		blockRepo.deleteAll(blockRepo.findByBlockerUserID(id));
+		blockRepo.deleteAll(blockRepo.findByBlockedUserID(id));
+		
+		followRepo.deleteAll(followRepo.findByFollowerUserID(id));
+		followRepo.deleteAll(followRepo.findByFollowedUserID(id));
+		
+		messageRepo.deleteAll(messageRepo.findBySenderUserID(id));
+		messageRepo.deleteAll(messageRepo.findByReceiverUserID(id));
+		
+		ratingRepo.deleteAll(ratingRepo.findByRaterUserID(id));
+		
+		revRepo.deleteAll(revRepo.findByAuthorUserID(id));
+		
+		wishlistRepo.deleteAll(wishlistRepo.findByUserUserID(id));
+		
+		notInterestedRepo.deleteAll(notInterestedRepo.findByUserUserID(id));
+		
+		verRepo.deleteAll(verRepo.findByUserList(toDelete));
+		
+		repRepo.deleteAll(repRepo.findByReporter(toDelete));
+		repRepo.deleteAll(repRepo.findByReported(toDelete));
+		
+		userRepo.delete(toDelete);
 	}
 }

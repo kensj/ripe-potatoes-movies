@@ -19,7 +19,4 @@ public interface VerificationTokenRepository extends JpaRepository<VerificationT
   @Query("select vt from VerificationToken vt where vt.user=?1")
   List<VerificationToken> findByUserList(User user);
   
-  @Transactional
-  List<VerificationToken> removeByUser(User u);
-  
 }

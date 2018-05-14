@@ -21,9 +21,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select m from Message m where (m.sender=?1 or m.receiver=?1) and (m.sender=?2 or m.receiver=?2) order by timeStamp asc")
 	List<Message> findConvo(User s, User r);
 
-	@Transactional
-	List<Message> removeBySender(User u);
+	List<Message> findBySenderUserID(int senderUserID);
 	
-	@Transactional
-	List<Message> removeByReceiver(User u);
+	List<Message> findByReceiverUserID(int receiverUserID);
 }

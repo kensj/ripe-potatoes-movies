@@ -5,10 +5,12 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import potatoes.project.domain_objects.Follow;
 import potatoes.project.domain_objects.User;
 
+@Repository
 public interface FollowRepository extends JpaRepository<Follow, Integer>{
 	
 	Follow findByFollowerUserIDAndFollowedUserID(int followerUserid, int followedUserid);
@@ -16,9 +18,4 @@ public interface FollowRepository extends JpaRepository<Follow, Integer>{
 	List<Follow> findByFollowerUserID(int followerUserid); //following
 	List<Follow> findByFollowedUserID(int followedUserid); //followers
 	
-	@Transactional
-	List<Follow> removeByFollower(User u);
-	
-	@Transactional
-	List<Follow> removeByFollowed(User u);
 }

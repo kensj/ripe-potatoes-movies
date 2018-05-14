@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+
 /**
  *
  * @author kdill
@@ -51,7 +52,7 @@ public class User {
         this.email=email;
         this.password=password;
         this.verified=false;
-        this.userRank = Rank.LEVEL0;
+        this.userRank=Rank.LEVEL0;
     }
     
     @Override

@@ -37,6 +37,4 @@ public interface RatingRepository extends JpaRepository<Rating, Integer>{
 	@Transactional
 	List<Rating> removeByContent(Content c);
 	
-	@Transactional
-	List<Rating> removeByRater(User u);
 }
