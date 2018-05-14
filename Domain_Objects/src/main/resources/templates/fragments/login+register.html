@@ -89,8 +89,8 @@
     </div>
   </form>
   
-  <form id="manageAccount" class="modal-content animate form-horizontal" action="#">
-    <div class="imgcontainer">
+  <form th:if="${session.user != null}" id="manageAccount" class="modal-content animate form-horizontal" action="#">
+    <div class="imgcontainer">`
       <span onclick="closeLogin()" class="close" title="Close">&times;</span>
       <legend>Manage Account</legend>
     </div>
@@ -98,32 +98,30 @@
 
       <div class="form-group">
         <label class="col-md-4 control-label" for="email"><b>Change Email</b></label>
-        <input class="loginC" type="text" placeholder="Enter new email" name="changeEmail">
+        <input class="loginC" id="manageEmail" type="text" th:placeholder="${session.user.getEmail()}" name="changeEmail">
+      </div>
+      
+      <div class="form-group">
+        <label class="col-md-4 control-label" for="cpsw"><b>Current Password</b></label>
+        <input class="loginC" id="manageCPW" type="text" placeholder="Enter current password" name="insertCPW">
       </div>
 
       <div class="form-group">
         <label class="col-md-4 control-label" for="psw"><b>Change Password</b></label>
-        <input class="loginC" type="text" placeholder="Enter new password" name="changePW1">
+        <input class="loginC" id="managePW1" type="text" placeholder="Enter new password" name="changePW1">
       </div>
 
       <div class="form-group">
         <label class="col-md-4 control-label" for="psw"><b>Retype New Password</b></label>
-        <input class="loginC" type="text" placeholder="Retype new password" name="changePW2">
+        <input class="loginC" id="managePW2" type="text" placeholder="Retype new password" name="changePW2">
       </div>
-
-      <!-- <div class="form-group">
-        <label class="col-md-4 control-label" for="profileIcon"><b>Change Profile Icon</b></label>
-        <label class="btn btn-default loginC">
-          <input type="file" hidden name="changeIcon">
-        </label>
-      </div> -->
       <br>
       <div class="form-group">
         <label class="col-md-4 control-label" for="deleteAcc"><b>Delete Account</b></label>
         <button class="btn-info loginButton deleteAccount" type="button"><span class="glyphicon glyphicon-remove"></span></button>
         <span id="deleteWarning">Are you sure?</span>
       </div>
-      <button class="btn-info loginButton" type="submit" name="manageButton"><span class="glyphicon glyphicon-edit"></span></button>
+      <button class="btn-info loginButton" type="button" name="manageButton" onclick="manageAccount()"><span class="glyphicon glyphicon-edit"></span></button>
       <br><br>
 
     </div>

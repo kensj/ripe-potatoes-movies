@@ -246,7 +246,7 @@ public class UserController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@DeleteMapping("/delete-acount")
+	@DeleteMapping("/delete-account")
 	public ResponseEntity<?> deleteAccount(@RequestParam String password){
 		Map<String,String> response = new HashMap<>();
 		User u = (User) session.getAttribute("user");

@@ -40,4 +40,10 @@ public class TVSeries extends Media{
     public String getNetwork() {
     	return network;
     }
+    public void setNetwork(String newNetwork) {
+    	network = newNetwork;
+    }
+    public void setSeasons(List<Season> newSeasons) {
+    	seasons = newSeasons;
+    }
 }
