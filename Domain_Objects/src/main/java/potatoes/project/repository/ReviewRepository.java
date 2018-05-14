@@ -21,7 +21,6 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	
 	List<Review> findFirst5ByOrderByReviewDateDesc();
 	
-	@Transactional
-	List<Review> removeByContent(Content c);
+	List<Review> findByContent(Content c);
 	
 }

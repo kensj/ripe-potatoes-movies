@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -210,14 +211,10 @@ public class AdminController {
 		else {
 			if (contentRepo.existsByContentID(id)) {
 				Content toDelete = contentRepo.findByContentID(id);
-				ratingRepo.removeByContent(toDelete);
-				revRepo.removeByContent(toDelete);
-				wishlistRepo.removeByContent(toDelete);
-				notInterestedRepo.removeByContent(toDelete);
-				List<Content> deletedPage = contentRepo.removeByContentID(id);
-				
 				response.put("success", "true");
-				response.put("title", deletedPage.get(0).getName());
+				response.put("title", toDelete.getName());
+				
+				deleteContentExistence(toDelete);
 				return ResponseEntity.ok(response);
 			}
 			else {
@@ -246,7 +243,7 @@ public class AdminController {
 			if (userRepo.existsByUserID(id)) {
 				User toDelete = userRepo.findByUserID(id);
 				
-				deleteExistence(toDelete);
+				deleteUserExistence(toDelete);
 				
 				response.put("success", "true");
 				response.put("name", toDelete.getName());
@@ -259,7 +256,44 @@ public class AdminController {
 			}
 		}
 	}
-	public void deleteExistence(User toDelete) {
+	
+	@GetMapping("/pageInfo")
+	public ResponseEntity<?> fetchPageInfo(@RequestParam int id) {
+		Map<String, String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		if (u == null) {
+			response.put("success", "false");
+			response.put("reason", "login");
+			return ResponseEntity.ok(response);
+		}
+		else if (!u.isSuperUser()) {
+			response.put("success", "false");
+			response.put("reason", "permission");
+			return ResponseEntity.ok(response);
+		}
+		else {
+			if (contentRepo.existsByContentID(id)) {
+				Content toReturn = contentRepo.findByContentID(id);
+				if (toReturn instanceof Film) {
+					return ResponseEntity.ok((Film) toReturn);
+				}
+				else if (toReturn instanceof TVSeries) {
+					return ResponseEntity.ok((TVSeries) toReturn);
+				}
+				else {
+					response.put("success", "false");
+					return ResponseEntity.ok(response);
+				}
+			}
+			else {
+				response.put("success", "false");
+				response.put("reason", "exist");
+				return ResponseEntity.ok(response);
+			}
+		}
+	}
+	
+	public void deleteUserExistence(User toDelete) {
 		
 		int id = toDelete.getUserID();
 		
@@ -286,5 +320,14 @@ public class AdminController {
 		repRepo.deleteAll(repRepo.findByReported(toDelete));
 		
 		userRepo.delete(toDelete);
+	}
+	
+	public void deleteContentExistence(Content toDelete) {
+		ratingRepo.deleteAll(ratingRepo.findByContent(toDelete));
+		revRepo.deleteAll(revRepo.findByContent(toDelete));
+		wishlistRepo.deleteAll(wishlistRepo.findByContent(toDelete));
+		notInterestedRepo.deleteAll(notInterestedRepo.findByContent(toDelete));
+		
+		contentRepo.delete(toDelete);
 	}
 }

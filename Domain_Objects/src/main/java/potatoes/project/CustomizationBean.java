@@ -10,7 +10,7 @@ public class CustomizationBean implements WebServerFactoryCustomizer<Configurabl
     @Override
     public void customize(ConfigurableServletWebServerFactory container) {
     	MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
-        mappings.add("webm", "video/webm");
+        mappings.add("mp4", "video/mp4");
         container.setMimeMappings(mappings);
     }
 }
