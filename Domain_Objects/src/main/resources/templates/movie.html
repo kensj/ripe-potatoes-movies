@@ -50,7 +50,7 @@
         </div> 
        -->
        <div class="item">
-        	<img class="poster" th:src="@{../images/Content%20Photos/Film%20Photos/} +${content.getPhoto()}"/>
+        	<img class="poster" th:src="'/images/Film%20Photos/' + ${content.getPhoto()}"/>
         </div>
       <div th:replace="fragments/trailer :: trailer"></div>
       </div>

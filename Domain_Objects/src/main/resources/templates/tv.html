@@ -49,7 +49,7 @@
           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/R1v0uFms68U"></iframe>
         </div> -->
         <div class="item">
-        	<img class="poster" th:src="@{../images/Content%20Photos/TVSeries%20Photos/} +${content.getPicture()}"/>
+        	<img class="poster" th:src="'/images/TVSeries%20Photos/' + ${content.getPhoto()}"/>
         </div>
         <div th:replace="fragments/trailer :: trailer"></div>
       </div>
