@@ -42,11 +42,23 @@ public abstract class Media extends Content{
     	return synopsis;
     }
     
+    public void setSynopsis(String newSynopsis) {
+    	synopsis = newSynopsis;
+    }
+    
     public List<String> getCast(){
     	return cast;
     }
     
+    public void setCast(List<String> newCast) {
+    	cast = newCast;
+    }
+    
     public Date getReleaseDate() {
     	return releaseDate;
+    }
+    
+    public void setReleaseDate(Date newDate) {
+    	releaseDate = newDate;
     }
 }

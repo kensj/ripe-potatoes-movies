@@ -55,7 +55,7 @@
           <tr>
             <td><h2 th:text="${content.getRating() != -1} ? ${content.getRating()} : 'No Ratings Yet!' "></h2></td>
             <td>
-              <input type="hidden" class="rating" data-fractions="100" disabled="disabled" value="3.4"/>
+              <input type="hidden" class="rating" data-fractions="100" disabled="disabled" th:value="${content.getRating()}"/>
             </td>
           </tr>
           <div th:replace="fragments/ratingchart :: ratingchart"></div>
