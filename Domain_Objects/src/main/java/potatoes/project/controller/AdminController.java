@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -263,6 +264,42 @@ public class AdminController {
 				response.put("success", "true");
 				response.put("name", toDelete.getName());
 				return ResponseEntity.ok(response);
+			}
+			else {
+				response.put("success", "false");
+				response.put("reason", "exist");
+				return ResponseEntity.ok(response);
+			}
+		}
+	}
+	
+	@GetMapping("/pageInfo")
+	public ResponseEntity<?> fetchPageInfo(@RequestParam int id) {
+		Map<String, String> response = new HashMap<>();
+		User u = (User) session.getAttribute("user");
+		if (u == null) {
+			response.put("success", "false");
+			response.put("reason", "login");
+			return ResponseEntity.ok(response);
+		}
+		else if (!u.isSuperUser()) {
+			response.put("success", "false");
+			response.put("reason", "permission");
+			return ResponseEntity.ok(response);
+		}
+		else {
+			if (contentRepo.existsByContentID(id)) {
+				Content toReturn = contentRepo.findByContentID(id);
+				if (toReturn instanceof Film) {
+					return ResponseEntity.ok((Film) toReturn);
+				}
+				else if (toReturn instanceof TVSeries) {
+					return ResponseEntity.ok((TVSeries) toReturn);
+				}
+				else {
+					response.put("success", "false");
+					return ResponseEntity.ok(response);
+				}
 			}
 			else {
 				response.put("success", "false");
