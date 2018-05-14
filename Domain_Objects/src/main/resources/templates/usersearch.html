@@ -71,15 +71,15 @@
 	    			<h4><a th:href="'/users/' + ${resultList.get(i).getUserID()}" th:text="${resultList.get(i).getName()}"></a></h4>
 	    			
 	    			<div th:if="${resultList.get(i).getRank() != null}">
-	    			<h5 class="RankLevel" th:text="'Rank: ' + ${resultList.get(i).getRank().getRankValue()}"></h5>
+	    			<img class="rankIcon" th:src="'/icons/rank_icons/' + ${resultList.get(i).getRank().toString()} + '.png'"/>
 	    			</div>
 	    			
 	    			<div th:if="${resultList.get(i).getRank() == null}">
-	    			<h5 class="RankLevel">User is Unranked</h5>
+	    			<p class="RankLevel">User is Unranked</p>
 	    			</div>
 	    			
 	    			<div th:if="${resultList.get(i).isCritic()}"><h5 class="isCritic">Critic</h5></div>
-	    			<div th:if="${resultList.get(i).isSuperUser()}"><h5 class="isSuperUser">Super User</h5></div>
+	    			<div th:if="${resultList.get(i).isSuperUser()}"><p class="isSuperUser">Super User</p></div>
 	    		</div>
         	</th:block>
         	<h2 th:if="${resultList.isEmpty()}" th:text="'No Results'"></h2>

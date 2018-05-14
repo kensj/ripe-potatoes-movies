@@ -231,6 +231,7 @@ public class UserController {
 			response.put("success", "false");
 		} else {
 			u.setEmail(newEmail);
+			userRepository.save(u);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -308,7 +309,8 @@ public class UserController {
 		else {
 			if(followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),f.getUserID()) == null) 
 				followRepository.save(new Follow(u,f));
-			f.updateRank();
+			f.updateRank(followRepository.findByFollowedUserID(f.getUserID()).size());
+			userRepository.save(f);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
@@ -324,7 +326,8 @@ public class UserController {
 			Follow f = followRepository.findByFollowerUserIDAndFollowedUserID(u.getUserID(),uf.getUserID());
 			if(f != null) 
 				followRepository.delete(f);
-			uf.updateRank();
+			uf.updateRank(followRepository.findByFollowedUserID(uf.getUserID()).size());
+			userRepository.save(uf);
 			response.put("success", "true");
 		}
 		return ResponseEntity.ok(response);
