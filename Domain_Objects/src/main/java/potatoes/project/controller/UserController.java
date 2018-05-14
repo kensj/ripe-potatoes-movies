@@ -439,8 +439,6 @@ public class UserController {
     	}
     	
     	User u = vt.getUser();
-    	if(u.isVerified()) mav.addObject("userverified", true);
-    	else mav.addObject("userverified", false);
     	
     	if(vt.isUsed()) {
     		mav.addObject("valid", false);
@@ -455,7 +453,6 @@ public class UserController {
     	else {
     		u.setVerified();
     		userRepository.save(u);
-    		mav.addObject("userverified", true);
     
     		vt.setUsed(true);
     		verificationTokenRepository.save(vt);
