@@ -72,7 +72,7 @@
       	<img class="profileIcon" th:if="${not iconexists}" src="/icons/default.png"/>
       </div>
       <div class="col-md-2">
-        <img class="rankIcon" th:src="'/icons/rank_icons/' + ${user.updateRank().toString()} + '.png'"/>
+        <img class="rankIcon" th:src="'/icons/rank_icons/' + ${user.getRank().toString()} + '.png'"/>
       </div>
       <div class="col-md-2">
         <h1 class="headline text-left" th:text="${user.getName()}">Username</h1>
