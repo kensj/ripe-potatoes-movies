@@ -195,23 +195,123 @@ $(document).on('click', "[name='getPageInfoButton']", function() {
 		success: function(data) {
 			console.log(data);
 			resetEditContent();
-			if (data["budget"]) {
-				$('#adminEditFilmPane').show();
-				$('#filmRevenue').val(data["revenue"]);
-				$('#filmBudget').val(data["budget"]);
-			}
-			else if (data["network"]) {
-				$('#adminEditTVPane').show();
-				$('#tvNetwork').val(data["network"]);
-				for(var i = 0; i < data["seasons"].length; i++) {
-					$("#tvSeasons").append('<li class="list-group-item"><div class="form-group"><input placeholder="Season Number" value="' + i + '"><textarea maxlength="255" rows="3" cols="40">' + data["seasons"][i]["synopsis"] + '</textarea><button class="btn-info loginButton" type="button" name="deleteSeasonButton"><span class="glyphicon glyphicon-remove"></span></button></div></li>');
+			if (data["success"]) {
+				if (data["reason"] === "permission") {
+					$('#adminEditMessage').text("You do not have permission.");
+				}
+				else if (data["reason"] === "login") {
+					$('#adminEditMessage').text("You are not logged in.");
+				}
+				else if (data["reason"] === "exist") {
+					$('#adminEditMessage').text("There is no content with that ID");
+				}
+				else {
+					$('#adminEditMessage').text("Unknown error");
 				}
 			}
-			$('#mediaName').val(data["name"]);
-			$('#mediaSynopsis').val(data["synopsis"]);
-			$('#mediaReleaseDate').val(data["releaseDate"]);
-			for(var i = 0; i < data["cast"].length; i++) {
-				$("#mediaCast").append('<li class="list-group-item"><input value="' + data["cast"][i] + '"><button class="btn-info loginButton" type="button" name="deleteCastButton"><span class="glyphicon glyphicon-remove"></span></button></li>');
+			else {
+				if (data["budget"]) {
+					$('#adminEditFilmPane').show();
+					$('#filmRevenue').val(data["revenue"]);
+					$('#filmBudget').val(data["budget"]);
+				}
+				else if (data["network"]) {
+					$('#adminEditTVPane').show();
+					$('#tvNetwork').val(data["network"]);
+					for(var i = 0; i < data["seasons"].length; i++) {
+						$("#tvSeasons").append('<li class="list-group-item"><div class="form-group"><input placeholder="Season Number" value="' + i + '"><textarea maxlength="255" rows="3" cols="40">' + data["seasons"][i]["synopsis"] + '</textarea><button class="btn-info loginButton" type="button" name="deleteSeasonButton"><span class="glyphicon glyphicon-remove"></span></button></div></li>');
+					}
+				}
+				$('#mediaName').val(data["name"]);
+				$('#mediaSynopsis').val(data["synopsis"]);
+				$('#mediaReleaseDate').val(data["releaseDate"]);
+				for(var i = 0; i < data["cast"].length; i++) {
+					$("#mediaCast").append('<li class="list-group-item"><input value="' + data["cast"][i] + '"><button class="btn-info loginButton" type="button" name="deleteCastButton"><span class="glyphicon glyphicon-remove"></span></button></li>');
+				}
+				$('[name="changePageButton"]').attr("value", toFetch);
+			}
+		},
+		error: function(e) {
+			alert(e.responseText);
+		}
+	});
+});
+
+$(document).on('click', "[name='changePageButton']", function() {
+	var toChange = $(this).attr("value");
+	if (!toChange) {
+		return;
+	}
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	
+	var cast = [];
+	$('#mediaCast > li > input').each(function() {
+		cast.push($(this).val());
+	});
+	var name = $('#mediaName').val();
+	var synopsis = $('#mediaSynopsis').val();
+	var releaseDate = $('#mediaReleaseDate').val();
+	var revenue = $('#filmRevenue').val();
+	var budget = $('#filmBudget').val();
+	var network = $('#tvNetwork').val();
+	var seasons = [];
+	$('#tvSeasons > li > div > textarea').each(function() {
+		seasons.push($(this).val());
+	});
+	console.log(toChange);
+	console.log(name);
+	console.log(synopsis);
+	console.log(releaseDate);
+	console.log(cast);
+	console.log(revenue);
+	console.log(budget);
+	console.log(network);
+	console.log(seasons);
+	$.ajax({
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/x-www-form-urlencoded',
+		},
+		type: "POST",
+		url: "/changePage",
+		data: {
+			id : toChange,
+			name : name,
+			synopsis : synopsis,
+			cast : cast,
+			releaseDate : releaseDate,
+			revenue : revenue,
+			budget : budget,
+			network : network,
+			seasons : seasons
+		},
+		cache: true,
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		success: function(data) {
+			console.log(data);
+			if (data["success"] === "true") {
+				//if server returns true, then remove the option and div
+				$('#adminEditMessage').text("Success!");
+			}
+			else {
+				if (data["reason"] === "login") {
+					$('#adminEditMessage').text("You are not logged in. Please login first.");
+				}
+				else if (data["reason"] === "permission") {
+					$('#adminEditMessage').text("You do not have permission to do that.");
+				}
+				else if (data["reason"] === "exist") {
+					$('#adminEditMessage').text("The report has already been resolved.");
+				}
+				else if (data["reason"] === "number") {
+					$('#adminEditMessage').text("Invalid number entered.");
+				}
+				else if (data["reason"] === "date") {
+					$('#adminEditMessage').text("Invalid date entered. Format: YYYY-MM-DD");
+				}
 			}
 		},
 		error: function(e) {
