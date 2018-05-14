@@ -16,6 +16,7 @@ public interface ReviewRepository extends JpaRepository<Review, Integer>{
 	Review findByAuthorUserIDAndContentContentID(int author, int content);
 	
 	List<Review> findByAuthorUserID(int AuthorUserID);
+	List<Review> findByAuthor(User u);
 	
 	List<Review> findByContentContentID(int id);
 	

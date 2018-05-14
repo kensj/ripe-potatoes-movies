@@ -295,24 +295,22 @@ public class AdminController {
 	
 	public void deleteUserExistence(User toDelete) {
 		
-		int id = toDelete.getUserID();
+		blockRepo.deleteAll(blockRepo.findByBlocker(toDelete));
+		blockRepo.deleteAll(blockRepo.findByBlocked(toDelete));
 		
-		blockRepo.deleteAll(blockRepo.findByBlockerUserID(id));
-		blockRepo.deleteAll(blockRepo.findByBlockedUserID(id));
+		followRepo.deleteAll(followRepo.findByFollower(toDelete));
+		followRepo.deleteAll(followRepo.findByFollowed(toDelete));
 		
-		followRepo.deleteAll(followRepo.findByFollowerUserID(id));
-		followRepo.deleteAll(followRepo.findByFollowedUserID(id));
+		messageRepo.deleteAll(messageRepo.findBySender(toDelete));
+		messageRepo.deleteAll(messageRepo.findByReceiver(toDelete));
 		
-		messageRepo.deleteAll(messageRepo.findBySenderUserID(id));
-		messageRepo.deleteAll(messageRepo.findByReceiverUserID(id));
+		ratingRepo.deleteAll(ratingRepo.findByRater(toDelete));
 		
-		ratingRepo.deleteAll(ratingRepo.findByRaterUserID(id));
+		revRepo.deleteAll(revRepo.findByAuthor(toDelete));
 		
-		revRepo.deleteAll(revRepo.findByAuthorUserID(id));
+		wishlistRepo.deleteAll(wishlistRepo.findByUser(toDelete));
 		
-		wishlistRepo.deleteAll(wishlistRepo.findByUserUserID(id));
-		
-		notInterestedRepo.deleteAll(notInterestedRepo.findByUserUserID(id));
+		notInterestedRepo.deleteAll(notInterestedRepo.findByUser(toDelete));
 		
 		verRepo.deleteAll(verRepo.findByUserList(toDelete));
 		

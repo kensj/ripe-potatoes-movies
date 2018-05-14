@@ -22,6 +22,8 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	List<Message> findConvo(User s, User r);
 
 	List<Message> findBySenderUserID(int senderUserID);
-	
 	List<Message> findByReceiverUserID(int receiverUserID);
+	
+	List<Message> findBySender(User u);
+	List<Message> findByReceiver(User u);
 }
