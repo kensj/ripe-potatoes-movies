@@ -1,5 +1,5 @@
 # Ripe Potatoes #
-A Spring BOot example of a movie review site.
+A Spring Boot example of a movie review site.
 
 ## Features
 ### General
