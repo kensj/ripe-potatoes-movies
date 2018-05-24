@@ -6,7 +6,7 @@ tmdb.API_KEY = '467200feb9ca8d40d230753876e78baa'
 
 with open("MovieList.txt", 'r') as f:
     data = f.read().split('\n')
-db= pymysql.connect("mysql3.cs.stonybrook.edu","ripepotatoes","changeit","ripepotatoes")
+db= pymysql.connect("localhost","ripepotatoes","changeit","ripepotatoes")
 
 try:
     with db.cursor() as cursor:
