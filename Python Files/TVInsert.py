@@ -2,7 +2,7 @@ import tmdbsimple as tmdb
 import time
 import json
 import pymysql
-tmdb.API_KEY = '467200feb9ca8d40d230753876e78baa'
+tmdb.API_KEY = 'API-KEY'
 
 with open("TVList.txt", 'r') as f:
     data = f.read().split('\n')

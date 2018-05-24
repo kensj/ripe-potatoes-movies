@@ -1,6 +1,6 @@
 import tmdbsimple as tmdb
 import urllib.request
-tmdb.API_KEY = '467200feb9ca8d40d230753876e78baa'
+tmdb.API_KEY = 'API-KEY'
 search = tmdb.Search()
 movie_title="The Shape Of Water"
 search.movie(query=movie_title)
