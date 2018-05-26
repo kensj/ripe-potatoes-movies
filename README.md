@@ -19,19 +19,15 @@ A Spring Boot example of a movie review site.
 * Delete Account
 * User Levels
 * View Other User's Profile Pages
-
 * Write Reviews
 * Edit Reviews
 * Delete Review
-
 * Rate Content
 * Edit Rating
 * Delete Rating
-
 * Report Reviews
 * Add/Remove To/From Wishlist
 * Add/Remove To/From Not Interested List
-
 * Follow/Unfollow Users
 * Block/Unblock Users
 * Message Users
